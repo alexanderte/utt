@@ -77,18 +77,18 @@
     </script>
 
     <script type="text/template" id="test-case-template">
-      <h4>{{ question }}</h4>
+      <p class="lead">{{ question }}</p>
       <p>
-          <button class="btn btn-small" value="Previous" style="margin-right: 24px;">Previous</button>
+          <button class="btn" value="Previous" style="margin-right: 24px;">Previous</button>
           <label class="radio inline"><input type="radio" name="answer" value="yes"> Yes</label>
           <label class="radio inline"><input type="radio" name="answer" value="no"> No</label>
           <label class="radio inline"><input type="radio" name="answer" value="unsure"> Unsure</label>
-          <button class="btn btn-small btn-primary" value="Next" id="next-button" style="margin-left: 24px;">Next</button>
+          <button class="btn btn-primary" value="Next" id="next-button" style="margin-left: 24px;">Next</button>
       </p>
     </script>
     <script type="text/template" id="test-case-template2">
-      <h4>Does the alternative text convey the intent of the image?</h4>
-      <h5>“e-Government Monitoring”</h5>
+      <p class="lead">Does the alternative text convey the intent of the image?</p>
+      <h4>“e-Government Monitoring”</h4>
       <div class="row">
         <div class="span6">
           <ul class="thumbnails">
@@ -102,14 +102,12 @@
         <div class="span6">
           <label for="comment">Comment</label>
           <textarea id="comment"></textarea><br>
-          <div class="btn-group" data-toggle="buttons-radio">
-            <button class="btn">Yes</button>
-            <button class="btn">Unsure</button>
-            <button class="btn">No</button>
-          </div>
+          <label class="radio inline"><input type="radio" name="answer" value="yes"> Yes</label>
+          <label class="radio inline"><input type="radio" name="answer" value="no"> No</label>
+          <label class="radio inline"><input type="radio" name="answer" value="unsure"> Unsure</label>
         </div>
       </div>
-      <h5>“List of current projects”</h5>
+      <h4>“List of current projects”</h4>
       <div class="row">
         <div class="span6">
           <ul class="thumbnails">
@@ -123,11 +121,15 @@
         <div class="span6">
           <label for="comment">Comment</label>
           <textarea id="comment"></textarea><br>
-          <div class="btn-group" data-toggle="buttons-radio">
-            <button class="btn answer-btn">Yes</button>
-            <button class="btn answer-btn">Unsure</button>
-            <button class="btn answer-btn">No</button>
-          </div>
+          <label class="radio inline"><input type="radio" name="answer" value="yes"> Yes</label>
+          <label class="radio inline"><input type="radio" name="answer" value="no"> No</label>
+          <label class="radio inline"><input type="radio" name="answer" value="unsure"> Unsure</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span6 offset6">
+            <button class="btn" value="Previous">Previous</button>
+            <button class="btn btn-primary" value="Next" id="next-button">Next</button>
         </div>
       </div>
     </script>
