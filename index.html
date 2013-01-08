@@ -60,15 +60,28 @@
         </thead>
         <tbody>
           <tr>
-            <td>Title appropriate for web page</td>
+            <td><a href="#">Title appropriate for web page</a></td>
             <td>Yes</td>
           </tr>
           <tr>
-            <td>Web page looks attractive</td>
+            <td><a href="#">Web page looks attractive</a></td>
             <td>Unsure</td>
+          </tr>
+          <tr>
+            <td><a href="#">Content corresponds to heading</a></td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><a href="#">Alternative text conveys the intent of the image</a></td>
+            <td><i>Multiple answers</i></td>
+          </tr>
+          <tr>
+            <td><a href="#">Specified language corresponds to language used on the web page</a></td>
+            <td>Yes</td>
           </tr>
         </tbody>
       </table>
+      <p style="text-align: right;"><button id="confirm-results-button" class="btn btn-primary btn-large">Confirm results</button></p>
     </script>
     <script type="text/template" id="test-progress">
       <div class="progress">
@@ -100,11 +113,13 @@
           </ul>
         </div>
         <div class="span6">
-          <label for="comment">Comment</label>
-          <textarea id="comment"></textarea><br>
           <label class="radio inline"><input type="radio" name="answer" value="yes"> Yes</label>
           <label class="radio inline"><input type="radio" name="answer" value="no"> No</label>
           <label class="radio inline"><input type="radio" name="answer" value="unsure"> Unsure</label>
+          <p style="margin-top: 16px;">
+            <label for="comment">Comment:</label>
+            <textarea id="comment" style="width: 100%; height: 64px;"></textarea>
+          </p>
         </div>
       </div>
       <h4>“List of current projects”</h4>
@@ -119,15 +134,17 @@
           </ul>
         </div>
         <div class="span6">
-          <label for="comment">Comment</label>
-          <textarea id="comment"></textarea><br>
           <label class="radio inline"><input type="radio" name="answer" value="yes"> Yes</label>
           <label class="radio inline"><input type="radio" name="answer" value="no"> No</label>
           <label class="radio inline"><input type="radio" name="answer" value="unsure"> Unsure</label>
+          <p style="margin-top: 16px;">
+            <label for="comment">Comment:</label>
+            <textarea id="comment" style="width: 100%; height: 64px;"></textarea>
+          </p>
         </div>
       </div>
       <div class="row">
-        <div class="span6 offset6">
+        <div class="span6 offset6" style="text-align: right;">
             <button class="btn" value="Previous">Previous</button>
             <button class="btn btn-primary" value="Next" id="next-button">Next</button>
         </div>
@@ -202,7 +219,7 @@
         },
         {
           title: 'Does the title “About Tingtun” describe the section it belongs to?',
-          question: 'Does the content below heading “About Tingtun” correspond to the heading?',
+          question: 'Does the content “About Tingtun” correspond to the heading?',
         },
         {
           title: 'Baz',
