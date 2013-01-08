@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>User Testing Tool</title>
+    <meta charset="utf8">
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+    <style>
+      @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+      iframe {
+        width: 100%;
+        height: 1024px;
+        border: 0;
+      }
+      .page {
+        margin: 0 32px;
+      }
+      input, button, body {
+        font-family: 'Open Sans';
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#">UTT</a>
+        <form class="navbar-form pull-right">
+          <div class="input-append">
+            <input id="webPage" type="text" placeholder="Web page" value="http://tingtun.no/" class="span4">
+            <button class="btn" value="Set">Set</button>
+          </div>
+        </form>
+        <ul class="nav">
+          <li id="test-nav-button"><a href="#/test">Test</a></li>
+          <li id="result-nav-button"><a href="#/result">Results</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="page"></div>
+    <div class="page-extra"></div>
+    <script type="text/template" id="introduction-template">
+      <div class="row">
+        <div class="span12">
+          <h1>User Testing Tool</h1>
+          <p class="lead">User Testing Tool (UTT) aims to test websites more completely by integrating user testing with automated testing services. It works on any device. The accumulated testing data will be analyzed, and used to improve existing tests and/or create new tests.</p>
+          <p class="lead"><strong>To get started, enter the URL of a web page to test above.</strong></p>
+          <p><button id="get-started-btn" class="btn btn-primary btn-large">Start testing</button></p>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="result-template">
+      <h1>Results for http://tingtun.no/</h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Test</th>
+            <th>Answer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Title appropriate for web page</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Web page looks attractive</td>
+            <td>Unsure</td>
+          </tr>
+        </tbody>
+      </table>
+    </script>
+    <script type="text/template" id="test-progress">
+      <div class="progress">
+        <div class="bar" style="width: {{ progress }}%;"></div>
+      </div>
+    </script>
+
+    <script type="text/template" id="test-case-template">
+      <h4>{{ question }}</h4>
+<!--      <label for="comment">Comment</label><input type="text" id="comment">-->
+      <p>
+          <button class="btn btn-small" value="Previous" style="margin-right: 24px;">Previous</button>
+          <label class="radio inline"><input type="radio" name="answer" value="yes"> Yes</label>
+          <label class="radio inline"><input type="radio" name="answer" value="no"> No</label>
+          <label class="radio inline"><input type="radio" name="answer" value="unsure"> Unsure</label>
+<!--        <div class="btn-group">
+          <button class="btn answer-btn" value="Yes">Yes</button>
+          <button class="btn answer-btn" value="Unsure">Unsure</button>
+          <button class="btn answer-btn" value="No">No</button>
+        </div>-->
+          <button class="btn btn-small btn-primary" value="Next" id="next-button" style="margin-left: 24px;">Next</button>
+      </p>
+    </script>
+    <script type="text/template" id="test-case-template2">
+      <h4>Does the alternative text convey the intent of the image?</h4>
+      <h5>“e-Government Monitoring”</h5>
+      <div class="row">
+        <div class="span6">
+          <ul class="thumbnails">
+            <li>
+              <a href="#" class="thumbnail">
+                <img data-src="holder.js/300x200" alt="" src="http://www.tingtun.no/images/image_headerblock.jpg">
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="span6">
+          <label for="comment">Comment</label>
+          <textarea id="comment"></textarea><br>
+          <div class="btn-group" data-toggle="buttons-radio">
+            <button class="btn">Yes</button>
+            <button class="btn">Unsure</button>
+            <button class="btn">No</button>
+          </div>
+        </div>
+      </div>
+      <h5>“List of current projects”</h5>
+      <div class="row">
+        <div class="span6">
+          <ul class="thumbnails">
+            <li>
+              <a href="#" class="thumbnail">
+                <img data-src="holder.js/300x200" alt="" src="http://www.tingtun.no/images/sky_logo.jpg">
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="span6">
+          <label for="comment">Comment</label>
+          <textarea id="comment"></textarea><br>
+          <div class="btn-group" data-toggle="buttons-radio">
+            <button class="btn answer-btn">Yes</button>
+            <button class="btn answer-btn">Unsure</button>
+            <button class="btn answer-btn">No</button>
+          </div>
+        </div>
+      </div>
+    </script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.2/underscore-min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.10/socket.io.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.2/backbone-min.js"></script>
+    <script>
+      var B = Backbone;
+
+      function _t(id, obj) {
+        return _.template($(id).html(), obj === undefined ? {} : obj)
+      }
+
+      _.templateSettings = {
+        interpolate : /\{\{(.+?)\}\}/g
+      };
+
+      var Test = B.Model.extend({
+        defaults: {
+          'title': undefined,
+          'question': undefined,
+          'answers': ['Yes', 'No', 'Unsure'],
+          'template': '#test-case-template',
+          'result': { 'answer': undefined, 'comment': '' }
+        }
+      });
+
+      var Tests = B.Collection.extend({
+        model: Test
+      });
+
+      var TestRun = B.Model.extend({
+        defaults: {
+          'webPage': 'http://www.tingtun.no/',
+          '_currentTest': 0,
+          'tests': tests
+        },
+        progress: function() {
+          return parseInt((this.get('_currentTest') / (tests.length - 1)) * 100);
+        },
+        currentTest: function() {
+          return tests.at(this.get('_currentTest'));
+        },
+        previousTest: function() {
+          if (this.get('_currentTest') === 0)
+            return false;
+
+          this.set('_currentTest', this.get('_currentTest') - 1);
+          return true;
+        },
+        nextTest: function() {
+          if (this.get('_currentTest') === (tests.length - 1))
+            return false;
+
+          this.set('_currentTest', this.get('_currentTest') + 1);
+          return true;
+        }
+      });
+
+      var tests = new Tests([
+        {
+          title: 'Title appropriate for web page',
+          question: 'Is the title “Consultancy services in eGovernment” appropriate for this web page?',
+        },
+        {
+          title: 'Web page looks attractive',
+          question: 'Does this web page look attractive to you?',
+        },
+        {
+          title: 'Does the title “About Tingtun” describe the section it belongs to?',
+          question: 'Does the content below heading “About Tingtun” correspond to the heading?',
+        },
+        {
+          title: 'Baz',
+          question: 'Baz',
+          'template': '#test-case-template2',
+        },
+        {
+          title: 'Does the language English correspond to the language used on the site?',
+          question: 'Does the language English correspond to the language used on the site?',
+        },
+      ]);
+
+      var testRun = new TestRun();
+
+      var Home = Backbone.View.extend({
+        el: '.page',
+        events: {
+          'click #get-started-btn': 'getStarted'
+        },
+        render: function() {
+          this.$el.html(_t('#introduction-template'));
+        },
+        getStarted: function() {
+          router.navigate('/test', true);
+        }
+      });
+      var Test = Backbone.View.extend({
+        el: '.page',
+        render: function() {
+          var test = testRun.currentTest();
+
+          console.log(testRun.progress());
+
+          this.$el.html(
+            _t('#test-progress', { 'progress': testRun.progress() }) +
+            _t(test.get('template'), {
+              'question': test.get('question')
+            })
+          );
+
+          $("html, body").animate({ scrollTop: 0 }, "fast");
+        },
+        renderTestIframe: function() {
+          return '<iframe src="http://www.tingtun.no/"></iframe>';
+        },
+        initialize: function() {
+          _.bindAll(this, "render");
+          testRun.bind('change', this.render);
+        },
+        events: {
+          'click #next-button': 'nextButtonClick'
+        },
+        nextButtonClick: function(e) {
+          console.log(e.target.value);
+          if (testRun.nextTest() == false)
+            router.navigate('/result', true);
+        },
+      });
+      var Result = Backbone.View.extend({
+        el: '.page',
+        render: function () {
+          this.$el.html(_t('#result-template'));
+        }
+      });
+
+      var Router = Backbone.Router.extend({
+        routes: {
+          '': 'home',
+          'test': 'test',
+          'result': 'result'
+        }
+      });
+
+      var home = new Home();
+      var test = new Test();
+      var result = new Result();
+
+      var router = new Router();
+      router.on('route:home', function () {
+        home.render();
+        $('#test-nav-button').removeClass('active');
+        $('#result-nav-button').removeClass('active');
+        $('.page-extra').html('');
+      });
+      router.on('route:test', function () {
+        test.render();
+        $('#result-nav-button').removeClass('active');
+        $('#test-nav-button').addClass('active');
+        $('.page-extra').html('<iframe src="http://www.tingtun.no/"></iframe>');
+      });
+      router.on('route:result', function () {
+        result.render();
+        $('#test-nav-button').removeClass('active');
+        $('#result-nav-button').addClass('active');
+        $('.page-extra').html('');
+      });
+
+      Backbone.history.start();
+    </script>
+  </body>
+</html>
