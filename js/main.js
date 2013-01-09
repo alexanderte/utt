@@ -45,7 +45,7 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run'], function($, _
     ])
   );
 
-  var Home = Backbone.View.extend({
+  var HomeView = Backbone.View.extend({
     el: '.page',
     events: {
       'click #get-started-btn': 'getStarted'
@@ -89,7 +89,7 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run'], function($, _
         router.navigate('/result', true);
     },
   });
-  var Result = Backbone.View.extend({
+  var ResultView = Backbone.View.extend({
     el: '.page',
     render: function () {
       this.$el.html(_t('#result-template'));
@@ -104,9 +104,9 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run'], function($, _
     }
   });
 
-  var home = new Home();
+  var home = new HomeView();
   var testView = new TestView();
-  var result = new Result();
+  var result = new ResultView();
 
   var router = new Router();
   router.on('route:home', function () {
