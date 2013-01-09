@@ -96,7 +96,7 @@ require(['jquery', 'backbone'], function($, Backbone) {
       router.navigate('/test', true);
     }
   });
-  var Test = Backbone.View.extend({
+  var TestView = Backbone.View.extend({
     el: '.page',
     render: function() {
       var test = testRun.currentTest();
@@ -144,7 +144,7 @@ require(['jquery', 'backbone'], function($, Backbone) {
   });
 
   var home = new Home();
-  var test = new Test();
+  var testView = new TestView();
   var result = new Result();
 
   var router = new Router();
@@ -155,7 +155,7 @@ require(['jquery', 'backbone'], function($, Backbone) {
     $('.page-extra').html('');
   });
   router.on('route:test', function () {
-    test.render();
+    testView.render();
     $('#result-nav-button').removeClass('active');
     $('#test-nav-button').addClass('active');
     $('.page-extra').html('<iframe src="http://ec.europa.eu/index_en.htm" sandbox="allow-forms allow-scripts"></iframe>');
