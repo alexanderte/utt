@@ -4,10 +4,13 @@ requirejs.config({
       deps: ['underscore'],
       exports: 'Backbone'
     },
+    'underscore': {
+      exports: '_'
+    }
   }
 });
 
-require(['jquery', 'backbone'], function($, Backbone) {
+require(['jquery', 'underscore', 'backbone', 'test', 'tests'], function($, _, Backbone, Test, Tests) {
   function _t(id, obj) {
     return _.template($(id).html(), obj === undefined ? {} : obj)
   }
@@ -15,20 +18,6 @@ require(['jquery', 'backbone'], function($, Backbone) {
   _.templateSettings = {
     interpolate : /\{\{(.+?)\}\}/g
   };
-
-  var Test = Backbone.Model.extend({
-    defaults: {
-      'title': undefined,
-      'question': undefined,
-      'answers': ['Yes', 'No', 'Unsure'],
-      'template': '#test-case-template',
-      'result': { 'answer': undefined, 'comment': '' }
-    }
-  });
-
-  var Tests = Backbone.Collection.extend({
-    model: Test
-  });
 
   var TestRun = Backbone.Model.extend({
     defaults: {
