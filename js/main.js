@@ -10,7 +10,7 @@ requirejs.config({
   }
 });
 
-require(['jquery', 'underscore', 'backbone', 'test', 'tests'], function($, _, Backbone, Test, Tests) {
+require(['jquery', 'underscore', 'backbone', 'tests', 'test-run'], function($, _, Backbone, Tests, TestRun) {
   function _t(id, obj) {
     return _.template($(id).html(), obj === undefined ? {} : obj)
   }
@@ -19,59 +19,31 @@ require(['jquery', 'underscore', 'backbone', 'test', 'tests'], function($, _, Ba
     interpolate : /\{\{(.+?)\}\}/g
   };
 
-  var TestRun = Backbone.Model.extend({
-    defaults: {
-      'webPage': 'http://ec.europa.eu/index_en.htm',
-      '_currentTest': 0,
-      'tests': tests
-    },
-    progress: function() {
-      return parseInt((this.get('_currentTest') / (tests.length - 1)) * 100);
-    },
-    currentTest: function() {
-      return tests.at(this.get('_currentTest'));
-    },
-    previousTest: function() {
-      if (this.get('_currentTest') === 0)
-        return false;
-
-      this.set('_currentTest', this.get('_currentTest') - 1);
-      return true;
-    },
-    nextTest: function() {
-      if (this.get('_currentTest') === (tests.length - 1))
-        return false;
-
-      this.set('_currentTest', this.get('_currentTest') + 1);
-      return true;
-    },
-  });
-
-  var tests = new Tests([
-    {
-      title: 'Title appropriate for web page',
-      question: 'Is the title “European Commission” appropriate for this web page?',
-    },
-    {
-      title: 'Web page looks attractive',
-      question: 'Does this web page look attractive to you?',
-    },
-    {
-      title: 'Does the title “Ireland in the driving seat” describe the section it belongs to?',
-      question: 'Does the title “Ireland in the driving seat” describe the section it belongs to?'
-    },
-    {
-      title: 'Baz',
-      question: 'Baz',
-      'template': '#test-case-template2',
-    },
-    {
-      title: 'Does the language English correspond to the language used on the site?',
-      question: 'Does the language English correspond to the language used on the site?',
-    },
-  ]);
-
-  var testRun = new TestRun();
+  var testRun = new TestRun(
+    new Tests([
+      {
+        title: 'Title appropriate for web page',
+        question: 'Is the title “European Commission” appropriate for this web page?',
+      },
+      {
+        title: 'Web page looks attractive',
+        question: 'Does this web page look attractive to you?',
+      },
+      {
+        title: 'Does the title “Ireland in the driving seat” describe the section it belongs to?',
+        question: 'Does the title “Ireland in the driving seat” describe the section it belongs to?'
+      },
+      {
+        title: 'Baz',
+        question: 'Baz',
+        'template': '#test-case-template2',
+      },
+      {
+        title: 'Does the language English correspond to the language used on the site?',
+        question: 'Does the language English correspond to the language used on the site?',
+      }
+    ])
+  );
 
   var Home = Backbone.View.extend({
     el: '.page',
