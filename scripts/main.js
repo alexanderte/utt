@@ -24,7 +24,7 @@
 
       var TestRun = B.Model.extend({
         defaults: {
-          'webPage': 'http://www.tingtun.no/',
+          'webPage': 'http://ec.europa.eu/index_en.htm',
           '_currentTest': 0,
           'tests': tests
         },
@@ -53,15 +53,15 @@
       var tests = new Tests([
         {
           title: 'Title appropriate for web page',
-          question: 'Is the title “Consultancy services in eGovernment” appropriate for this web page?',
+          question: 'Is the title “European Commission” appropriate for this web page?',
         },
         {
           title: 'Web page looks attractive',
           question: 'Does this web page look attractive to you?',
         },
         {
-          title: 'Does the title “About Tingtun” describe the section it belongs to?',
-          question: 'Does the content “About Tingtun” correspond to the heading?',
+          title: 'Does the title “Ireland in the driving seat” describe the section it belongs to?',
+          question: 'Does the title “Ireland in the driving seat” describe the section it belongs to?'
         },
         {
           title: 'Baz',
@@ -105,7 +105,7 @@
           $("html, body").animate({ scrollTop: 0 }, "fast");
         },
         renderTestIframe: function() {
-          return '<iframe src="http://www.tingtun.no/"></iframe>';
+          return '<iframe src="http://ec.europa.eu/index_en.htm" sandbox="allow-forms allow-scripts"></iframe>';
         },
         initialize: function() {
           _.bindAll(this, "render");
@@ -150,7 +150,7 @@
         test.render();
         $('#result-nav-button').removeClass('active');
         $('#test-nav-button').addClass('active');
-        $('.page-extra').html('<iframe src="http://www.tingtun.no/"></iframe>');
+        $('.page-extra').html('<iframe src="http://ec.europa.eu/index_en.htm" sandbox="allow-forms allow-scripts"></iframe>');
       });
       router.on('route:result', function () {
         result.render();
