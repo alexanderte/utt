@@ -88,10 +88,10 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/home', 
     homeView.render();
     activateTab('home');
 
-    $('iframe').hide();
+    $('iframe').stop(false, true).hide();
     $('#testView').hide();
     $('#resultView').hide();
-    $('#homeView').show();
+    $('#homeView').fadeIn('fast');
   });
   appRouter.on('route:test', function (id) {
     if (id !== undefined)
@@ -105,17 +105,25 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/home', 
 
     $('#homeView').hide();
     $('#resultView').hide();
-    $('#testView').slideDown();
-    $('iframe').show();
+
+    if (testRun.getCurrentTestId() === 0) {
+      $('iframe').fadeIn('slow', function() {
+        $('#testView').slideDown('fast');
+      });
+    }
+    else {
+      $('iframe').show();
+      $('#testView').show();
+    }
   });
   appRouter.on('route:result', function () {
     resultView.render();
     activateTab('result');
 
-    $('iframe').hide();
+    $('iframe').stop(false, true).hide();
     $('#homeView').hide();
-    $('#testView').hide();
-    $('#resultView').show();
+    $('#testView').slideUp('fast');
+    $('#resultView').fadeIn('fast');
   });
 
   Backbone.history.start();

@@ -13,6 +13,9 @@ define(['backbone'], function(Backbone) {
     currentTest: function() {
       return this.get('tests').at(this.get('_currentTest'));
     },
+    getCurrentTestId: function(id) {
+      return this.get('_currentTest');
+    },
     setCurrentTest: function(id) {
       this.set('_currentTest', id);
     },
