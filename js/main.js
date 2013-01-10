@@ -15,6 +15,10 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/home', 
     interpolate : /\{\{(.+?)\}\}/g
   };
 
+  function _t(id, obj) {
+    return _.template($(id).html(), obj === undefined ? {} : obj)
+  }
+
   var testRun = new TestRun(
     new Tests([
       {
