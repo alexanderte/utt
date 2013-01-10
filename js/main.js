@@ -48,7 +48,7 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/home', 
     }
   });
 
-  var Router = Backbone.Router.extend({
+  var AppRouter = Backbone.Router.extend({
     routes: {
       '': 'home',
       'test': 'test',
@@ -56,21 +56,21 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/home', 
     }
   });
 
-  var router = new Router();
+  var appRouter = new AppRouter();
 
-  router.on('route:home', function () {
+  appRouter.on('route:home', function () {
     new HomeView().render();
     $('#test-nav-button').removeClass('active');
     $('#result-nav-button').removeClass('active');
     $('.page-extra').html('');
   });
-  router.on('route:test', function () {
-    new TestView({model: testRun }).render();
+  appRouter.on('route:test', function () {
+    new TestView({model: testRun}).render();
     $('#result-nav-button').removeClass('active');
     $('#test-nav-button').addClass('active');
     $('.page-extra').html('<iframe src="http://ec.europa.eu/index_en.htm" sandbox="allow-forms allow-scripts"></iframe>');
   });
-  router.on('route:result', function () {
+  appRouter.on('route:result', function () {
     new ResultView().render();
     $('#test-nav-button').removeClass('active');
     $('#result-nav-button').addClass('active');

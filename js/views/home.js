@@ -5,14 +5,8 @@ define(['underscore', 'backbone'], function(_, Backbone) {
 
   return Backbone.View.extend({
     el: '.page',
-    events: {
-      'click #get-started-btn': 'getStarted'
-    },
     render: function() {
       this.$el.html(_t('#introduction-template'));
-    },
-    getStarted: function() {
-      router.navigate('/test', true);
     }
   });
 });
