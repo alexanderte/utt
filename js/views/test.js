@@ -13,14 +13,18 @@ define(['underscore', 'backbone'], function(_, Backbone) {
       this.$el.html(
         _t('#test-progress', { 'progress': this.model.progress() }) +
         _t(test.get('template'), {
-          'question': test.get('question')
+          'question': test.get('question'),
+          'nextURL': this.nextURL()
         })
       );
 
       $("html, body").animate({ scrollTop: 0 }, "fast");
     },
-    renderTestIframe: function() {
-      return '<iframe src="http://ec.europa.eu/index_en.htm" sandbox="allow-forms allow-scripts"></iframe>';
+    nextURL: function() {
+      if (this.model.nextTestId() === false)
+        return '#result';
+      else
+        return '#test/' + this.model.nextTestId();
     },
     initialize: function() {
       _.bindAll(this, "render");

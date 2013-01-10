@@ -30,7 +30,7 @@
           <h1>User Testing Tool</h1>
           <p class="lead">User Testing Tool (UTT) aims to test websites more completely by integrating user testing with automated testing services. It works on any device. The accumulated testing data will be analyzed, and used to improve existing tests and/or create new tests.</p>
           <p class="lead"><strong>To get started, enter the URL of a web page to test above.</strong></p>
-          <p><a class="btn btn-primary btn-large" href="#test">Start testing</a></p>
+          <p><a class="btn btn-primary btn-large" href="#test/0">Start testing</a></p>
         </div>
       </div>
     </script>
@@ -69,6 +69,7 @@
       </table>
       <p style="text-align: right;"><button id="confirm-results-button" class="btn btn-primary btn-large">Confirm results</button></p>
     </script>
+
     <script type="text/template" id="test-progress">
       <div class="progress">
         <div class="bar" style="width: {{ progress }}%;"></div>
@@ -82,9 +83,10 @@
           <label class="radio inline"><input type="radio" name="answer" value="yes"> Yes</label>
           <label class="radio inline"><input type="radio" name="answer" value="no"> No</label>
           <label class="radio inline"><input type="radio" name="answer" value="unsure"> Unsure</label>
-          <button class="btn btn-primary" value="Next" id="next-button" style="margin-left: 24px;">Next</button>
+          <a href="{{ nextURL }}" class="btn btn-primary" style="margin-left: 24px;">Next</a>
       </p>
     </script>
+
     <script type="text/template" id="test-case-template2">
       <p class="lead">Does the alternative text convey the intent of the image?</p>
       <h4>“European Commission logo”</h4>
@@ -153,7 +155,7 @@
       <div class="row">
         <div class="span6 offset6" style="text-align: right;">
             <button class="btn" value="Previous">Previous</button>
-            <button class="btn btn-primary" value="Next" id="next-button">Next</button>
+            <a href="{{ nextURL }}" class="btn btn-primary">Next</a>
         </div>
       </div>
     </script>

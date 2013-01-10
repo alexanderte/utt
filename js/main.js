@@ -56,28 +56,48 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/home', 
     routes: {
       '': 'home',
       'test': 'test',
+      'test/:id': 'test',
       'result': 'result'
     }
   });
 
   var appRouter = new AppRouter();
 
+  function activateTab(name) {
+    switch (name) {
+      case 'home':
+        $('#test-nav-button').removeClass('active');
+        $('#result-nav-button').removeClass('active');
+        break;
+      case 'test':
+        $('#result-nav-button').removeClass('active');
+        $('#test-nav-button').addClass('active');
+        break;
+      case 'result':
+        $('#test-nav-button').removeClass('active');
+        $('#result-nav-button').addClass('active');
+        break;
+    }
+  }
+
   appRouter.on('route:home', function () {
     new HomeView().render();
-    $('#test-nav-button').removeClass('active');
-    $('#result-nav-button').removeClass('active');
+    activateTab('home');
     $('.page-extra').html('');
   });
-  appRouter.on('route:test', function () {
+  appRouter.on('route:test', function (id) {
+    if (id !== undefined)
+      testRun.setCurrentTest(parseInt(id));
+    else
+      testRun.setCurrentTest(0);
+
     new TestView({model: testRun}).render();
-    $('#result-nav-button').removeClass('active');
-    $('#test-nav-button').addClass('active');
+    activateTab('test');
     $('.page-extra').html('<iframe src="http://ec.europa.eu/index_en.htm" sandbox="allow-forms allow-scripts"></iframe>');
   });
   appRouter.on('route:result', function () {
     new ResultView().render();
-    $('#test-nav-button').removeClass('active');
-    $('#result-nav-button').addClass('active');
+    activateTab('result');
     $('.page-extra').html('');
   });
 
