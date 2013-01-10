@@ -1,7 +1,7 @@
 define(['backbone'], function(Backbone) {
   return Backbone.Model.extend({
     defaults: {
-      'webPage': 'http://ec.europa.eu/index_en.htm',
+      '_webPage': 'http://ec.europa.eu/index_en.htm',
       '_currentTest': 0,
     },
     initialize: function(tests) {
@@ -18,6 +18,12 @@ define(['backbone'], function(Backbone) {
     },
     setCurrentTest: function(id) {
       this.set('_currentTest', id);
+    },
+    setWebPage: function(url) {
+      this.set('_webPage', url);
+    },
+    getWebPage: function() {
+      this.get('_webPage');
     },
     previousTest: function() {
       if (this.get('_currentTest') === 0)

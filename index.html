@@ -7,26 +7,31 @@
     <link href="css/screen.css" rel="stylesheet">
   </head>
   <body>
-    <div class="navbar">
-      <div class="navbar-inner">
-        <a class="brand" href="#">UTT</a>
-        <form class="navbar-form pull-right">
-          <div class="input-append">
-            <input id="webPage" type="text" placeholder="Web page" value="http://ec.europa.eu/index_en.htm" class="span4">
-            <button class="btn" value="Set">Set</button>
-          </div>
-        </form>
-        <ul class="nav">
-          <li id="test-nav-button"><a href="#/test">Test</a></li>
-          <li id="result-nav-button"><a href="#/result">Results</a></li>
-        </ul>
-      </div>
-    </div>
+    <div id="navbar-view" style="opacity: 0"></div>
     <div class="view" id="homeView" style="display: none;"></div>
     <div class="view" id="testView" style="display: none;"></div>
     <div class="view" id="resultView" style="display: none;"></div>
     <iframe src="http://ec.europa.eu/index_en.htm" sandbox="allow-forms allow-scripts" style="display: none;"></iframe>
-    <script type="text/template" id="introduction-template" src="template/introduction.html">
+
+    <script type="text/template" id="navbar-template">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <a class="brand" href="#">UTT</a>
+          <form class="navbar-form pull-right">
+            <div class="input-append">
+              <input id="webPage" type="text" placeholder="Web page" value="http://ec.europa.eu/index_en.htm" class="span4">
+              <button class="btn" value="Set">Set</button>
+            </div>
+          </form>
+          <ul class="nav">
+            <li id="test-nav-button"><a href="#/test">Test</a></li>
+            <li id="result-nav-button"><a href="#/result">Results</a></li>
+          </ul>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/template" id="introduction-template">
       <div class="row">
         <div class="span12">
           <h1>User Testing Tool</h1>

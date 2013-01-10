@@ -10,7 +10,7 @@ requirejs.config({
   }
 });
 
-require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/home', 'views/test'], function($, _, Backbone, Tests, TestRun, HomeView, TestView) {
+require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar', 'views/home', 'views/test'], function($, _, Backbone, Tests, TestRun, NavbarView, HomeView, TestView) {
   _.templateSettings = {
     interpolate : /\{\{(.+?)\}\}/g
   };
@@ -83,6 +83,10 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/home', 
   var homeView = new HomeView();
   var testView = new TestView({model: testRun});
   var resultView = new ResultView();
+  var navbarView = new NavbarView();
+
+  navbarView.render();
+  $('#navbar-view').animate({opacity: 1});
 
   appRouter.on('route:home', function () {
     homeView.render();
