@@ -11,7 +11,11 @@ iframe {
 }
 
 .view {
-  margin: 0 32px;
+  padding: 0 32px;
+}
+
+#testView {
+  border-bottom: 4px solid #a0a0a0;
 }
 
 input, button, body {
