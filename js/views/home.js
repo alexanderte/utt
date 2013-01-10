@@ -4,7 +4,7 @@ define(['underscore', 'backbone'], function(_, Backbone) {
   }
 
   return Backbone.View.extend({
-    el: '.page',
+    el: '#homeView',
     render: function() {
       this.$el.html(_t('#introduction-template'));
     }

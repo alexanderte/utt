@@ -4,7 +4,7 @@ define(['underscore', 'backbone'], function(_, Backbone) {
   }
 
   return Backbone.View.extend({
-    el: '.page',
+    el: '#testView',
     initialize: function() {
     },
     render: function() {
@@ -29,14 +29,6 @@ define(['underscore', 'backbone'], function(_, Backbone) {
     initialize: function() {
       _.bindAll(this, "render");
       this.model.bind('change', this.render);
-    },
-    events: {
-      'click #next-button': 'nextButtonClick'
-    },
-    nextButtonClick: function(e) {
-      console.log(e.target.value);
-      if (this.model.nextTest() == false)
-        router.navigate('/result', true);
     },
   });
 });

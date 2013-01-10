@@ -46,7 +46,7 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/home', 
   );
 
   var ResultView = Backbone.View.extend({
-    el: '.page',
+    el: '#resultView',
     render: function () {
       this.$el.html(_t('#result-template'));
     }
@@ -80,10 +80,18 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/home', 
     }
   }
 
+  var homeView = new HomeView();
+  var testView = new TestView({model: testRun});
+  var resultView = new ResultView();
+
   appRouter.on('route:home', function () {
-    new HomeView().render();
+    homeView.render();
     activateTab('home');
-    $('.page-extra').html('');
+
+    $('iframe').hide();
+    $('#testView').hide();
+    $('#resultView').hide();
+    $('#homeView').show();
   });
   appRouter.on('route:test', function (id) {
     if (id !== undefined)
@@ -91,14 +99,23 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/home', 
     else
       testRun.setCurrentTest(0);
 
-    new TestView({model: testRun}).render();
+    testView.render();
+
     activateTab('test');
-    $('.page-extra').html('<iframe src="http://ec.europa.eu/index_en.htm" sandbox="allow-forms allow-scripts"></iframe>');
+
+    $('#homeView').hide();
+    $('#resultView').hide();
+    $('#testView').slideDown();
+    $('iframe').show();
   });
   appRouter.on('route:result', function () {
-    new ResultView().render();
+    resultView.render();
     activateTab('result');
-    $('.page-extra').html('');
+
+    $('iframe').hide();
+    $('#homeView').hide();
+    $('#testView').hide();
+    $('#resultView').show();
   });
 
   Backbone.history.start();
