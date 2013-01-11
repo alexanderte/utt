@@ -7,10 +7,10 @@
     <link href="css/screen.css" rel="stylesheet">
   </head>
   <body>
-    <div id="navbar-view" style="opacity: 0"></div>
-    <div class="view" id="homeView" style="display: none;"></div>
-    <div class="view" id="testView" style="display: none;"></div>
-    <div class="view" id="resultView" style="display: none;"></div>
+    <div id="navbar-view" style="opacity: 0;"></div>
+    <div class="view" id="home-view" style="display: none;"></div>
+    <div class="view" id="test-view" style="display: none;"></div>
+    <div class="view" id="result-view" style="display: none;"></div>
     <iframe src="http://ec.europa.eu/index_en.htm" sandbox="allow-forms allow-scripts" style="display: none;"></iframe>
 
     <script type="text/template" id="navbar-template">
@@ -31,7 +31,7 @@
       </div>
     </script>
 
-    <script type="text/template" id="introduction-template">
+    <script type="text/template" id="home-template">
       <div class="row">
         <div class="span12">
           <h1>User Testing Tool</h1>
@@ -166,6 +166,7 @@
         </div>
       </div>
     </script>
+
     <script data-main="js/main" type="text/javascript" charset="utf-8" src="js/require.js"></script>
   </body>
 </html>

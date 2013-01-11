@@ -10,14 +10,10 @@ requirejs.config({
   }
 });
 
-require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar', 'views/home', 'views/test'], function($, _, Backbone, Tests, TestRun, NavbarView, HomeView, TestView) {
+require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar', 'views/home', 'views/test', 'views/result'], function($, _, Backbone, Tests, TestRun, NavbarView, HomeView, TestView, ResultView) {
   _.templateSettings = {
     interpolate : /\{\{(.+?)\}\}/g
   };
-
-  function _t(id, obj) {
-    return _.template($(id).html(), obj === undefined ? {} : obj)
-  }
 
   var testRun = new TestRun(
     new Tests([
@@ -45,13 +41,6 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar'
     ])
   );
 
-  var ResultView = Backbone.View.extend({
-    el: '#resultView',
-    render: function () {
-      this.$el.html(_t('#result-template'));
-    }
-  });
-
   var AppRouter = Backbone.Router.extend({
     routes: {
       '': 'home',
@@ -63,19 +52,41 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar'
 
   var appRouter = new AppRouter();
 
-  function activateTab(name) {
+  function activateView(name) {
     switch (name) {
       case 'home':
         $('#test-nav-button').removeClass('active');
         $('#result-nav-button').removeClass('active');
+        $('iframe').stop(false, true).hide();
+        $('#test-view').hide();
+        $('#result-view').hide();
+        $('#home-view').fadeIn('fast');
+
         break;
       case 'test':
         $('#result-nav-button').removeClass('active');
         $('#test-nav-button').addClass('active');
+        $('#home-view').hide();
+        $('#result-view').hide();
+
+        if (testRun.getCurrentTestId() === 0) {
+          $('iframe').fadeIn('slow', function() {
+            $('#test-view').slideDown('fast');
+          });
+        }
+        else {
+          $('iframe').show();
+          $('#test-view').show();
+        }
+
         break;
       case 'result':
         $('#test-nav-button').removeClass('active');
         $('#result-nav-button').addClass('active');
+        $('iframe').stop(false, true).hide();
+        $('#home-view').hide();
+        $('#test-view').slideUp('fast');
+        $('#result-view').fadeIn('fast');
         break;
     }
   }
@@ -90,44 +101,16 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar'
 
   appRouter.on('route:home', function () {
     homeView.render();
-    activateTab('home');
-
-    $('iframe').stop(false, true).hide();
-    $('#testView').hide();
-    $('#resultView').hide();
-    $('#homeView').fadeIn('fast');
+    activateView('home');
   });
   appRouter.on('route:test', function (id) {
-    if (id !== undefined)
-      testRun.setCurrentTest(parseInt(id));
-    else
-      testRun.setCurrentTest(0);
-
+    testRun.setCurrentTest(id === undefined ? 0 : parseInt(id));
     testView.render();
-
-    activateTab('test');
-
-    $('#homeView').hide();
-    $('#resultView').hide();
-
-    if (testRun.getCurrentTestId() === 0) {
-      $('iframe').fadeIn('slow', function() {
-        $('#testView').slideDown('fast');
-      });
-    }
-    else {
-      $('iframe').show();
-      $('#testView').show();
-    }
+    activateView('test');
   });
   appRouter.on('route:result', function () {
     resultView.render();
-    activateTab('result');
-
-    $('iframe').stop(false, true).hide();
-    $('#homeView').hide();
-    $('#testView').slideUp('fast');
-    $('#resultView').fadeIn('fast');
+    activateView('result');
   });
 
   Backbone.history.start();

@@ -1,18 +1,12 @@
 define(['underscore', 'backbone'], function(_, Backbone) {
-  function _t(id, obj) {
-    return _.template($(id).html(), obj === undefined ? {} : obj)
-  }
-
   return Backbone.View.extend({
-    el: '#testView',
-    initialize: function() {
-    },
+    el: '#test-view',
     render: function() {
       var test = this.model.currentTest();
 
       this.$el.html(
-        _t('#test-progress', { 'progress': this.model.progress() }) +
-        _t(test.get('template'), {
+        _.template($('#test-progress').html(), { 'progress': this.model.progress() }) +
+        _.template($(test.get('template')).html(), {
           'question': test.get('question'),
           'nextURL': this.nextURL()
         })
@@ -25,10 +19,6 @@ define(['underscore', 'backbone'], function(_, Backbone) {
         return '#result';
       else
         return '#test/' + this.model.nextTestId();
-    },
-    initialize: function() {
-      _.bindAll(this, "render");
-      this.model.bind('change', this.render);
     },
   });
 });

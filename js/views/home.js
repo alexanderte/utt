@@ -1,12 +1,8 @@
-define(['underscore', 'backbone'], function(_, Backbone) {
-  function _t(id, obj) {
-    return _.template($(id).html(), obj === undefined ? {} : obj)
-  }
-
+define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
   return Backbone.View.extend({
-    el: '#homeView',
+    el: '#home-view',
     render: function() {
-      this.$el.html(_t('#introduction-template'));
+      this.$el.html(_.template($('#home-template').html()));
     }
   });
 });
