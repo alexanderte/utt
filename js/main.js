@@ -61,7 +61,6 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar'
         $('#test-view').hide();
         $('#result-view').hide();
         $('#home-view').fadeIn('fast');
-
         break;
       case 'test':
         $('#result-nav-button').removeClass('active');
@@ -78,7 +77,6 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar'
           $('iframe').show();
           $('#test-view').show();
         }
-
         break;
       case 'result':
         $('#test-nav-button').removeClass('active');
