@@ -10,7 +10,7 @@ requirejs.config({
   }
 });
 
-require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar', 'views/home', 'views/test', 'views/result'], function($, _, Backbone, Tests, TestRun, NavbarView, HomeView, TestView, ResultView) {
+require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar', 'views/home', 'views/test', 'views/iframe', 'views/result'], function($, _, Backbone, Tests, TestRun, NavbarView, HomeView, TestView, IframeView, ResultView) {
   _.templateSettings = {
     interpolate : /\{\{(.+?)\}\}/g
   };
@@ -57,7 +57,8 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar'
       case 'home':
         $('#test-nav-button').removeClass('active');
         $('#result-nav-button').removeClass('active');
-        $('iframe').stop(false, true).hide();
+
+        $('#iframe-view').stop(false, true).hide();
         $('#test-view').hide();
         $('#result-view').hide();
         $('#home-view').fadeIn('fast');
@@ -65,23 +66,25 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar'
       case 'test':
         $('#result-nav-button').removeClass('active');
         $('#test-nav-button').addClass('active');
+
         $('#home-view').hide();
         $('#result-view').hide();
 
         if (testRun.getCurrentTestId() === 0) {
-          $('iframe').fadeIn('slow', function() {
+          $('#iframe-view').fadeIn('slow', function() {
             $('#test-view').slideDown('fast');
           });
         }
         else {
-          $('iframe').show();
           $('#test-view').show();
+          $('#iframe-view').show();
         }
         break;
       case 'result':
         $('#test-nav-button').removeClass('active');
         $('#result-nav-button').addClass('active');
-        $('iframe').stop(false, true).hide();
+
+        $('#iframe-view').stop(false, true).hide();
         $('#home-view').hide();
         $('#test-view').slideUp('fast');
         $('#result-view').fadeIn('fast');
@@ -92,10 +95,11 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar'
   var homeView = new HomeView();
   var testView = new TestView({model: testRun});
   var resultView = new ResultView();
-  var navbarView = new NavbarView();
+  var iframeView = new IframeView();
+  var navbarView = new NavbarView({model: testRun});
 
   navbarView.render();
-  $('#navbar-view').animate({opacity: 1});
+  iframeView.render();
 
   appRouter.on('route:home', function () {
     homeView.render();

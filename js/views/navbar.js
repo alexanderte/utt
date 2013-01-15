@@ -3,6 +3,10 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
     el: '#navbar-view',
     render: function() {
       this.$el.html(_.template($('#navbar-template').html()));
+    },
+    events: { 'click button#set-web-page': 'setWebPage' },
+    setWebPage: function() {
+      this.model.setWebPage($('#web-page').value);
     }
   });
 });

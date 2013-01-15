@@ -7,11 +7,15 @@
     <link href="css/screen.css" rel="stylesheet">
   </head>
   <body>
-    <div id="navbar-view" style="opacity: 0;"></div>
+    <div id="navbar-view"></div>
     <div class="view" id="home-view" style="display: none;"></div>
     <div class="view" id="test-view" style="display: none;"></div>
     <div class="view" id="result-view" style="display: none;"></div>
-    <iframe src="http://ec.europa.eu/index_en.htm" sandbox="allow-forms allow-scripts" style="display: none;"></iframe>
+    <div class="view" id="iframe-view" style="display: none;"></div>
+
+    <script type="text/template" id="iframe-template">
+      <iframe src="http://ec.europa.eu/index_en.htm" sandbox="allow-forms allow-scripts"></iframe>
+    </script>
 
     <script type="text/template" id="navbar-template">
       <div class="navbar">
@@ -19,8 +23,8 @@
           <a class="brand" href="#">UTT</a>
           <form class="navbar-form pull-right">
             <div class="input-append">
-              <input id="webPage" type="text" placeholder="Web page" value="http://ec.europa.eu/index_en.htm" class="span4">
-              <button class="btn" value="Set">Set</button>
+              <input id="web-page" type="text" placeholder="Web page" value="http://ec.europa.eu/index_en.htm" class="span4">
+              <button id="set-web-page" class="btn" value="Set">Set</button>
             </div>
           </form>
           <ul class="nav">
