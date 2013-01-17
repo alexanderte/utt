@@ -14,11 +14,11 @@
     <div class="view" id="iframe-view" style="display: none;"></div>
 
     <script type="text/template" id="iframe-template">
-      <iframe src="http://ec.europa.eu/index_en.htm" sandbox="allow-forms allow-scripts"></iframe>
+      <iframe src="{{ url }}" sandbox="allow-forms allow-scripts"></iframe>
     </script>
 
     <script type="text/template" id="navbar-template">
-      <div class="navbar">
+      <div class="navbar inverse">
         <div class="navbar-inner">
           <a class="brand" href="#">UTT</a>
           <form class="navbar-form pull-right">
@@ -90,11 +90,11 @@
     <script type="text/template" id="test-case-template">
       <p class="lead">{{ question }}</p>
       <p>
-          <button class="btn" value="Previous" style="margin-right: 24px;">Previous</button>
-          <label class="radio inline"><input type="radio" name="answer" value="yes"> Yes</label>
-          <label class="radio inline"><input type="radio" name="answer" value="no"> No</label>
-          <label class="radio inline"><input type="radio" name="answer" value="unsure"> Unsure</label>
-          <a href="{{ nextURL }}" class="btn btn-primary" style="margin-left: 24px;">Next</a>
+        <button class="btn" value="Previous" style="margin-right: 24px;">Previous</button>
+        <label class="radio inline"><input type="radio" name="answer" value="yes"> Yes</label>
+        <label class="radio inline"><input type="radio" name="answer" value="no"> No</label>
+        <label class="radio inline"><input type="radio" name="answer" value="unsure"> Unsure</label>
+        <a href="{{ nextURL }}" class="btn btn-primary" style="margin-left: 24px;">Next</a>
       </p>
     </script>
 

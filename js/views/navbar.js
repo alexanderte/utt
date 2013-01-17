@@ -6,7 +6,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
     },
     events: { 'click button#set-web-page': 'setWebPage' },
     setWebPage: function() {
-      this.model.setWebPage($('#web-page').value);
+      this.model.set('webPage', $('#web-page').val());
     }
   });
 });

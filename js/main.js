@@ -51,6 +51,30 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar'
   });
 
   var appRouter = new AppRouter();
+  var homeView = new HomeView();
+  var testView = new TestView({model: testRun});
+  var resultView = new ResultView();
+  var iframeView = new IframeView({model: testRun});
+  var navbarView = new NavbarView({model: testRun});
+
+  navbarView.render();
+  iframeView.render();
+
+  appRouter.on('route:home', function () {
+    homeView.render();
+    activateView('home');
+  });
+  appRouter.on('route:test', function (id) {
+    testRun.setCurrentTest(id === undefined ? 0 : parseInt(id));
+    testView.render();
+    activateView('test');
+  });
+  appRouter.on('route:result', function () {
+    resultView.render();
+    activateView('result');
+  });
+
+  Backbone.history.start();
 
   function activateView(name) {
     switch (name) {
@@ -91,29 +115,4 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar'
         break;
     }
   }
-
-  var homeView = new HomeView();
-  var testView = new TestView({model: testRun});
-  var resultView = new ResultView();
-  var iframeView = new IframeView();
-  var navbarView = new NavbarView({model: testRun});
-
-  navbarView.render();
-  iframeView.render();
-
-  appRouter.on('route:home', function () {
-    homeView.render();
-    activateView('home');
-  });
-  appRouter.on('route:test', function (id) {
-    testRun.setCurrentTest(id === undefined ? 0 : parseInt(id));
-    testView.render();
-    activateView('test');
-  });
-  appRouter.on('route:result', function () {
-    resultView.render();
-    activateView('result');
-  });
-
-  Backbone.history.start();
 });
