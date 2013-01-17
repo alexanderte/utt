@@ -51,25 +51,26 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar'
   });
 
   var appRouter = new AppRouter();
+
+  var navbarView = new NavbarView({model: testRun});
   var homeView = new HomeView();
   var testView = new TestView({model: testRun});
-  var resultView = new ResultView();
   var iframeView = new IframeView({model: testRun});
-  var navbarView = new NavbarView({model: testRun});
+  var resultView = new ResultView();
 
   navbarView.render();
   iframeView.render();
 
-  appRouter.on('route:home', function () {
+  appRouter.on('route:home', function() {
     homeView.render();
     activateView('home');
   });
-  appRouter.on('route:test', function (id) {
-    testRun.setCurrentTest(id === undefined ? 0 : parseInt(id));
+  appRouter.on('route:test', function(id) {
+    testRun.set('currentTest', id === undefined ? 0 : parseInt(id));
     testView.render();
     activateView('test');
   });
-  appRouter.on('route:result', function () {
+  appRouter.on('route:result', function() {
     resultView.render();
     activateView('result');
   });
@@ -94,7 +95,7 @@ require(['jquery', 'underscore', 'backbone', 'tests', 'test-run', 'views/navbar'
         $('#home-view').hide();
         $('#result-view').hide();
 
-        if (testRun.getCurrentTestId() === 0) {
+        if (testRun.get('currentTest') === 0) {
           $('#iframe-view').fadeIn('slow', function() {
             $('#test-view').slideDown('fast');
           });
