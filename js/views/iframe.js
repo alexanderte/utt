@@ -5,7 +5,7 @@ define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
       this.$el.html(_.template($('#iframe-template').html(), { 'url': this.model.get('webPage') }));
     },
     initialize: function() {
-      this.model.bind('change', this.render, this);
+      this.model.bind('change:webPage', this.render, this);
     }
   });
 });
