@@ -62,7 +62,9 @@
     iframeView = new IframeView({
       model: testRun
     });
-    resultView = new ResultView();
+    resultView = new ResultView({
+      model: testRun
+    });
     navbarView.render();
     iframeView.render();
     activateView = function(name) {

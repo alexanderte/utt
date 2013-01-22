@@ -5,7 +5,12 @@
     return Backbone.View.extend({
       el: '#result-view',
       render: function() {
-        return this.$el.html(_.template($('#result-template').html()));
+        return this.$el.html(_.template($('#result-template').html(), {
+          webPage: this.model.get('webPage')
+        }));
+      },
+      initialize: function() {
+        return this.model.bind('change:webPage', this.render, this);
       }
     });
   });

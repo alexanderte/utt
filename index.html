@@ -14,7 +14,7 @@
     <div id="iframe-view" style="display: none;"></div>
 
     <script type="text/template" id="iframe-template">
-      <iframe src="{{ url }}" sandbox="allow-forms allow-scripts"></iframe>
+      <iframe src="{{ webPage }}" sandbox="allow-forms allow-scripts"></iframe>
     </script>
 
     <script type="text/template" id="navbar-template">
@@ -47,7 +47,7 @@
     </script>
 
     <script type="text/template" id="result-template">
-      <h1>Results for http://ec.europa.eu/index_en.htm</h1>
+      <h1>Results for {{webPage}}</h1>
       <table class="table">
         <thead>
           <tr>
@@ -78,7 +78,7 @@
           </tr>
         </tbody>
       </table>
-      <p style="text-align: right;"><button id="confirm-results-button" class="btn btn-primary btn-large">Confirm results</button></p>
+      <p style="text-align: right;"><button id="submit-results-button" class="btn btn-primary btn-large">Submit results</button></p>
     </script>
 
     <script type="text/template" id="test-progress">

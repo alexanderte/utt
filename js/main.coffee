@@ -63,7 +63,7 @@ require(['jquery', 'underscore', 'backbone', 'collections/tests', 'models/test-r
   homeView = new HomeView()
   testView = new TestView({model: testRun})
   iframeView = new IframeView({model: testRun})
-  resultView = new ResultView()
+  resultView = new ResultView({model: testRun})
 
   do navbarView.render
   do iframeView.render

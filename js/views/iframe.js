@@ -6,7 +6,7 @@
       el: '#iframe-view',
       render: function() {
         return this.$el.html(_.template($('#iframe-template').html(), {
-          'url': this.model.get('webPage')
+          'webPage': this.model.get('webPage')
         }));
       },
       initialize: function() {
