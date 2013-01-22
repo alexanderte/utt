@@ -11,13 +11,13 @@
           'progress': this.model.progress()
         }) + _.template($(test.get('template')).html(), {
           'question': test.get('question'),
-          'nextURL': this.nextURL()
+          'nextUrl': this.nextUrl()
         }));
         return $('html, body').animate({
           scrollTop: 0
         }, 'fast');
       },
-      nextURL: function() {
+      nextUrl: function() {
         if (this.model.isAtLast() === true) {
           return '#result';
         } else {
