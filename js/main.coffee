@@ -1,4 +1,10 @@
 requirejs.config {
+  baseUrl: 'js/deps',
+  paths: {
+    collections: '../collections'
+    views: '../views'
+    models: '../models'
+  },
   shim: {
     'backbone': {
       deps: ['underscore'],
@@ -10,27 +16,7 @@ requirejs.config {
   }
 }
 
-require(
-  ['jquery',
-  'underscore',
-  'backbone',
-  'tests',
-  'test-run',
-  'views/navbar',
-  'views/home',
-  'views/test',
-  'views/iframe',
-  'views/result'],
-  ($,
-  _,
-  Backbone,
-  Tests,
-  TestRun,
-  NavbarView,
-  HomeView,
-  TestView,
-  IframeView,
-  ResultView) ->
+require(['jquery', 'underscore', 'backbone', 'collections/tests', 'models/test-run', 'views/navbar', 'views/home', 'views/test', 'views/iframe', 'views/result'], ($, _, Backbone, Tests, TestRun, NavbarView, HomeView, TestView, IframeView, ResultView) ->
 
   _.templateSettings = {
     interpolate: /\{\{(.+?)\}\}/g
@@ -60,7 +46,7 @@ require(
         question: 'Does the language English correspond to the language used on the site?',
       }
     ])
-  );
+  )
 
   AppRouter = Backbone.Router.extend({
     routes: {
@@ -82,23 +68,7 @@ require(
   navbarView.render()
   iframeView.render()
 
-  appRouter.on('route:home', () ->
-    homeView.render()
-    activateView('home')
-  )
-  appRouter.on('route:test', (id) ->
-    testRun.set('currentTest', id == undefined ? 0 : parseInt(id))
-    testView.render()
-    activateView('test')
-  )
-  appRouter.on('route:result', () ->
-    resultView.render()
-    activateView('result')
-  )
-
-  Backbone.history.start()
-
-  activateView(name) ->
+  activateView = (name) ->
     switch name
       when 'home'
         $('#test-nav-button').removeClass('active')
@@ -130,4 +100,20 @@ require(
         $('#home-view').hide()
         $('#test-view').slideUp('fast')
         $('#result-view').fadeIn('fast')
+
+  appRouter.on('route:home', () ->
+    homeView.render()
+    activateView('home')
+  )
+  appRouter.on('route:test', (id) ->
+    testRun.set('currentTest', if id == undefined then 0 else parseInt(id))
+    testView.render()
+    activateView('test')
+  )
+  appRouter.on('route:result', () ->
+    resultView.render()
+    activateView('result')
+  )
+
+  Backbone.history.start()
 )
