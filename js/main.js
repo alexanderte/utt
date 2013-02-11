@@ -23,35 +23,10 @@
     }
   });
 
-  require(['jquery', 'underscore', 'backbone', 'collections/tests', 'models/test-run', 'views/navbar', 'views/home', 'views/test', 'views/iframe', 'views/result', 'socketio'], function($, _, Backbone, Tests, TestRun, NavbarView, HomeView, TestView, IframeView, ResultView, io) {
+  require(['jquery', 'underscore', 'backbone', 'socketio', 'collections/tests', 'models/test-run', 'views/navbar', 'views/home', 'views/test', 'views/iframe', 'views/result', 'socketio'], function($, _, Backbone, io, Tests, TestRun, NavbarView, HomeView, TestView, IframeView, ResultView) {
     var AppRouter, activateView, appRouter, homeView, iframeView, navbarView, resultView, socket, testRun, testView;
-    _.templateSettings = {
-      interpolate: /\{\{(.+?)\}\}/g
-    };
-    testRun = new TestRun(new Tests([
-      {
-        title: 'Title appropriate for web page',
-        question: 'Is the title “European Commission” appropriate for this web page?'
-      }, {
-        title: 'Web page looks attractive',
-        question: 'Does this web page look attractive to you?'
-      }, {
-        title: 'Does the title “Ireland in the driving seat” describe the section it belongs to?',
-        question: 'Does the title “Ireland in the driving seat” describe the section it belongs to?'
-      }, {
-        title: 'Baz',
-        question: 'Baz',
-        template: '#test-case-template2'
-      }, {
-        title: 'Does the language English correspond to the language used on the site?',
-        question: 'Does the language English correspond to the language used on the site?'
-      }
-    ]));
     socket = io.connect('http://localhost:8000');
-    socket.emit('get tests', testRun.get('webPage'));
-    socket.on('tests', function(data) {
-      return console.log(data);
-    });
+    testRun = new TestRun(socket);
     AppRouter = Backbone.Router.extend({
       routes: {
         '': 'home',
@@ -64,7 +39,9 @@
     navbarView = new NavbarView({
       model: testRun
     });
-    homeView = new HomeView();
+    homeView = new HomeView({
+      model: testRun
+    });
     testView = new TestView({
       model: testRun
     });

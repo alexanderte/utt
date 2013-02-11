@@ -14,7 +14,7 @@
     <div id="iframe-view" style="display: none;"></div>
 
     <script type="text/template" id="iframe-template">
-      <iframe src="{{ webPage }}" sandbox="allow-forms allow-scripts"></iframe>
+      <iframe src="<%= webPage %>" sandbox="allow-forms allow-scripts"></iframe>
     </script>
 
     <script type="text/template" id="navbar-template">
@@ -23,7 +23,7 @@
           <a class="brand" href="#">UTT</a>
           <form class="navbar-form pull-right">
             <div class="input-append">
-              <input id="web-page" type="text" placeholder="Web page" value="http://ec.europa.eu/index_en.htm" class="span4">
+              <input id="web-page" type="text" placeholder="Web page" value="<%= webPage %>" class="span4">
               <button id="set-web-page" class="btn" value="Set">Set</button>
             </div>
           </form>
@@ -47,35 +47,23 @@
     </script>
 
     <script type="text/template" id="result-template">
-      <h1>Results for {{webPage}}</h1>
+      <h1>Results for <%= webPage %></h1>
       <table class="table">
         <thead>
           <tr>
-            <th>Test</th>
+            <th>Id</th>
+            <th>Description</th>
             <th>Answer</th>
           </tr>
         </thead>
         <tbody>
+        <% _.each(tests, function(test) { %>
           <tr>
-            <td><a href="#">Title appropriate for web page</a></td>
-            <td>Yes</td>
+            <td><%= test.id %></td>
+            <td><a href="<%= test.url %>"><%= test.description %></a></td>
+            <td><%= test.answer %></td>
           </tr>
-          <tr>
-            <td><a href="#">Web page looks attractive</a></td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td><a href="#">Content corresponds to heading</a></td>
-            <td>Yes</td>
-          </tr>
-          <tr>
-            <td><a href="#">Alternative text conveys the intent of the image</a></td>
-            <td><i>Multiple answers</i></td>
-          </tr>
-          <tr>
-            <td><a href="#">Specified language corresponds to language used on the web page</a></td>
-            <td>Yes</td>
-          </tr>
+        <% }); %>
         </tbody>
       </table>
       <p style="text-align: right;"><button id="submit-results-button" class="btn btn-primary btn-large">Submit results</button></p>
@@ -83,18 +71,25 @@
 
     <script type="text/template" id="test-progress">
       <div class="progress">
-        <div class="bar" style="width: {{ progress }}%;"></div>
+        <div class="bar" style="width: <%= progress %>%;"></div>
       </div>
     </script>
 
+    <script type="text/template" id="test-loading">
+      <div class="progress progress-striped active">
+        <div class="bar" style="width: 100%;"></div>
+      </div>
+      <p class="lead">I’m preparing a few questions for you…</p>
+    </script>
+
     <script type="text/template" id="test-case-template">
-      <p class="lead">{{ question }}</p>
+      <p class="lead"><%= question %></p>
       <p>
-        <button class="btn" value="Previous" style="margin-right: 24px;">Previous</button>
-        <label class="radio inline"><input type="radio" name="answer" value="yes"> Yes</label>
-        <label class="radio inline"><input type="radio" name="answer" value="no"> No</label>
-        <label class="radio inline"><input type="radio" name="answer" value="unsure"> Unsure</label>
-        <a href="{{ nextUrl }}" class="btn btn-primary" style="margin-left: 24px;">Next</a>
+        <a href="<%= previousUrl %>" class="btn <%= previousExtraClass %>" style="margin-right: 24px;">Previous</a>
+        <% _.each(answers, function(answer) { %>
+          <label class="radio inline"><input type="radio" name="answer" value="<%= answer %>"><%= answer %></label>
+        <% }); %>
+        <a href="<%= nextUrl %>" class="btn btn-primary" style="margin-left: 24px;">Next</a>
       </p>
     </script>
 
@@ -166,7 +161,7 @@
       <div class="row">
         <div class="span6 offset6" style="text-align: right;">
             <button class="btn" value="Previous">Previous</button>
-            <a href="{{ nextUrl }}" class="btn btn-primary">Next</a>
+            <a href="<%= nextUrl %>" class="btn btn-primary">Next</a>
         </div>
       </div>
     </script>

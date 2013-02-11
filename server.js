@@ -39,34 +39,39 @@
     switch (result.id) {
       case 'SC2.4.2-1-11':
         return {
-          id: result.id,
-          question: 'Does the title “' + result.details.page_title + '” describe the content of the page?',
+          resultId: result.id,
+          description: 'Title describes content of page',
+          question: 'Does the title “' + result.details.page_title + '” describe the content of this web page?',
           answers: ['Yes', 'No']
         };
       case 'SC2.4.4-2-11':
         return {
-          id: result.id,
-          question: 'Does the link text “' + result.details.link_text + '” describe the link purpose?',
-          answers: ['Yes', 'No', 'What purpose?']
+          resultId: result.id,
+          description: 'Link text describes link purpose',
+          question: 'Does the link text ' + result.details.code_extract + ' describe the link purpose?',
+          answers: ['Yes', 'No', 'Unsure']
         };
       case 'SC2.4.4-2-12':
         return {
-          id: result.id,
-          question: 'Does the title “' + result.details.title + '” of the link ' + result.details.code_extract + ' describe the link purpose?',
-          answers: ['Yes', 'No', 'What purpose?']
+          resultId: result.id,
+          description: 'Title of link describes link purpose',
+          question: 'Does the title “' + result.details.title + '” for the link ' + result.details.code_extract + ' describe the link purpose?',
+          answers: ['Yes', 'No', 'Unsure']
         };
       case 'SC2.4.6-1-11':
         return {
-          id: result.id,
+          resultId: result.id,
+          description: 'Heading describes section it belongs to',
           question: 'Does the heading “' + result.details.heading + '” describe the section it belongs to?',
           answers: ['Yes', 'No', 'Unsure']
         };
       case 'SC3.1.2-2-11':
         languageCode = result.details.language_definition.language_code;
         return {
-          id: result.id,
+          resultId: result.id,
+          description: 'Text correlates with specified language',
           question: 'Does the text “' + result.details.checked_text + '” correlate with the specified language ' + getLanguage(languageCode) + ' (' + languageCode + ')?',
-          answers: ['Yes', 'No', 'Unsure', 'Well, I don’t speak ' + getLanguage(languageCode) + '…']
+          answers: ['Yes', 'No', 'Unsure', 'I don’t speak ' + getLanguage(languageCode)]
         };
       default:
         console.log('Not supported: ' + result);

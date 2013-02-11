@@ -32,20 +32,20 @@ transformResult = (result) ->
     switch result.id
       #"SC2.4.2-1-11";"Please check the title of the page";"<p>Human input is necessary to verify, that the title describes the content of the page.</p>"
       when 'SC2.4.2-1-11'
-        { id: result.id, question: 'Does the title “' + result.details.page_title + '” describe the content of the page?', answers: ['Yes', 'No'] }
+        { resultId: result.id, description: 'Title describes content of page', question: 'Does the title “' + result.details.page_title + '” describe the content of this web page?', answers: ['Yes', 'No'] }
       #"SC2.4.4-2-11";"Please check the link text";"<p>Human input is necessary to verify, that the link text describes the link purpose.</p>"
       when 'SC2.4.4-2-11'
-        { id: result.id, question: 'Does the link text “' + result.details.link_text + '” describe the link purpose?', answers: ['Yes', 'No', 'What purpose?'] }
+        { resultId: result.id, description: 'Link text describes link purpose', question: 'Does the link text ' + result.details.code_extract + ' describe the link purpose?', answers: ['Yes', 'No', 'Unsure'] }
       #"SC2.4.4-2-12";"Please check the title of the link";"<p>Human input is necessary to verify, that the title describes the link purpose.</p>"
       when 'SC2.4.4-2-12'
-        { id: result.id, question: 'Does the title “' + result.details.title + '” of the link ' + result.details.code_extract + ' describe the link purpose?', answers: ['Yes', 'No', 'What purpose?'] }
+        { resultId: result.id, description: 'Title of link describes link purpose', question: 'Does the title “' + result.details.title + '” for the link ' + result.details.code_extract + ' describe the link purpose?', answers: ['Yes', 'No', 'Unsure'] }
       #"SC2.4.6-1-11";"Please check the heading";"<p>Human input is necessary to verify, that the heading describes the section it belongs to.</p>"
       when 'SC2.4.6-1-11'
-        { id: result.id, question: 'Does the heading “' + result.details.heading + '” describe the section it belongs to?', answers: ['Yes', 'No', 'Unsure'] }
+        { resultId: result.id, description: 'Heading describes section it belongs to', question: 'Does the heading “' + result.details.heading + '” describe the section it belongs to?', answers: ['Yes', 'No', 'Unsure'] }
       #"SC3.1.2-2-11";"Please check the language";"<p>Human input is necessary to verify, that the specified language correlates with the used language.</p>"
       when 'SC3.1.2-2-11'
         languageCode = result.details.language_definition.language_code
-        { id: result.id, question: 'Does the text “' + result.details.checked_text + '” correlate with the specified language ' + getLanguage(languageCode) + ' (' + languageCode + ')?', answers: ['Yes', 'No', 'Unsure', 'Well, I don’t speak ' + getLanguage(languageCode) + '…'] }
+        { resultId: result.id, description: 'Text correlates with specified language', question: 'Does the text “' + result.details.checked_text + '” correlate with the specified language ' + getLanguage(languageCode) + ' (' + languageCode + ')?', answers: ['Yes', 'No', 'Unsure', 'I don’t speak ' + getLanguage(languageCode)] }
       else
         console.log('Not supported: ' + result)
         {}

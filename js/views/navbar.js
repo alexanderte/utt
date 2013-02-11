@@ -5,7 +5,9 @@
     return Backbone.View.extend({
       el: '#navbar-view',
       render: function() {
-        return this.$el.html(_.template($('#navbar-template').html()));
+        return this.$el.html(_.template($('#navbar-template').html(), {
+          webPage: this.model.get('webPage')
+        }));
       },
       events: {
         'click button#set-web-page': 'setWebPage'

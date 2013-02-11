@@ -4,18 +4,40 @@
   define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
     return Backbone.View.extend({
       el: '#test-view',
+      initialize: function() {
+        return this.model.bind('change:running', this.render, this);
+      },
       render: function() {
         var test;
-        test = this.model.get('tests').at(this.model.get('currentTest'));
-        this.$el.html(_.template($('#test-progress').html(), {
-          'progress': this.model.progress()
-        }) + _.template($(test.get('template')).html(), {
-          'question': test.get('question'),
-          'nextUrl': this.nextUrl()
-        }));
-        return $('html, body').animate({
-          scrollTop: 0
-        }, 'fast');
+        if (!this.model.get('running')) {
+          return this.$el.html(_.template($('#test-loading').html()));
+        } else {
+          test = this.model.get('tests').at(this.model.get('currentTest'));
+          this.$el.html(_.template($('#test-progress').html(), {
+            'progress': this.model.progress()
+          }) + _.template($(test.get('template')).html(), {
+            'question': test.get('question'),
+            'answers': test.get('answers'),
+            'nextUrl': this.nextUrl(),
+            'previousUrl': this.previousUrl(),
+            'previousExtraClass': this.previousExtraClass()
+          }));
+          return $('html, body').animate({
+            scrollTop: 0
+          }, 'fast');
+        }
+      },
+      previousExtraClass: function() {
+        if (this.model.isAtFirst() === true) {
+          return 'disabled';
+        }
+      },
+      previousUrl: function() {
+        if (this.model.isAtFirst() === true) {
+          return '#test/' + (this.model.get('currentTest'));
+        } else {
+          return '#test/' + (this.model.get('currentTest') - 1);
+        }
       },
       nextUrl: function() {
         if (this.model.isAtLast() === true) {

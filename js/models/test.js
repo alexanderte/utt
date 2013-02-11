@@ -4,14 +4,12 @@
   define(['backbone'], function(Backbone) {
     return Backbone.Model.extend({
       defaults: {
-        'title': void 0,
+        'resultId': void 0,
+        'description': void 0,
         'question': void 0,
-        'answers': ['Yes', 'No', 'Unsure'],
+        'answers': void 0,
         'template': '#test-case-template',
-        'result': {
-          'answer': void 0,
-          'comment': ''
-        }
+        'answer': void 0
       }
     });
   });

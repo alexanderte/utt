@@ -4,6 +4,23 @@
   define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
     return Backbone.View.extend({
       el: '#home-view',
+      initialize: function() {
+        return this.model.bind('change:webPage', this.disappear, this);
+      },
+      disappear: function() {
+        $('#result-nav-button').removeClass('active');
+        $('#test-nav-button').addClass('active');
+        $('#home-view').hide();
+        $('#result-view').hide();
+        if (this.model.get('currentTest') === 0) {
+          return $('#iframe-view').fadeIn('slow', function() {
+            return $('#test-view').slideDown('fast');
+          });
+        } else {
+          $('#test-view').show();
+          return $('#iframe-view').show();
+        }
+      },
       render: function() {
         return this.$el.html(_.template($('#home-template').html()));
       }

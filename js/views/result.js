@@ -5,8 +5,19 @@
     return Backbone.View.extend({
       el: '#result-view',
       render: function() {
+        var results;
+        results = [];
+        _.each(this.model.get('tests').models, function(element, index, list) {
+          return results.push({
+            id: element.get('resultId'),
+            url: document.location.href + '#/test/' + index,
+            description: element.get('description'),
+            answer: element.get('answer')
+          });
+        });
         return this.$el.html(_.template($('#result-template').html(), {
-          webPage: this.model.get('webPage')
+          webPage: this.model.get('webPage'),
+          tests: results
         }));
       },
       initialize: function() {
