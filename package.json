@@ -5,6 +5,7 @@
   "dependencies": {
     "socket.io": "0.9.x",
     "underscore": "1.4.x",
-    "languages": "0.1.x"
+    "languages": "0.1.x",
+    "request": "2.12.x"
   }
 }
