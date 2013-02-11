@@ -1,0 +1,10 @@
+{
+  "name": "utt-server",
+  "version": "0.0.1",
+  "author": "Alexander Teinum",
+  "dependencies": {
+    "socket.io": "0.9.x",
+    "underscore": "1.4.x",
+    "languages": "0.1.x"
+  }
+}

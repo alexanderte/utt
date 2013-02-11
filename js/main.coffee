@@ -4,6 +4,7 @@ requirejs.config {
     collections: '../collections'
     views:       '../views'
     models:      '../models'
+    socketio:    'http://localhost:8000/socket.io/socket.io'
   }
   shim: {
     'backbone': {
@@ -13,12 +14,13 @@ requirejs.config {
     'underscore': {
       exports: '_'
     }
+    'socketio': {
+      exports: 'io'
+    }
   }
 }
 
-requestUrl = (webPageUrl) -> 'http://accessibility.egovmon.no/en/pagecheck2.0/?url=' + encodeURIComponent(webPageUrl) + '&export=json'
-
-require(['jquery', 'underscore', 'backbone', 'collections/tests', 'models/test-run', 'views/navbar', 'views/home', 'views/test', 'views/iframe', 'views/result'], ($, _, Backbone, Tests, TestRun, NavbarView, HomeView, TestView, IframeView, ResultView) ->
+require(['jquery', 'underscore', 'backbone', 'collections/tests', 'models/test-run', 'views/navbar', 'views/home', 'views/test', 'views/iframe', 'views/result', 'socketio'], ($, _, Backbone, Tests, TestRun, NavbarView, HomeView, TestView, IframeView, ResultView, io) ->
 
   _.templateSettings = {
     interpolate: /\{\{(.+?)\}\}/g
@@ -50,9 +52,12 @@ require(['jquery', 'underscore', 'backbone', 'collections/tests', 'models/test-r
     ])
   )
 
-  console.log(requestUrl(testRun.get('webPage')))
-  $.get(requestUrl(testRun.get('webPage')), (data) ->
-    console.log(data)
+  socket = io.connect 'http://localhost:8000'
+
+  socket.emit('get tests', testRun.get('webPage'))
+
+  socket.on('tests', (data) ->
+    console.log data
   )
 
   AppRouter = Backbone.Router.extend({

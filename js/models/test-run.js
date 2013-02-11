@@ -4,7 +4,7 @@
   define(['backbone'], function(Backbone) {
     return Backbone.Model.extend({
       defaults: {
-        'webPage': 'http://ec.europa.eu/index_en.htm',
+        'webPage': 'http://www.alexanderte.com/',
         'currentTest': 0
       },
       initialize: function(tests) {
