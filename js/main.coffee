@@ -16,6 +16,8 @@ requirejs.config {
   }
 }
 
+requestUrl = (webPageUrl) -> 'http://accessibility.egovmon.no/en/pagecheck2.0/?url=' + encodeURIComponent(webPageUrl) + '&export=json'
+
 require(['jquery', 'underscore', 'backbone', 'collections/tests', 'models/test-run', 'views/navbar', 'views/home', 'views/test', 'views/iframe', 'views/result'], ($, _, Backbone, Tests, TestRun, NavbarView, HomeView, TestView, IframeView, ResultView) ->
 
   _.templateSettings = {
@@ -46,6 +48,11 @@ require(['jquery', 'underscore', 'backbone', 'collections/tests', 'models/test-r
         question: 'Does the language English correspond to the language used on the site?'
       }
     ])
+  )
+
+  console.log(requestUrl(testRun.get('webPage')))
+  $.get(requestUrl(testRun.get('webPage')), (data) ->
+    console.log(data)
   )
 
   AppRouter = Backbone.Router.extend({
