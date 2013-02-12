@@ -20,7 +20,7 @@ requirejs.config {
   }
 }
 
-require(['jquery', 'underscore', 'backbone', 'socketio', 'collections/tests', 'models/test-run', 'views/navbar', 'views/home', 'views/test', 'views/iframe', 'views/result', 'socketio'], ($, _, Backbone, io, Tests, TestRun, NavbarView, HomeView, TestView, IframeView, ResultView) ->
+require(['jquery', 'underscore', 'backbone', 'socketio', 'models/test-run', 'views/navbar', 'views/home', 'views/test', 'views/iframe', 'views/result', 'socketio'], ($, _, Backbone, io, TestRun, NavbarView, HomeView, TestView, IframeView, ResultView) ->
   socket = io.connect 'http://localhost:8000'
   testRun = new TestRun(socket)
 
