@@ -23,7 +23,7 @@ requirejs.config {
 
 require ['backbone', 'socketio', 'app/router', 'models/test-run', 'views/views'], (Backbone, io, Router, TestRun, Views) ->
   router = new Router()
-  do Backbone.history.start
   socket = io.connect 'http://localhost:8000'
   testRun = new TestRun(socket)
   views = new Views({ model: testRun, router: router })
+  do Backbone.history.start

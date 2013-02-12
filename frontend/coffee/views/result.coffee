@@ -2,6 +2,8 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
   Backbone.View.extend {
     el: '#result-view'
     initialize: () ->
+      this.model.bind('change:running', this.render, this)
+
       this.options.router.bind('all', (route) ->
         if route == 'route:result'
           do this.render
