@@ -1,7 +1,7 @@
-io =      require('socket.io').listen(8000)
-request = require 'request'
-_ =       require 'underscore'
-languages =       require 'languages'
+io =        require('socket.io').listen(8000)
+request =   require 'request'
+_ =         require 'underscore'
+languages = require 'languages'
 
 requestUrl = (webPageUrl) -> 'http://accessibility.egovmon.no/en/pagecheck2.0/?url=' + encodeURIComponent(webPageUrl) + '&export=json'
 
