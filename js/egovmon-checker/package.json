@@ -1,9 +1,0 @@
-{
-  "name": "egovmon-checker",
-  "version": "0.0.1",
-  "author": "Alexander Teinum",
-  "dependencies": {
-    "csv": "0.1.x",
-    "underscore": "1.4.x"
-  }
-}
