@@ -77,6 +77,42 @@
       <p style="text-align: right;"><button id="submit-results-button" class="btn btn-primary btn-large">Submit results</button></p>
     </script>
 
+    <script type="text/template" id="result-template-loading">
+      <h1>Results for <%= webPage %></h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Answer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="3">Loading web page…</td>
+          </tr>
+        </tbody>
+      </table>
+    </script>
+
+    <script type="text/template" id="result-template-error">
+      <h1>Results for <%= webPage %></h1>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Answer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="3">Could not find web page.</td>
+          </tr>
+        </tbody>
+      </table>
+    </script>
+
     <script type="text/template" id="test-progress">
       <div class="progress">
         <div class="bar" style="width: <%= progress %>%;"></div>
@@ -88,6 +124,10 @@
         <div class="bar" style="width: 100%;"></div>
       </div>
       <p class="lead">Preparing questions for <%= webPage %>…</p>
+    </script>
+
+    <script type="text/template" id="test-error">
+      <p class="lead">Could not find <%= webPage %>.</p>
     </script>
 
     <script type="text/template" id="test-case-template">

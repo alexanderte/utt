@@ -16,7 +16,7 @@ define ['backbone', 'underscore','jquery'], (Backbone, _, $) ->
       , this)
 
       this.model.bind('change:running', () ->
-        if this.model.get('running') == true
+        if this.model.get('running') == 'loaded' or this.model.get('running') == 'error'
           $('#web-page-2').removeClass 'disabled'
           $('#web-page-2').attr('disabled', false)
           $('#set-web-page-2').removeClass 'disabled'
@@ -27,6 +27,7 @@ define ['backbone', 'underscore','jquery'], (Backbone, _, $) ->
           $('#web-page-2').blur() # Possibly not needed here
           $('#set-web-page-2').addClass 'disabled'
           $('#set-web-page-2').attr('disabled', true)
+
       , this)
     render: () ->
       this.$el.html(_.template($('#home-template').html(), { webPage: this.model.get('webPage') }))

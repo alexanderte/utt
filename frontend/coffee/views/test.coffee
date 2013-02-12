@@ -8,12 +8,21 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         if route == 'route:test'
           this.model.set('currentTest', if currentTest == undefined then 0 else parseInt(currentTest))
           do this.render
-          do this.$el.show
+          if this.model.get('currentTest') == 0
+            do this.$el.slideDown
+          else
+            do this.$el.show
         else
           do this.$el.hide
       , this)
     render: () ->
-      if not this.model.get('running')
+      console.log '0'
+      console.log this.model.get('running')
+      if this.model.get('running') == 'error'
+        this.$el.html(
+          _.template($('#test-error').html(), { 'webPage': this.model.get('webPage') })
+        )
+      else if this.model.get('running') == 'loading'
         this.$el.html(
           _.template($('#test-loading').html(), { 'webPage': this.model.get('webPage') })
         )

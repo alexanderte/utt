@@ -3,7 +3,7 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
     defaults: {
       'webPage':     'http://www.tingtun.no/'
       'currentTest': 0
-      'running':     false
+      'running':     'loading'
     }
     initialize: (socket) ->
       this.set 'socket', socket
@@ -13,13 +13,16 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
 
       that = this
       socket.on('tests', (data) ->
-        that.set 'tests', new Tests(_.first(data, 10))
-        that.set('running', true)
+        if data == null
+          that.set('running', 'error')
+        else
+          that.set 'tests', new Tests(_.first(data, 10))
+          that.set('running', 'loaded')
       )
 
       this.bind('change:webPage', this.fetchTests, this)
     fetchTests: () ->
-      this.set('running', false)
+      this.set('running', 'loading')
       this.get('socket').emit('get tests', this.get('webPage'))
     progress: () ->
       parseInt((this.get('currentTest') / (this.get('tests').length - 1)) * 100)

@@ -53,6 +53,9 @@ transformResult = (result) ->
 io.sockets.on('connection', (socket) ->
   socket.on 'get tests', (data) ->
     request(requestUrl(data), (error, result, body) ->
-      socket.emit 'tests', transformResults(JSON.parse(body))
+      if result.body == 'An error occurred: The domain could not be found.'
+        socket.emit 'tests', null
+      else
+        socket.emit 'tests', transformResults(JSON.parse(body))
     )
 )

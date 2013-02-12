@@ -23,7 +23,7 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
       , this)
 
       this.model.bind('change:running', () ->
-        if this.model.get('running') == true
+        if this.model.get('running') == 'loaded' or this.model.get('running') == 'error'
           $('#web-page').removeClass 'disabled'
           $('#web-page').attr('disabled', false)
           $('#set-web-page').removeClass 'disabled'
