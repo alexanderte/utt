@@ -1,8 +1,8 @@
-js/collections/*.js
-js/main.js
-js/models/*.js
-js/node_modules
-js/test/*.js
-js/views/*.js
-node_modules
-server.js
+backend/main.js
+backend/node_modules
+frontend/js/collections/*.js
+frontend/js/main.js
+frontend/js/models/*.js
+frontend/js/node_modules
+frontend/js/test/*.js
+frontend/js/views/*.js
