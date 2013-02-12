@@ -8,10 +8,6 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         if route == 'route:test'
           this.model.set('currentTest', if currentTest == undefined then 0 else parseInt(currentTest))
           do this.render
-
-          #          if this.model.get('currentTest') == 0
-          #            do this.$el.slideDown 'fast'
-          #          else
           do this.$el.show
         else
           do this.$el.hide
