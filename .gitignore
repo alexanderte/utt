@@ -5,3 +5,4 @@ js/node_modules
 js/test/*.js
 js/views/*.js
 node_modules
+server.js
