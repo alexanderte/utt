@@ -4,7 +4,7 @@
   "author": "Alexander Teinum",
   "dependencies": {
     "csv": "0.1.x",
-    "socket.io": "0.9.x"
-    "underscore": "1.4.x",
+    "socket.io": "0.9.x",
+    "underscore": "1.4.x"
   }
 }
