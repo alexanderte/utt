@@ -1,2 +1,7 @@
+js/collections/*.js
+js/main.js
+js/models/*.js
 js/node_modules
+js/test/*.js
+js/views/*.js
 node_modules
