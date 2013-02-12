@@ -4,5 +4,6 @@ frontend/js/collections/*.js
 frontend/js/main.js
 frontend/js/models/*.js
 frontend/js/node_modules
+frontend/js/router.js
 frontend/js/test/*.js
 frontend/js/views/*.js

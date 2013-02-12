@@ -1,22 +1,15 @@
-define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
+define ['backbone', 'underscore','jquery'], (Backbone, _, $) ->
   Backbone.View.extend {
     el: '#home-view'
     initialize: () ->
-      this.model.bind('change:webPage', this.disappear, this)
-    disappear: () ->
-      $('#result-nav-button').removeClass 'active'
-      $('#test-nav-button').addClass 'active'
+      do this.render
 
-      do $('#home-view').hide
-      do $('#result-view').hide
-
-      if this.model.get('currentTest') == 0
-        $('#iframe-view').fadeIn('slow', () ->
-          $('#test-view').slideDown 'fast'
-        )
-      else
-        do $('#test-view').show
-        do $('#iframe-view').show
+      this.options.router.bind('all', (route) ->
+        if route == 'route:home'
+          do this.$el.show
+        else
+          do this.$el.hide
+      , this)
     render: () ->
       this.$el.html(_.template($('#home-template').html()))
   }
