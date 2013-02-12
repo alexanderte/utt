@@ -6,15 +6,20 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
 
       this.options.router.bind('all', (route) ->
         if route == 'route:home'
+          do $('#web-page').hide
+          do $('#set-web-page').hide
           $('#test-nav-button').removeClass 'active'
           $('#result-nav-button').removeClass 'active'
         else if route == 'route:test'
+          do $('#web-page').show
+          do $('#set-web-page').show
           $('#test-nav-button').addClass 'active'
           $('#result-nav-button').removeClass 'active'
         else if route == 'route:result'
+          do $('#web-page').show
+          do $('#set-web-page').show
           $('#test-nav-button').removeClass 'active'
           $('#result-nav-button').addClass 'active'
-        else
       , this)
 
       this.model.bind('change:running', () ->
@@ -29,6 +34,10 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
           $('#web-page').blur()
           $('#set-web-page').addClass 'disabled'
           $('#set-web-page').attr('disabled', true)
+      , this)
+
+      this.model.bind('change:webPage', () ->
+        $('#web-page').val(this.model.get('webPage'))
       , this)
     render: () ->
       this.$el.html(_.template($('#navbar-template').html(), { webPage: this.model.get('webPage') }))
