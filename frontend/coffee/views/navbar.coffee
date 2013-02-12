@@ -26,6 +26,7 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         else
           $('#web-page').addClass 'disabled'
           $('#web-page').attr('disabled', true)
+          $('#web-page').blur()
           $('#set-web-page').addClass 'disabled'
           $('#set-web-page').attr('disabled', true)
       , this)
