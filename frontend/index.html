@@ -135,7 +135,7 @@
       <p>
         <a href="<%= previousUrl %>" class="btn <%= previousExtraClass %>" style="margin-right: 24px;">Previous</a>
         <% _.each(answers, function(answer) { %>
-          <label class="radio inline"><input type="radio" name="answer" value="<%= answer %>"><%= answer %></label>
+          <label class="radio inline"><input type="radio" id="answer" name="answer" value="<%= answer %>"><%= answer %></label>
         <% }); %>
         <a href="<%= nextUrl %>" class="btn btn-primary" style="margin-left: 24px;">Next</a>
       </p>

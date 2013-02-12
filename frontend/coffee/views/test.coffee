@@ -54,4 +54,10 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         return '#result'
       else
         return '#test/' + (this.model.get('currentTest') + 1)
+    events: { 'click input#answer': 'clickAnswer' }
+    clickAnswer: (el) ->
+      
+      this.model.setAnswer($('input#answer:checked').val())
+      #      console.log $('input#answer:checked').val()
+      #this.model.set('webPage', $('#web-page').val())
   }

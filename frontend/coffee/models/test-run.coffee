@@ -30,4 +30,6 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
       this.get('currentTest') == (this.get('tests').length - 1)
     isAtFirst: () ->
       this.get('currentTest') == 0
+    setAnswer: (answer) ->
+      this.get('tests').at(this.get('currentTest')).set('answer', answer)
   }
