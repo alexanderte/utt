@@ -56,19 +56,36 @@
 
     <script type="text/template" id="result-template">
       <h1>Results for <%= webPage %></h1>
+      
+      <p class="lead">
+      <form class="form-inline" onsubmit="return false;">
+        <fieldset>
+          <label class="checkbox inline"><input type="checkbox" id="dimAutomatedCheckerResults" <%= checked %>">Hide automated checker results</label>
+        <fieldset>
+      </form>
+      </p>
+
       <table class="table">
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Description</th>
+            <th>Category</th>
+            <th>Line</th>
+            <th>Column</th>
+            <th>Test id</th>
+            <th>Test result id</th>
+            <th>Test title</th>
             <th>Answer</th>
           </tr>
         </thead>
         <tbody>
         <% _.each(tests, function(test) { %>
-          <tr>
-            <td><%= test.id %></td>
-            <td><a href="<%= test.url %>"><%= test.description %></a></td>
+          <tr class="<%= test.category %> <%= test.dimClass %>">
+            <td class="category"><%= test.categoryCapitalized %></td>
+            <td><%= test.line %></td>
+            <td><%= test.column %></td>
+            <td><%= test.testId %></td>
+            <td><%= test.testResultId %></td>
+            <td><%= test.testTitle %></td>
             <td><%= test.answer %></td>
           </tr>
         <% }); %>
@@ -82,14 +99,18 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Description</th>
+            <th>Category</th>
+            <th>Line</th>
+            <th>Column</th>
+            <th>Test id</th>
+            <th>Test result id</th>
+            <th>Test title</th>
             <th>Answer</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td colspan="3">Loading web page…</td>
+            <td colspan="7">Loading web page…</td>
           </tr>
         </tbody>
       </table>
@@ -100,14 +121,18 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Id</th>
-            <th>Description</th>
+            <th>Category</th>
+            <th>Line</th>
+            <th>Column</th>
+            <th>Test id</th>
+            <th>Test result id</th>
+            <th>Test title</th>
             <th>Answer</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td colspan="3">Could not find web page.</td>
+            <td colspan="7">Could not find web page.</td>
           </tr>
         </tbody>
       </table>

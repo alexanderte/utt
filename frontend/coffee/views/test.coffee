@@ -16,8 +16,6 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
           do this.$el.hide
       , this)
     render: () ->
-      console.log '0'
-      console.log this.model.get('running')
       if this.model.get('running') == 'error'
         this.$el.html(
           _.template($('#test-error').html(), { 'webPage': this.model.get('webPage') })
@@ -27,7 +25,7 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
           _.template($('#test-loading').html(), { 'webPage': this.model.get('webPage') })
         )
       else
-        test = this.model.get('tests').at(this.model.get('currentTest'))
+        test = this.model.getCurrentTest()
 
         this.$el.html(
           _.template($('#test-progress').html(), { 'progress': this.model.progress() }) +
@@ -56,8 +54,5 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         return '#test/' + (this.model.get('currentTest') + 1)
     events: { 'click input#answer': 'clickAnswer' }
     clickAnswer: (el) ->
-      
       this.model.setAnswer($('input#answer:checked').val())
-      #      console.log $('input#answer:checked').val()
-      #this.model.set('webPage', $('#web-page').val())
   }

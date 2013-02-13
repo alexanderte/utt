@@ -17,3 +17,38 @@ iframe {
 input, button, body {
   font-family: 'Open Sans';
 }
+
+tr.dim {
+  opacity: 0.25;
+}
+
+tr.pass {
+  color: #00a000;
+  background-color: #f0fff0;
+}
+
+tr.pass td.category {
+  background-color: #e0ffe0;
+}
+
+tr.fail {
+  color: #a00000;
+  background-color: #fff0f0;
+}
+
+tr.fail td.category {
+  background-color: #ffe0e0;
+}
+
+tr.verify {
+  color: #a04000;
+  background-color: #fff8f0;
+}
+
+tr.verify td.category {
+  background-color: #fff0e0;
+}
+
+td.category {
+  font-weight: bold;
+}

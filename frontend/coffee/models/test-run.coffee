@@ -5,6 +5,13 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
       'currentTest': 0
       'running':     'loading'
     }
+    verifyTests: () ->
+      this.get('tests').where({category: 'verify'})
+    nextTest: () ->
+    previousTest: () ->
+    getCurrentTest: () ->
+      this.verifyTests()[this.get('currentTest')]
+
     initialize: (socket) ->
       this.set 'socket', socket
       this.set 'tests', []
@@ -16,7 +23,7 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
         if data == null
           that.set('running', 'error')
         else
-          that.set 'tests', new Tests(_.first(data, 10))
+          that.set 'tests', new Tests(data)
           that.set('running', 'loaded')
       )
 
@@ -24,12 +31,14 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
     fetchTests: () ->
       this.set('running', 'loading')
       this.get('socket').emit('get tests', this.get('webPage'))
+    testCount: () ->
+      Math.min(this.verifyTests().length, 10)
     progress: () ->
-      parseInt((this.get('currentTest') / (this.get('tests').length - 1)) * 100)
+      parseInt((this.get('currentTest') / (this.testCount() - 1)) * 100)
     isAtLast: () ->
-      this.get('currentTest') == (this.get('tests').length - 1)
+      this.get('currentTest') == (this.testCount() - 1)
     isAtFirst: () ->
       this.get('currentTest') == 0
     setAnswer: (answer) ->
-      this.get('tests').at(this.get('currentTest')).set('answer', answer)
+      this.verifyTests()[this.get('currentTest')].set('answer', answer)
   }

@@ -3,18 +3,18 @@ request =   require 'request'
 _ =         require 'underscore'
 languages = require 'languages'
 
-requestUrl = (webPageUrl) -> 'http://accessibility.egovmon.no/en/pagecheck2.0/?url=' + encodeURIComponent(webPageUrl) + '&export=json'
-
-transformResults = (results) ->
-  _.reject(_.map( _.where(results, { category: 'verify' }), (result) -> transformResult(result)), (result) -> _.isEmpty(result))
-
 getLanguage = (languageCode) ->
   if languageCode == 'en-US'
     'English'
   else if languages.isValid(languageCode)
     languages.getLanguageInfo(languageCode).name
   else
-    '<em>Unknown language code</em>'
+    '<em>Unknown language</em>'
+
+requestUrl = (webPageUrl) -> 'http://accessibility.egovmon.no/en/pagecheck2.0/?url=' + encodeURIComponent(webPageUrl) + '&export=json'
+
+transformResults = (results) ->
+  _.reject(_.map(results, (result) -> transformResult(result)), (result) -> _.isEmpty(result))
 
 #"SC2.4.4-1-11";"Please check the link text of the [el]area[/el]";"<p>Human input is necessary to verify, that the alternative text of the <samp>area</samp> serves the same purpose as the selectable area of the image.</p>"
 #"SC2.4.4-2-13";"Please check the link context";"<p>The link is a duplicate, and human input is necessary to verify, that the purpose of the link is identifiable by its context.</p>"
@@ -28,26 +28,41 @@ getLanguage = (languageCode) ->
 #"SC3.3.2-6-11";"Please check the [el]legend[/el]";"<p>Human input is necessary to verify, that the <samp>legend</samp> describes the group formed by the <samp>fieldset</samp>.</p>"
 #"SC4.1.2-2-11";"Please check the name of the frame";"<p>Human input is necessary to verify, that the <samp>title</samp> of the <samp>frame</samp> or <samp>iframe</samp> describes its contents.</p>"
 
-transformResult = (result) ->
-    switch result.id
+transformResult = (checkerResult) ->
+    result = {
+      line:         checkerResult.line
+      column:       checkerResult.column
+      testId:       checkerResult.testId
+      testResultId: checkerResult.testResultId.split('-')[2]
+      testTitle:    checkerResult.testTitle
+      category:     checkerResult.category
+    }
+
+    if result.category == 'verify'
+      transformVerifyResult checkerResult, result
+    else
+      result
+
+transformVerifyResult = (checkerResult, result) ->
+    switch checkerResult.testResultId
       #"SC2.4.2-1-11";"Please check the title of the page";"<p>Human input is necessary to verify, that the title describes the content of the page.</p>"
       when 'SC2.4.2-1-11'
-        { resultId: result.id, description: 'Title describes content of page', question: 'Does the title “' + result.details.page_title + '” describe the content of this web page?', answers: ['Yes', 'No'] }
+        _.extend(result, { question: 'Does the title “' + checkerResult.details.pageTitle + '” describe the content of this web page?', answers: ['Yes', 'No'] })
       #"SC2.4.4-2-11";"Please check the link text";"<p>Human input is necessary to verify, that the link text describes the link purpose.</p>"
       when 'SC2.4.4-2-11'
-        { resultId: result.id, description: 'Link text describes link purpose', question: 'Does the link text ' + result.details.code_extract + ' describe the link purpose?', answers: ['Yes', 'No', 'Unsure'] }
+        _.extend(result, { question: 'Does the link text ' + checkerResult.details.codeExtract + ' describe the link purpose?', answers: ['Yes', 'No', 'Unsure'] })
       #"SC2.4.4-2-12";"Please check the title of the link";"<p>Human input is necessary to verify, that the title describes the link purpose.</p>"
       when 'SC2.4.4-2-12'
-        { resultId: result.id, description: 'Title of link describes link purpose', question: 'Does the title “' + result.details.title + '” for the link ' + result.details.code_extract + ' describe the link purpose?', answers: ['Yes', 'No', 'Unsure'] }
+        _.extend(result, { question: 'Does the title “' + checkerResult.details.title + '” for the link ' + checkerResult.details.codeExtract + ' describe the link purpose?', answers: ['Yes', 'No', 'Unsure'] })
       #"SC2.4.6-1-11";"Please check the heading";"<p>Human input is necessary to verify, that the heading describes the section it belongs to.</p>"
       when 'SC2.4.6-1-11'
-        { resultId: result.id, description: 'Heading describes section it belongs to', question: 'Does the heading “' + result.details.heading + '” describe the section it belongs to?', answers: ['Yes', 'No', 'Unsure'] }
+        _.extend(result, { question: 'Does the heading “' + checkerResult.details.heading + '” describe the section it belongs to?', answers: ['Yes', 'No', 'Unsure'] })
       #"SC3.1.2-2-11";"Please check the language";"<p>Human input is necessary to verify, that the specified language correlates with the used language.</p>"
       when 'SC3.1.2-2-11'
-        languageCode = result.details.language_definition.language_code
-        { resultId: result.id, description: 'Text correlates with specified language', question: 'Does the text “' + result.details.checked_text + '” correlate with the specified language ' + getLanguage(languageCode) + ' (' + languageCode + ')?', answers: ['Yes', 'No', 'Unsure', 'I don’t speak ' + getLanguage(languageCode)] }
+        languageCode = checkerResult.details.languageDefinition.languageCode
+        _.extend(result, { question: 'Does the text “' + checkerResult.details.checkedText + '” correlate with the specified language ' + getLanguage(languageCode) + ' (' + languageCode + ')?', answers: ['Yes', 'No', 'Unsure', 'I don’t speak ' + getLanguage(languageCode)] })
       else
-        console.log('Not supported: ' + result)
+        console.log('Not supported: ' + checkerResult.testResultId)
         {}
 
 io.sockets.on('connection', (socket) ->
