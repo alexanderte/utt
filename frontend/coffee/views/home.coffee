@@ -1,4 +1,4 @@
-define ['backbone', 'underscore','jquery'], (Backbone, _, $) ->
+define ['backbone', 'underscore', 'jquery'], (Backbone, _, $) ->
   Backbone.View.extend {
     el: '#home-view'
     initialize: () ->
