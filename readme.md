@@ -6,6 +6,13 @@ A primary objective is to integrate with automated testing services, grab test c
 
 ## Setup
 
+### Dependencies
+
+-  Node.js
+-  CoffeeScript
+
+        npm install -g coffee-script
+
 ### Backend
 
     cd backend
@@ -17,3 +24,13 @@ A primary objective is to integrate with automated testing services, grab test c
 ### Frontend
 
     ./compile_frontend.sh
+
+## Running
+
+### Backend
+
+    sudo nohup node backend/main.js&!
+
+### Frontend
+
+Serve the frontend directory using any web server.
