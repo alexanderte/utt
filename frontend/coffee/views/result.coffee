@@ -17,7 +17,7 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
       if result.column == 0
         result.column = '–'
       if result.category != 'verify'
-        result.answer = 'N/A'
+        result.answer = '<em>Auto</em>'
 
         if document.getElementById('dimAutomatedCheckerResults') == null or $('#dimAutomatedCheckerResults').is(':checked')
           result.dimClass = 'dim'
