@@ -10,20 +10,4 @@ define ['jquery', 'backbone', 'views/navbar', 'views/iframe', 'views/home', 'vie
       this.model.bind('change:webPage', () ->
         this.options.router.navigate('test', { trigger: true})
       , this)
-
-      #          if testRun.get('currentTest') == 0
-      #            $('#iframe-view').fadeIn('slow', () ->
-      #              $('#test-view').slideDown 'fast'
-      #            )
-      #          else
-      #            do $('#test-view').show
-      #            do $('#iframe-view').show
-      #        when 'result'
-      #          $('#test-nav-button').removeClass 'active'
-      #          $('#result-nav-button').addClass 'active'
-      #
-      #          $('#iframe-view').stop(false, true).hide()
-      #          do $('#home-view').hide
-      #          $('#test-view').slideUp 'fast'
-      #          $('#result-view').fadeIn 'fast'
   }
