@@ -26,3 +26,4 @@ coffee --output backend backend/main.coffee
 coffee --output frontend/js frontend/coffee
 
 nohup node backend/main.js&
+echo $! > /var/run/utt.pid

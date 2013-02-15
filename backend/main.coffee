@@ -2,9 +2,6 @@ io =        require('socket.io').listen(8000)
 request =   require 'request'
 _ =         require 'underscore'
 languages = require 'languages'
-fs =        require 'fs'
-
-fs.writeFileSync '/var/run/utt.pid', process.pid
 
 getLanguage = (languageCode) ->
   if languageCode == 'en-US'
