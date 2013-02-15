@@ -25,7 +25,5 @@ sed -i "s|http://localhost:8000|$1:$2|" frontend/coffee/main.coffee
 coffee --output backend backend/main.coffee
 coffee --output frontend/js frontend/coffee
 
-node backend/main.js&
-pid=$!
-nohup -p $pid
-echo $pid > /var/run/utt.pid
+nohup node backend/main.js&
+echo $! > /var/run/utt.pid
