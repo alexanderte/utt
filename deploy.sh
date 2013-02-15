@@ -19,8 +19,8 @@ fi
 git reset --hard
 git pull
 
-sed -i "s/8000/$2/" backend/main.coffee
-sed -i "s/http:\/\/localhost:8000/$1:$2/" frontend/coffee/main.coffee
+sed -i "s|8000|$2|" backend/main.coffee
+sed -i "s|http://localhost:8000|$1:$2|" frontend/coffee/main.coffee
 
 coffee --output backend backend/main.coffee
 coffee --output frontend/js frontend/coffee
