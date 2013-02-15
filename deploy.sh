@@ -1,4 +1,9 @@
 #!/bin/sh
+if [ `id -u` -ne 0 ]; then
+  echo "error: $0 must be run with root privileges."
+  exit 1
+fi
+
 if [ -z $2 ]; then
   echo "usage: $0 host port"
   echo
@@ -8,7 +13,6 @@ if [ -z $2 ]; then
   echo "should be set to any port that is available."
   echo
   echo "Example: $0 http://utt.tingtun.no 8000"
-  
   exit 1
 fi
 
