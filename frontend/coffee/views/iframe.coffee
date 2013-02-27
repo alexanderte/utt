@@ -3,8 +3,8 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
     el: '#iframe-view'
     initialize: () ->
       this.model.bind('change:webPage', this.render, this)
-      #this.model.bind('change:running', () ->
-      #  if this.model.get('running') == 'error'
+      #this.model.bind('change:state', () ->
+      #  if this.model.get('state') == 'error'
       #    do this.$el.hide
       #, this)
 

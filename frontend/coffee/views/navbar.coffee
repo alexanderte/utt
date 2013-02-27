@@ -22,8 +22,8 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
           $('#result-nav-button').addClass 'active'
       , this)
 
-      this.model.bind('change:running', () ->
-        if this.model.get('running') == 'loaded' or this.model.get('running') == 'error'
+      this.model.bind('change:state', () ->
+        if this.model.get('state') == 'loaded' or this.model.get('state') == 'error'
           $('#web-page').removeClass 'disabled'
           $('#web-page').attr('disabled', false)
           $('#set-web-page').removeClass 'disabled'

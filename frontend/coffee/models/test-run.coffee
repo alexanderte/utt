@@ -3,7 +3,7 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
     defaults: {
       'webPage':     'http://www.tingtun.no/'
       'currentTest': 0
-      'running':     'loading'
+      'state':     'loading'
     }
     verifyTests: () ->
       this.get('tests').where({category: 'verify'})
@@ -21,15 +21,15 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
       that = this
       socket.on('tests', (data) ->
         if data == null
-          that.set('running', 'error')
+          that.set('state', 'error')
         else
           that.set 'tests', new Tests(data)
-          that.set('running', 'loaded')
+          that.set('state', 'loaded')
       )
 
       this.bind('change:webPage', this.fetchTests, this)
     fetchTests: () ->
-      this.set('running', 'loading')
+      this.set('state', 'loading')
       this.get('socket').emit('get tests', this.get('webPage'))
     testCount: () ->
       Math.min(this.verifyTests().length, 10)

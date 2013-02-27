@@ -15,8 +15,8 @@ define ['backbone', 'underscore', 'jquery'], (Backbone, _, $) ->
         $('#web-page-2').val(this.model.get('webPage'))
       , this)
 
-      this.model.bind('change:running', () ->
-        if this.model.get('running') == 'loaded' or this.model.get('running') == 'error'
+      this.model.bind('change:state', () ->
+        if this.model.get('state') == 'loaded' or this.model.get('state') == 'error'
           $('#web-page-2').removeClass 'disabled'
           $('#web-page-2').attr('disabled', false)
           $('#set-web-page-2').removeClass 'disabled'

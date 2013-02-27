@@ -2,7 +2,7 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
   Backbone.View.extend {
     el: '#test-view'
     initialize: () ->
-      this.model.bind('change:running', this.render, this)
+      this.model.bind('change:state', this.render, this)
 
       this.options.router.bind('all', (route, currentTest) ->
         if route == 'route:test'
@@ -16,11 +16,11 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
           do this.$el.hide
       , this)
     render: () ->
-      if this.model.get('running') == 'error'
+      if this.model.get('state') == 'error'
         this.$el.html(
           _.template($('#test-error').html(), { 'webPage': this.model.get('webPage') })
         )
-      else if this.model.get('running') == 'loading'
+      else if this.model.get('state') == 'loading'
         this.$el.html(
           _.template($('#test-loading').html(), { 'webPage': this.model.get('webPage') })
         )
