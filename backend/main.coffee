@@ -62,13 +62,14 @@ transformVerifyResult = (checkerResult, result) ->
         languageCode = checkerResult.details.languageDefinition.languageCode
         _.extend(result, { question: 'Does the text “' + checkerResult.details.checkedText + '” correlate with the specified language ' + getLanguage(languageCode) + ' (' + languageCode + ')?', answers: ['Yes', 'No', 'Unsure', 'I don’t speak ' + getLanguage(languageCode)] })
       else
-        console.log('Not supported: ' + checkerResult.testResultId)
+        console.log 'Not supported: ' + checkerResult.testResultId
         {}
 
 io.sockets.on('connection', (socket) ->
   socket.on 'get tests', (data) ->
     request(requestUrl(data), (error, result, body) ->
-      if result.body == 'An error occurred: The domain could not be found.'
+      if result.body.substring(0, 19) == 'An error occurred: '
+        console.log 'Error when requesting ' + data + ': ' + result.body.substring(19)
         socket.emit 'tests', null
       else
         socket.emit 'tests', transformResults(JSON.parse(body))
