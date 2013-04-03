@@ -68,6 +68,9 @@ transformVerifyResult = (checkerResult, result) ->
 io.sockets.on('connection', (socket) ->
   socket.on 'get tests', (data) ->
     request(requestUrl(data), (error, result, body) ->
+      console.log 'error=' + error
+      console.log 'result=' + result
+      console.log 'body=' + body
       if result.body.substring(0, 19) == 'An error occurred: '
         console.log 'Error when requesting ' + data + ': ' + result.body.substring(19)
         socket.emit 'tests', null
