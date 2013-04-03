@@ -6,8 +6,8 @@ The User Testing Tool (UTT) is a research demonstrator to combine user testing w
 
 ### Dependencies
 
--  Node.js
--  CoffeeScript
+-  Node.js 0.10.0
+-  CoffeeScript 1.6.2
 
         npm install -g coffee-script
 
