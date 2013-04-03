@@ -1,5 +1,5 @@
 requirejs.config {
-  baseUrl: 'js'
+  baseUrl: '.'
   paths: {
     jquery:      'http://code.jquery.com/jquery-1.9.1.min'
     backbone:    'deps/backbone'
