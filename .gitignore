@@ -6,3 +6,4 @@ frontend/js/models/*.js
 frontend/js/router.js
 frontend/js/test/*.js
 frontend/js/views/*.js
+nohup.out
