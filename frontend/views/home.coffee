@@ -37,5 +37,5 @@ define ['backbone', 'underscore', 'jquery'], (Backbone, _, $) ->
       if this.model.get('webPage') == $('#web-page-2').val()
         this.options.router.navigate 'test', true
       else
-        this.model.set('webPage', $('#web-page-2').val())
+        this.model.setWebPage($('#web-page-2').val())
   }

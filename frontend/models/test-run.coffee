@@ -41,4 +41,12 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
       this.get('currentTest') == 0
     setAnswer: (answer) ->
       this.verifyTests()[this.get('currentTest')].set('answer', answer)
+    setWebPage: (url) ->
+      addProtocol = (url) ->
+        if url.substring(0, 6) isnt 'http://' or url.substring(0, 7) isnt 'https://'
+          'http://' + url
+        else
+          url
+
+      this.set 'webPage', addProtocol(url)
   }
