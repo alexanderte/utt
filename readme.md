@@ -11,6 +11,10 @@ The User Testing Tool (UTT) is a research demonstrator to combine user testing w
 
         npm install -g coffee-script
 
+-  PhantomJS
+
+        npm install -g phantomjs
+
 ### Serve frontend
 
 Serve the frontend directory using e.g. Apache.
