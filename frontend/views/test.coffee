@@ -24,6 +24,10 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         this.$el.html(
           _.template($('#test-loading').html(), { 'webPage': this.model.get('webPage') })
         )
+      else if this.model.getCurrentTest() == undefined
+        this.$el.html(
+          _.template($('#test-nothing-to-test').html(), { 'webPage': this.model.get('webPage') })
+        )
       else
         test = this.model.getCurrentTest()
 
