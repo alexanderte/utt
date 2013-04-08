@@ -9,10 +9,10 @@ if [ -z $2 ]; then
   echo
   echo "Specify the address of the Socket.IO connection that connects the"
   echo "frontend with the backend. The host is the domain name or IP of the"
-  echo "server where both the UTT frontend and backend is hosted. The port"
-  echo "should be set to any port that is available."
+  echo "server where both the UTT frontend and backend is hosted. 4563 is the
+  echo "default UTT backend port number."
   echo
-  echo "Example: $0 http://utt.tingtun.no 8000"
+  echo "Example: $0 http://utt.tingtun.no 4563"
   exit 1
 fi
 
@@ -23,8 +23,8 @@ fi
 git reset --hard
 git pull
 
-sed -i "s|8000|$2|" backend/main.coffee
-sed -i "s|http://localhost:8000|$1:$2|" frontend/coffee/main.coffee
+sed -i "s|4563|$2|" backend/main.coffee
+sed -i "s|http://localhost:4563|$1:$2|" frontend/coffee/main.coffee
 
 coffee --output frontend/js frontend/coffee
 
