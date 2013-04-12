@@ -47,13 +47,13 @@ transformVerifyResult = (checkerResult, result) ->
     switch checkerResult.testResultId
       #"SC2.4.2-1-11";"Please check the title of the page";"<p>Human input is necessary to verify, that the title describes the content of the page.</p>"
       when 'SC2.4.2-1-11'
-        _.extend(result, { question: 'Does the title “' + checkerResult.details.pageTitle + '” describe the content of this web page?', answers: ['Yes', 'No'] })
+        _.extend(result, { question: 'Does the page title “' + checkerResult.details.pageTitle + '” describe the content of this web page?', answers: ['Yes', 'No'] })
       #"SC2.4.4-2-11";"Please check the link text";"<p>Human input is necessary to verify, that the link text describes the link purpose.</p>"
       when 'SC2.4.4-2-11'
         _.extend(result, { question: 'Does the link text ' + checkerResult.details.codeExtract + ' describe the link purpose?', answers: ['Yes', 'No', 'Unsure'] })
       #"SC2.4.4-2-12";"Please check the title of the link";"<p>Human input is necessary to verify, that the title describes the link purpose.</p>"
       when 'SC2.4.4-2-12'
-        _.extend(result, { question: 'Does the title “' + checkerResult.details.title + '” for the link ' + checkerResult.details.codeExtract + ' describe the link purpose?', answers: ['Yes', 'No', 'Unsure'] })
+        _.extend(result, { question: 'Does the link title “' + checkerResult.details.title + '” for the link ' + checkerResult.details.codeExtract + ' describe the link purpose?', answers: ['Yes', 'No', 'Unsure'] })
       #"SC2.4.6-1-11";"Please check the heading";"<p>Human input is necessary to verify, that the heading describes the section it belongs to.</p>"
       when 'SC2.4.6-1-11'
         _.extend(result, { question: 'Does the heading “' + checkerResult.details.heading + '” describe the section it belongs to?', answers: ['Yes', 'No', 'Unsure'] })
