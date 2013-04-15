@@ -1,0 +1,43 @@
+answer_yes
+msgstr "Yes"
+answer_no
+msgstr "No"
+answer_unsure
+msgstr "Unsure"
+answer_i_dont_speak_language
+msgstr "I don’t speak %s"
+
+msgid "question_SC2.4.2-1-11"
+msgstr "Does the page title “%s” describe the content of this web page?"
+msgid "question_SC2.4.4-2-11"
+msgstr "Does the link text “%s” describe the link purpose?"
+msgid "question_SC2.4.4-2-12"
+msgstr "Does the link title “%s” describe the link purpose?"
+msgid "question_SC2.4.6-1-11"
+msgstr "Does the heading “%s” describe the section it belongs to?"
+msgid "question_SC3.1.2-2-11"
+msgstr "Does the text “%s” correlate with the specified language %s (%s)?"
+
+# The following are not implemented
+msgid "question_SC2.4.4-1-11"
+msgstr "Please check the link text of the [el]area[/el]";"<p>Human input is necessary to verify, that the alternative text of the <samp>area</samp> serves the same purpose as the selectable area of the image.</p>"
+msgid "question_SC2.4.4-2-13"
+msgstr "Please check the link context";"<p>The link is a duplicate, and human input is necessary to verify, that the purpose of the link is identifiable by its context.</p>"
+msgid "question_SC2.4.6-2-11"
+msgstr "Please check the label";"<p>Human input is necessary to verify, that the <samp>label</samp> describes the purpose of the form control.</p>"
+msgid "question_SC3.1.1-1-11"
+msgstr "Please check the main language of the page";"<p>Human input is necessary to verify, that the main language specified for the page corresponds to the mainly used language.</p>"
+msgid "question_SC3.2.2-1-11"
+msgstr "Please check that implicit changes of context are described";"<p>Human input is necessary to verify, that the submit button is the only way to initiate a change of context with the form or that there is a description of the change before the initiating form control.</p>"
+msgid "question_SC3.2.2-3-11"
+msgstr "Please check that a change of context, initiated within or by the form, is described";"<p>Human input is necessary to verify, that the change of context is described prior to the form or initiating form control.</p>"
+msgid "question_SC3.2.2-3-12"
+msgstr "Please check that a change of context is described";"<p>Human input is necessary to verify, that a change of context is described prior to the initiating form control.</p>"
+msgid "question_SC3.3.2-2-11"
+msgstr "Please check the labelling title";"<p>Human input is necessary to verify, that the <samp>title</samp> describes the purpose of the form control.</p>"
+msgid "question_SC3.3.2-3-11"
+msgstr "Please check the labelling button";"<p>Human input is necessary to verify, that the text value of the button describes the purpose of the form control.</p>"
+msgid "question_SC3.3.2-6-11"
+msgstr "Please check the [el]legend[/el]";"<p>Human input is necessary to verify, that the <samp>legend</samp> describes the group formed by the <samp>fieldset</samp>.</p>"
+msgid "question_SC4.1.2-2-11"
+msgstr "Please check the name of the frame";"<p>Human input is necessary to verify, that the <samp>title</samp> of the <samp>frame</samp> or <samp>iframe</samp> describes its contents.</p>"
