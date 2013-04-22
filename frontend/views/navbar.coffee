@@ -3,45 +3,31 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
     el: '#navbar-view'
     initialize: () ->
       do this.render
-
-      this.options.router.bind('all', (route) ->
-        if route == 'route:home'
-          do $('#web-page').hide
-          do $('#set-web-page').hide
-          $('#test-nav-button').removeClass 'active'
-          $('#result-nav-button').removeClass 'active'
-        else if route == 'route:test'
-          do $('#web-page').show
-          do $('#set-web-page').show
-          $('#test-nav-button').addClass 'active'
-          $('#result-nav-button').removeClass 'active'
-        else if route == 'route:result'
-          do $('#web-page').show
-          do $('#set-web-page').show
-          $('#test-nav-button').removeClass 'active'
-          $('#result-nav-button').addClass 'active'
+      this.model.bind('change:route', () ->
+        do this.render
       , this)
-
       this.model.bind('change:state', () ->
-        if this.model.get('state') == 'loaded' or this.model.get('state') == 'error'
-          $('#web-page').removeClass 'disabled'
-          $('#web-page').attr('disabled', false)
-          $('#set-web-page').removeClass 'disabled'
-          $('#set-web-page').attr('disabled', false)
-        else
-          $('#web-page').addClass 'disabled'
-          $('#web-page').attr('disabled', true)
-          $('#web-page').blur()
-          $('#set-web-page').addClass 'disabled'
-          $('#set-web-page').attr('disabled', true)
+        do this.render
       , this)
-
       this.model.bind('change:webPage', () ->
-        $('#web-page').val(this.model.get('webPage'))
+        do this.render
+      , this)
+      this.model.bind('change:language', () ->
+        do this.render
       , this)
     render: () ->
-      this.$el.html(_.template($('#navbar-template').html(), { webPage: this.model.get('webPage') }))
-    events: { 'click button#set-web-page': 'setWebPage' }
+      this.$el.html(_.template($('#navbar-template').html(), {
+        webPage: this.model.get('webPage'),
+        language: this.model.get('language')
+        state: this.model.get('state')
+        route: this.model.get('route')
+      }))
+    events: {
+      'click button#set-web-page': 'setWebPage'
+      'click a.language': 'changeLanguage'
+    }
     setWebPage: () ->
       this.model.setWebPage($('#web-page').val())
+    changeLanguage: (e) ->
+      this.model.setLanguage(e.currentTarget.dataset['language'])
   }

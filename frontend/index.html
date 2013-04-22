@@ -5,6 +5,7 @@
     <meta charset="utf8">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/screen.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
   </head>
   <body>
     <div id="navbar-view"></div>
@@ -21,16 +22,31 @@
       <div class="navbar">
         <div class="navbar-inner">
           <a class="brand" href="#">UTT</a>
-          <form class="navbar-form pull-right" onsubmit="return false;">
-            <div class="input-append">
-              <input id="web-page" type="text" placeholder="Web page" value="<%= webPage %>" class="span4">
-              <button id="set-web-page" class="btn" value="Set">Set</button>
-            </div>
-          </form>
           <ul class="nav">
-            <li id="test-nav-button"><a href="#/test">Test</a></li>
-            <li id="result-nav-button"><a href="#/result">Results</a></li>
+            <li <% if (route == 'test') { %>class="active"<% } %> id="test-nav-button"><a href="#/test">Test</a></li>
+            <li <% if (route == 'result') { %>class="active"<% } %> id="result-nav-button"><a href="#/result">Results</a></li>
           </ul>
+          <% if (route == 'home') { %>
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown"><i class="icon-globe"></i> Language
+                  <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                  <li <% if (language == 'en') { %>class="disabled"<% } %>><a class="language" data-language="en">English</a>
+                  <li <% if (language == 'nb') { %>class="disabled"<% } %>><a class="language" data-language="nb">Norwegian Bokmål</a>
+                </ul>
+              </li>
+            </ul>
+          <% } %>
+          <% if (route != 'home') { %>
+            <form class="navbar-form pull-right" onsubmit="return false;">
+              <div class="input-append">
+                <input <% if (state == 'loading') { %>disabled="true"<% } %>id="web-page" type="text" placeholder="Web page" value="<%= webPage %>" class="span4">
+                <button <% if (state == 'loading') { %>class="btn disablled" disabled="true"<% } else { %>class="btn" <% } %> id="set-web-page" value="Set">Set</button>
+              </div>
+            </form>
+          <% } %>
         </div>
       </div>
     </script>
@@ -52,9 +68,8 @@
           </form>
           <hr>
           <p>
-          Found a bug? Please send us an <a href="mailto:alexander.teinum@tingtun.no">email</a>, or create an issue on <a href="https://github.com/alexanderte/utt/issues">GitHub</a>.
+            To report an issue, please send us an <a href="mailto:alexander.teinum@tingtun.no">email</a>, or create an issue on <a href="https://github.com/alexanderte/utt/issues">GitHub</a>.
           </p>
-          
         </div>
       </div>
     </script>

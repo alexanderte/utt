@@ -3,7 +3,9 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
     defaults: {
       'webPage':     'http://www.tingtun.no/'
       'currentTest': 0
-      'state':     'loading'
+      'state':       'loading'
+      'language':    'en'
+      'route':       'home'
     }
     verifyTests: () ->
       this.get('tests').where({category: 'verify'})
@@ -43,10 +45,12 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
       this.verifyTests()[this.get('currentTest')].set('answer', answer)
     setWebPage: (url) ->
       addProtocol = (url) ->
-        if url.substring(0, 6) isnt 'http://' or url.substring(0, 7) isnt 'https://'
+        if url.substring(0, 7) isnt 'http://' and url.substring(0, 8) isnt 'https://'
           'http://' + url
         else
           url
 
       this.set 'webPage', addProtocol(url)
+    setLanguage: (languageCode) ->
+      this.set 'language', languageCode
   }
