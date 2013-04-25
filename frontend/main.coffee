@@ -3,10 +3,10 @@ requirejs.config {
   paths: {
     jquery:      '//code.jquery.com/jquery-1.9.1.min'
     bootstrap:   '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min'
-    backbone:    'deps/backbone'
+    backbone:    'components/backbone'
     underscore:  '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min'
     socketio:    '//localhost:4563/socket.io/socket.io'
-    jed:         'deps/jed'
+    jed:         'components/jed'
   }
   shim: {
     'bootstrap': {
