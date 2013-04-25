@@ -30,12 +30,18 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         )
       else
         test = this.model.getCurrentTest()
+        console.log(test.get('answers'))
+
+        answers = _.map(test.get('answers'), (a) -> { value: a, _value: this.model.translate('test_answer_' + a) })
+        console.log(answers)
 
         this.$el.html(
           _.template($('#test-progress').html(), { 'progress': this.model.progress() }) +
           _.template($(test.get('template')).html(), {
-            'question': test.get('question')
-            'answers': test.get('answers')
+            '_question': this.model.translate('test_question_' + test.get('testId') + '-' + test.get('testResultId'), test.get('questionValues'))
+            '_previousTest': this.model.translate('test_previous_test')
+            '_skipTest': this.model.translate('test_skip_test')
+            'answers': answers
             'nextUrl': this.nextUrl()
             'previousUrl': this.previousUrl()
             'previousExtraClass': this.previousExtraClass()

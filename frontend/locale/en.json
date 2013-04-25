@@ -1,0 +1,97 @@
+{
+   "en": {
+      "": {},
+      "test_answer_yes": [
+         null,
+         "Yes"
+      ],
+      "test_answer_no": [
+         null,
+         "No"
+      ],
+      "test_answer_unsure": [
+         null,
+         "Unsure"
+      ],
+      "test_answer_i_dont_speak_this_language": [
+         null,
+         "I don’t speak this language"
+      ],
+      "test_previous_test": [
+         null,
+         "Previous"
+      ],
+      "test_skip_test": [
+         null,
+         "Skip"
+      ],
+      "test_question_SC2.4.2-1-11": [
+         null,
+         "Does the page title “%s” describe the content of this web page?"
+      ],
+      "test_question_SC2.4.4-2-11": [
+         null,
+         "Does the link text “%s” describe the link purpose?"
+      ],
+      "test_question_SC2.4.4-2-12": [
+         null,
+         "Does the link title “%s” describe the link purpose?"
+      ],
+      "test_question_SC2.4.6-1-11": [
+         null,
+         "Does the heading “%s” describe the section it belongs to?"
+      ],
+      "test_question_SC3.1.2-2-11": [
+         null,
+         "Does the text “%s” correlate with the specified language %s (%s)?"
+      ],
+      "navbar_test": [
+         null,
+         "Test"
+      ],
+      "navbar_results": [
+         null,
+         "Results"
+      ],
+      "navbar_language": [
+         null,
+         "Language"
+      ],
+      "navbar_language_english": [
+         null,
+         "English"
+      ],
+      "navbar_language_norwegian": [
+         null,
+         "Norwegian"
+      ],
+      "navbar_set": [
+         null,
+         "Set"
+      ],
+      "home_user_testing_tool": [
+         null,
+         "User Testing Tool"
+      ],
+      "home_description": [
+         null,
+         "The User Testing Tool (UTT) is a research demonstrator to combine user testing with automated testing services to improve the accessibility and usability of web sites."
+      ],
+      "home_enter_web_page": [
+         null,
+         "To get started, enter a web page to test."
+      ],
+      "home_start_testing": [
+         null,
+         "Start testing"
+      ],
+      "home_report_issue": [
+         null,
+         "To report an issue, please send us an <a href=\"mailto:alexander.teinum@tingtun.no\">email</a>, or create an issue on <a href=\"https://github.com/alexanderte/utt/issues\">GitHub</a>."
+      ],
+      "question_SC4.1.2-2-11": [
+         null,
+         "Please check the name of the frame\";\"<p>Human input is necessary to verify, that the <samp>title</samp> of the <samp>frame</samp> or <samp>iframe</samp> describes its contents.</p>"
+      ]
+   }
+}

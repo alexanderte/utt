@@ -1,0 +1,100 @@
+msgid ""
+msgstr ""
+
+msgid "test_answer_yes"
+msgstr "Ja"
+
+msgid "test_answer_no"
+msgstr "Nei"
+
+msgid "test_answer_unsure"
+msgstr "Usikker"
+
+msgid "test_answer_i_dont_speak_this_language"
+msgstr "Jeg snakker ikke dette språket"
+
+msgid "test_previous_test"
+msgstr "Forrige"
+
+msgid "test_skip_test"
+msgstr "Hopp over"
+
+msgid "test_question_SC2.4.2-1-11"
+msgstr "Beskriver sidetittelen «%s» innholdet på denne nettsiden?"
+
+msgid "test_question_SC2.4.4-2-11"
+msgstr "Beskriver lenketeksten «%s» hensikten til lenken?"
+
+msgid "test_question_SC2.4.4-2-12"
+msgstr "Beskriver lenketittelen «%s» hensikten med lenken?"
+
+msgid "test_question_SC2.4.6-1-11"
+msgstr "Beskriver overskiften «%s» seksjonen den tilhører?"
+
+msgid "test_question_SC3.1.2-2-11"
+msgstr "Korrelerer teksten «%s» med det spesifiserte språket %s (%s)?"
+
+msgid "test_previous"
+msgstr "Tilbake"
+
+msgid "test_next"
+msgstr "Frem"
+
+msgid "navbar_test"
+msgstr "Test"
+
+msgid "navbar_results"
+msgstr "Resultater"
+
+msgid "navbar_language"
+msgstr "Språk"
+
+msgid "navbar_language_english"
+msgstr "Engelsk"
+
+msgid "navbar_language_norwegian"
+msgstr "Norsk"
+
+msgid "navbar_set"
+msgstr "Endre"
+
+msgid "home_user_testing_tool"
+msgstr "User Testing Tool"
+
+msgid "home_description"
+msgstr "User Testing Tool (UTT) er en forskningsdemonstrator som kombinerer brukertesting med automatiserte testtjenester for å forbedre tilgjengeligheten og brukervennligheten til nettsteder."
+
+msgid "home_enter_web_page"
+msgstr "For å sette i gang, skriv inn en nettside som du vil teste."
+
+msgid "home_start_testing"
+msgstr "Begynn testingen"
+
+msgid "home_report_issue"
+msgstr "For å rapportere et problem, vennligst send oss en <a href="mailto:alexander.teinum@tingtun.no">e-post</a> eller opprett en sak på <a href="https://github.com/alexanderte/utt/issues">GitHub</a>."
+
+msgstr "Please check the link text of the [el]area[/el]";"<p>Human input is necessary to verify, that the alternative text of the <samp>area</samp> serves the same purpose as the selectable area of the image.</p>"
+
+# The following are not implemented
+msgid "question_SC2.4.4-1-11"
+msgstr "Please check the link text of the [el]area[/el]";"<p>Human input is necessary to verify, that the alternative text of the <samp>area</samp> serves the same purpose as the selectable area of the image.</p>"
+msgid "question_SC2.4.4-2-13"
+msgstr "Please check the link context";"<p>The link is a duplicate, and human input is necessary to verify, that the purpose of the link is identifiable by its context.</p>"
+msgid "question_SC2.4.6-2-11"
+msgstr "Please check the label";"<p>Human input is necessary to verify, that the <samp>label</samp> describes the purpose of the form control.</p>"
+msgid "question_SC3.1.1-1-11"
+msgstr "Please check the main language of the page";"<p>Human input is necessary to verify, that the main language specified for the page corresponds to the mainly used language.</p>"
+msgid "question_SC3.2.2-1-11"
+msgstr "Please check that implicit changes of context are described";"<p>Human input is necessary to verify, that the submit button is the only way to initiate a change of context with the form or that there is a description of the change before the initiating form control.</p>"
+msgid "question_SC3.2.2-3-11"
+msgstr "Please check that a change of context, initiated within or by the form, is described";"<p>Human input is necessary to verify, that the change of context is described prior to the form or initiating form control.</p>"
+msgid "question_SC3.2.2-3-12"
+msgstr "Please check that a change of context is described";"<p>Human input is necessary to verify, that a change of context is described prior to the initiating form control.</p>"
+msgid "question_SC3.3.2-2-11"
+msgstr "Please check the labelling title";"<p>Human input is necessary to verify, that the <samp>title</samp> describes the purpose of the form control.</p>"
+msgid "question_SC3.3.2-3-11"
+msgstr "Please check the labelling button";"<p>Human input is necessary to verify, that the text value of the button describes the purpose of the form control.</p>"
+msgid "question_SC3.3.2-6-11"
+msgstr "Please check the [el]legend[/el]";"<p>Human input is necessary to verify, that the <samp>legend</samp> describes the group formed by the <samp>fieldset</samp>.</p>"
+msgid "question_SC4.1.2-2-11"
+msgstr "Please check the name of the frame";"<p>Human input is necessary to verify, that the <samp>title</samp> of the <samp>frame</samp> or <samp>iframe</samp> describes its contents.</p>"

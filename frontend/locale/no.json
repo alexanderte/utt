@@ -1,0 +1,105 @@
+{
+   "no": {
+      "": {},
+      "test_answer_yes": [
+         null,
+         "Ja"
+      ],
+      "test_answer_no": [
+         null,
+         "Nei"
+      ],
+      "test_answer_unsure": [
+         null,
+         "Usikker"
+      ],
+      "test_answer_i_dont_speak_this_language": [
+         null,
+         "Jeg snakker ikke dette språket"
+      ],
+      "test_previous_test": [
+         null,
+         "Forrige"
+      ],
+      "test_skip_test": [
+         null,
+         "Hopp over"
+      ],
+      "test_question_SC2.4.2-1-11": [
+         null,
+         "Beskriver sidetittelen «%s» innholdet på denne nettsiden?"
+      ],
+      "test_question_SC2.4.4-2-11": [
+         null,
+         "Beskriver lenketeksten «%s» hensikten til lenken?"
+      ],
+      "test_question_SC2.4.4-2-12": [
+         null,
+         "Beskriver lenketittelen «%s» hensikten med lenken?"
+      ],
+      "test_question_SC2.4.6-1-11": [
+         null,
+         "Beskriver overskiften «%s» seksjonen den tilhører?"
+      ],
+      "test_question_SC3.1.2-2-11": [
+         null,
+         "Korrelerer teksten «%s» med det spesifiserte språket %s (%s)?"
+      ],
+      "test_previous": [
+         null,
+         "Tilbake"
+      ],
+      "test_next": [
+         null,
+         "Frem"
+      ],
+      "navbar_test": [
+         null,
+         "Test"
+      ],
+      "navbar_results": [
+         null,
+         "Resultater"
+      ],
+      "navbar_language": [
+         null,
+         "Språk"
+      ],
+      "navbar_language_english": [
+         null,
+         "Engelsk"
+      ],
+      "navbar_language_norwegian": [
+         null,
+         "Norsk"
+      ],
+      "navbar_set": [
+         null,
+         "Endre"
+      ],
+      "home_user_testing_tool": [
+         null,
+         "User Testing Tool"
+      ],
+      "home_description": [
+         null,
+         "User Testing Tool (UTT) er en forskningsdemonstrator som kombinerer brukertesting med automatiserte testtjenester for å forbedre tilgjengeligheten og brukervennligheten til nettsteder."
+      ],
+      "home_enter_web_page": [
+         null,
+         "For å sette i gang, skriv inn en nettside som du vil teste."
+      ],
+      "home_start_testing": [
+         null,
+         "Begynn testingen"
+      ],
+      "home_report_issue": [
+         null,
+         "For å rapportere et problem, vennligst send oss en <a href=\"mailto:alexander.teinum@tingtun.no\">e-post</a> eller opprett en sak på <a href=\"https://github.com/alexanderte/utt/issues\">GitHub</a>."
+      ],
+      "question_SC4.1.2-2-11": [
+         null,
+         "Please check the name of the frame\";\"<p>Human input is necessary to verify, that the <samp>title</samp> of the <samp>frame</samp> or <samp>iframe</samp> describes its contents.</p>"
+      ]
+   }
+}

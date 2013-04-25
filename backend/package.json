@@ -6,6 +6,7 @@
     "languages": "0.1.x",
     "request": "2.12.x",
     "socket.io": "0.9.x",
-    "underscore": "1.4.x"
+    "underscore": "1.4.x",
+    "jed": "0.5.x"
   }
 }

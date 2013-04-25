@@ -1,22 +1,73 @@
-answer_yes
-msgstr "Yes"
-answer_no
-msgstr "No"
-answer_unsure
-msgstr "Unsure"
-answer_i_dont_speak_language
-msgstr "I don’t speak %s"
+msgid ""
+msgstr ""
 
-msgid "question_SC2.4.2-1-11"
+msgid "test_answer_yes"
+msgstr "Yes"
+
+msgid "test_answer_no"
+msgstr "No"
+
+msgid "test_answer_unsure"
+msgstr "Unsure"
+
+msgid "test_answer_i_dont_speak_this_language"
+msgstr "I don’t speak this language"
+
+msgid "test_previous_test"
+msgstr "Previous"
+
+msgid "test_skip_test"
+msgstr "Skip"
+
+msgid "test_question_SC2.4.2-1-11"
 msgstr "Does the page title “%s” describe the content of this web page?"
-msgid "question_SC2.4.4-2-11"
+
+msgid "test_question_SC2.4.4-2-11"
 msgstr "Does the link text “%s” describe the link purpose?"
-msgid "question_SC2.4.4-2-12"
+
+msgid "test_question_SC2.4.4-2-12"
 msgstr "Does the link title “%s” describe the link purpose?"
-msgid "question_SC2.4.6-1-11"
+
+msgid "test_question_SC2.4.6-1-11"
 msgstr "Does the heading “%s” describe the section it belongs to?"
-msgid "question_SC3.1.2-2-11"
+
+msgid "test_question_SC3.1.2-2-11"
 msgstr "Does the text “%s” correlate with the specified language %s (%s)?"
+
+msgid "navbar_test"
+msgstr "Test"
+
+msgid "navbar_results"
+msgstr "Results"
+
+msgid "navbar_language"
+msgstr "Language"
+
+msgid "navbar_language_english"
+msgstr "English"
+
+msgid "navbar_language_norwegian"
+msgstr "Norwegian"
+
+msgid "navbar_set"
+msgstr "Set"
+
+msgid "home_user_testing_tool"
+msgstr "User Testing Tool"
+
+msgid "home_description"
+msgstr "The User Testing Tool (UTT) is a research demonstrator to combine user testing with automated testing services to improve the accessibility and usability of web sites."
+
+msgid "home_enter_web_page"
+msgstr "To get started, enter a web page to test."
+
+msgid "home_start_testing"
+msgstr "Start testing"
+
+msgid "home_report_issue"
+msgstr "To report an issue, please send us an <a href="mailto:alexander.teinum@tingtun.no">email</a>, or create an issue on <a href="https://github.com/alexanderte/utt/issues">GitHub</a>."
+
+msgstr "Please check the link text of the [el]area[/el]";"<p>Human input is necessary to verify, that the alternative text of the <samp>area</samp> serves the same purpose as the selectable area of the image.</p>"
 
 # The following are not implemented
 msgid "question_SC2.4.4-1-11"

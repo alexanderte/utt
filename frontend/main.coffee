@@ -6,6 +6,7 @@ requirejs.config {
     backbone:    'deps/backbone'
     underscore:  '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min'
     socketio:    '//localhost:4563/socket.io/socket.io'
+    jed:         'deps/jed'
   }
   shim: {
     'bootstrap': {
@@ -24,7 +25,7 @@ requirejs.config {
   }
 }
 
-require ['backbone', 'socketio', 'router', 'models/test-run', 'views/views', 'bootstrap'], (Backbone, io, Router, TestRun, Views) ->
+require ['backbone', 'socketio', 'router', 'models/test-run', 'views/views', 'bootstrap', 'jed'], (Backbone, io, Router, TestRun, Views) ->
   router = new Router()
   socket = io.connect 'http://localhost:4563'
   testRun = new TestRun(socket)

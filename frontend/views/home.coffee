@@ -1,4 +1,4 @@
-define ['backbone', 'underscore', 'jquery'], (Backbone, _, $) ->
+define ['backbone', 'underscore', 'jquery', 'jed'], (Backbone, _, $) ->
   Backbone.View.extend {
     el: '#home-view'
     initialize: () ->
@@ -13,6 +13,16 @@ define ['backbone', 'underscore', 'jquery'], (Backbone, _, $) ->
 
       this.model.bind('change:webPage', () ->
         $('#web-page-2').val(this.model.get('webPage'))
+      , this)
+
+      this.model.on('languageUpdated', () ->
+        console.log('languageUpdated')
+        this.render()
+      , this)
+
+      this.model.on('appLoaded', () ->
+        console.log(3)
+        this.render()
       , this)
 
       this.model.bind('change:state', () ->
@@ -30,7 +40,18 @@ define ['backbone', 'underscore', 'jquery'], (Backbone, _, $) ->
 
       , this)
     render: () ->
-      this.$el.html(_.template($('#home-template').html(), { webPage: this.model.get('webPage') }))
+      # TODO: Prevent render on route
+      if this.model.get('jed') == undefined
+        return
+      console.log 4
+      this.$el.html(_.template($('#home-template').html(), {
+        webPage: this.model.get('webPage')
+        userTestingTool: this.model.translate('home_user_testing_tool')
+        description:     this.model.translate('home_description')
+        enterWebPage:    this.model.translate('home_enter_web_page')
+        startTesting:    this.model.translate('home_start_testing')
+        reportIssue:     this.model.translate('home_report_issue')
+      }))
       $('#web-page-2').focus()
     events: { 'click button#set-web-page-2': 'setWebPage' }
     setWebPage: () ->

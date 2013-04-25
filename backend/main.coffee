@@ -34,16 +34,39 @@ transformResult = (checkerResult) ->
 transformVerifyResult = (checkerResult, result) ->
     switch checkerResult.testResultId
       when 'SC2.4.2-1-11'
-        _.extend(result, { question: 'Does the page title “' + checkerResult.details.pageTitle + '” describe the content of this web page?', answers: ['Yes', 'No'] })
+        _.extend result, {
+          questionValues: [checkerResult.details.pageTitle]
+          answers: ['yes', 'no']
+        }
       when 'SC2.4.4-2-11'
-        _.extend(result, { question: 'Does the link text ' + checkerResult.details.codeExtract + ' describe the link purpose?', answers: ['Yes', 'No', 'Unsure'] })
+        _.extend result, {
+          questionValues: [checkerResult.details.codeExtract]
+          answers: ['yes', 'no', 'unsure']
+        }
       when 'SC2.4.4-2-12'
-        _.extend(result, { question: 'Does the link title “' + checkerResult.details.title + '” for the link ' + checkerResult.details.codeExtract + ' describe the link purpose?', answers: ['Yes', 'No', 'Unsure'] })
+        _.extend result, {
+          questionValues: [
+            checkerResult.details.title,
+            checkerResult.details.codeExtract
+          ]
+          answers: ['yes', 'no', 'unsure']
+        }
       when 'SC2.4.6-1-11'
-        _.extend(result, { question: 'Does the heading “' + checkerResult.details.heading + '” describe the section it belongs to?', answers: ['Yes', 'No', 'Unsure'] })
+        _.extend result, {
+          questionValues: [checkerResult.details.heading]
+          answers: ['yes', 'no', 'unsure']
+        }
       when 'SC3.1.2-2-11'
         languageCode = checkerResult.details.languageDefinition.languageCode
-        _.extend(result, { question: 'Does the text “' + checkerResult.details.checkedText + '” correlate with the specified language ' + getLanguage(languageCode) + ' (' + languageCode + ')?', answers: ['Yes', 'No', 'Unsure', 'I don’t speak ' + getLanguage(languageCode)] })
+
+        _.extend result, {
+          questionValues: [
+            checkerResult.details.checkedText,
+            getLanguage(languageCode),
+            languageCode
+          ]
+          answers: ['yes', 'no', 'unsure', 'i_dont_speak_this_language']
+        }
       else
         console.log 'Not supported: ' + checkerResult.testResultId
         {}
