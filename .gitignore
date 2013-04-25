@@ -1,9 +1,2 @@
-backend/main.js
 backend/node_modules
-frontend/collections/*.js
-frontend/main.js
-frontend/models/*.js
-frontend/router.js
-frontend/test/*.js
-frontend/views/*.js
 nohup.out

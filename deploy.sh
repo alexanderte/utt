@@ -26,7 +26,5 @@ git pull
 sed -i "s|4563|$2|" backend/main.coffee
 sed -i "s|http://localhost:4563|$1:$2|" frontend/coffee/main.coffee
 
-coffee --output frontend/js frontend/coffee
-
 nohup coffee backend/main.coffee&
 echo $! > /var/run/utt.pid
