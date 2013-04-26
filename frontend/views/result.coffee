@@ -71,7 +71,7 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         else
           result.set '_answer', @options.locale.translate('test_answer_' + result.get('answer'))
 
-      result._category = @options.locale.translate('result_category_' + result.get('category'))
+      result.set '_category', @options.locale.translate('result_category_' + result.get('category'))
       result.toJSON()
     shouldHideAutomatedCheckerResults: () ->
       document.getElementById('hideAutomatedCheckerResults') == null or $('#hideAutomatedCheckerResults').is(':checked')

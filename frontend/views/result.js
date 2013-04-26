@@ -87,7 +87,7 @@
             result.set('_answer', this.options.locale.translate('test_answer_' + result.get('answer')));
           }
         }
-        result._category = this.options.locale.translate('result_category_' + result.get('category'));
+        result.set('_category', this.options.locale.translate('result_category_' + result.get('category')));
         return result.toJSON();
       },
       shouldHideAutomatedCheckerResults: function() {
