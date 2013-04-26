@@ -83,7 +83,7 @@
       ],
       "home_description": [
          null,
-         "User Testing Tool (UTT) er en forskningsdemonstrator som kombinerer brukertesting med automatiserte testtjenester for å forbedre tilgjengeligheten og brukervennligheten til nettsteder."
+         "User Testing Tool (UTT) er en prototype som kombinerer brukertesting med automatiserte testtjenester for å forbedre tilgjengeligheten og brukervennligheten til nettsteder."
       ],
       "home_enter_web_page": [
          null,
@@ -96,6 +96,50 @@
       "home_report_issue": [
          null,
          "For å rapportere et problem, vennligst send oss en <a href=\"mailto:alexander.teinum@tingtun.no\">e-post</a> eller opprett en sak på <a href=\"https://github.com/alexanderte/utt/issues\">GitHub</a>."
+      ],
+      "result_results_for_web_page": [
+         null,
+         "Resultater for %s"
+      ],
+      "result_hide_automated": [
+         null,
+         "Skjul automatisk sjekkresultater"
+      ],
+      "result_category": [
+         null,
+         "Kategori"
+      ],
+      "result_line": [
+         null,
+         "Linje"
+      ],
+      "result_column": [
+         null,
+         "Kolonne"
+      ],
+      "result_test_id": [
+         null,
+         "Test id"
+      ],
+      "result_test_result_id": [
+         null,
+         "Testresultat id"
+      ],
+      "result_test_title": [
+         null,
+         "Testtittel"
+      ],
+      "result_answer": [
+         null,
+         "Svar"
+      ],
+      "result_answer_pass": [
+         null,
+         "Passert"
+      ],
+      "result_answer_fail": [
+         null,
+         "Feil"
       ],
       "question_SC4.1.2-2-11": [
          null,

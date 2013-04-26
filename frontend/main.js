@@ -27,26 +27,22 @@
     }
   });
 
-  require(['backbone', 'socketio', 'router', 'models/test-run', 'views/views', 'bootstrap', 'jed'], function(Backbone, io, Router, TestRun, Views) {
-    var router, socket, testRun, views;
+  require(['backbone', 'socketio', 'router', 'models/locale', 'models/test-run', 'views/views', 'bootstrap', 'jed'], function(Backbone, io, Router, Locale, TestRun, Views) {
+    var locale, socket;
 
-    router = new Router();
     socket = io.connect('http://localhost:4563');
-    testRun = new TestRun(socket);
-    router.bind('all', function(route) {
-      if (route === 'route:home') {
-        return testRun.set('route', 'home');
-      } else if (route === 'route:test') {
-        return testRun.set('route', 'test');
-      } else if (route === 'route:result') {
-        return testRun.set('route', 'result');
-      }
-    }, this);
-    views = new Views({
-      model: testRun,
-      router: router
+    locale = new Locale(socket);
+    return locale.once('change:locale', function() {
+      var router, views;
+
+      router = new Router();
+      views = new Views({
+        router: router,
+        locale: locale,
+        testRun: new TestRun(socket)
+      });
+      return Backbone.history.start();
     });
-    return Backbone.history.start();
   });
 
 }).call(this);

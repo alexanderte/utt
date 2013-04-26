@@ -3,16 +3,20 @@
   define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
     return Backbone.View.extend({
       el: '#result-view',
+      events: {
+        'change #hideAutomatedCheckerResults': 'clickDim'
+      },
       initialize: function() {
-        this.model.bind('change:state', this.render, this);
-        return this.options.router.bind('all', function(route) {
+        this.render();
+        this.options.router.bind('all', function(route) {
           if (route === 'route:result') {
-            this.render();
             return this.$el.show();
           } else {
             return this.$el.hide();
           }
         }, this);
+        this.options.locale.on('change:locale', this.render, this);
+        return this.options.testRun.bind('change:state', this.render, this);
       },
       shouldHideAutomatedCheckerResults: function() {
         return document.getElementById('hideAutomatedCheckerResults') === null || $('#hideAutomatedCheckerResults').is(':checked');
@@ -42,19 +46,19 @@
         var checked, results, that, verifyIndex;
 
         that = this;
-        if (this.model.get('state') === 'error') {
+        if (this.options.testRun.get('state') === 'error') {
           return this.$el.html(_.template($('#result-template-error').html(), {
-            webPage: this.model.get('webPage')
+            webPage: this.options.testRun.get('webPage')
           }));
-        } else if (this.model.get('state') === 'loading') {
+        } else if (this.options.testRun.get('state') === 'loading') {
           return this.$el.html(_.template($('#result-template-loading').html(), {
-            webPage: this.model.get('webPage')
+            webPage: this.options.testRun.get('webPage')
           }));
         } else {
           results = [];
           verifyIndex = 0;
-          _.each(this.model.get('tests').models, function(element, index, list) {
-            results.push(that.transformResult(element.attributes, verifyIndex, that.model.testCount(), that));
+          _.each(this.options.testRun.get('tests').models, function(element, index, list) {
+            results.push(that.transformResult(element.attributes, verifyIndex, that.options.testRun.testCount(), that));
             if (element.attributes.category === 'verify') {
               return verifyIndex++;
             }
@@ -64,14 +68,22 @@
             checked = 'checked="checked"';
           }
           return this.$el.html(_.template($('#result-template').html(), {
-            webPage: this.model.get('webPage'),
             tests: results,
-            checked: checked
+            checked: checked,
+            _resultsForWebPage: this.options.locale.translate('result_results_for_web_page', this.options.testRun.get('webPage')),
+            _hideAutomated: this.options.locale.translate('result_hide_automated'),
+            _category: this.options.locale.translate('result_category'),
+            _line: this.options.locale.translate('result_line'),
+            _column: this.options.locale.translate('result_column'),
+            _testId: this.options.locale.translate('result_test_id'),
+            _testResultId: this.options.locale.translate('result_test_result_id'),
+            _testTitle: this.options.locale.translate('result_test_title'),
+            _answer: this.options.locale.translate('result_answer'),
+            _answer_pass: this.options.locale.translate('result_answer_pass'),
+            _answer_fail: this.options.locale.translate('result_answer_fail'),
+            _answer_auto: this.options.locale.translate('result_answer_auto')
           }));
         }
-      },
-      events: {
-        'change #hideAutomatedCheckerResults': 'clickDim'
       },
       clickDim: function(el) {
         return this.render();

@@ -2,78 +2,108 @@ msgid ""
 msgstr ""
 
 msgid "test_answer_yes"
-msgstr "Ja"
+msgstr "Yes"
 
 msgid "test_answer_no"
-msgstr "Nei"
+msgstr "No"
 
 msgid "test_answer_unsure"
-msgstr "Usikker"
+msgstr "Unsure"
 
 msgid "test_answer_i_dont_speak_this_language"
-msgstr "Jeg snakker ikke dette språket"
+msgstr "I don’t speak this language"
 
 msgid "test_previous_test"
-msgstr "Forrige"
+msgstr "Previous"
 
 msgid "test_skip_test"
-msgstr "Hopp over"
+msgstr "Skip"
 
 msgid "test_question_SC2.4.2-1-11"
-msgstr "Beskriver sidetittelen «%s» innholdet på denne nettsiden?"
+msgstr "Does the page title “%s” describe the content of this web page?"
 
 msgid "test_question_SC2.4.4-2-11"
-msgstr "Beskriver lenketeksten «%s» hensikten til lenken?"
+msgstr "Does the link text “%s” describe the link purpose?"
 
 msgid "test_question_SC2.4.4-2-12"
-msgstr "Beskriver lenketittelen «%s» hensikten med lenken?"
+msgstr "Does the link title “%s” describe the link purpose?"
 
 msgid "test_question_SC2.4.6-1-11"
-msgstr "Beskriver overskiften «%s» seksjonen den tilhører?"
+msgstr "Does the heading “%s” describe the section it belongs to?"
 
 msgid "test_question_SC3.1.2-2-11"
-msgstr "Korrelerer teksten «%s» med det spesifiserte språket %s (%s)?"
-
-msgid "test_previous"
-msgstr "Tilbake"
-
-msgid "test_next"
-msgstr "Frem"
+msgstr "Does the text “%s” correlate with the specified language %s (%s)?"
 
 msgid "navbar_test"
 msgstr "Test"
 
 msgid "navbar_results"
-msgstr "Resultater"
+msgstr "Results"
 
 msgid "navbar_language"
-msgstr "Språk"
+msgstr "Language"
 
 msgid "navbar_language_english"
-msgstr "Engelsk"
+msgstr "English"
 
 msgid "navbar_language_norwegian"
-msgstr "Norsk"
+msgstr "Norwegian"
 
 msgid "navbar_set"
-msgstr "Endre"
+msgstr "Set"
 
 msgid "home_user_testing_tool"
 msgstr "User Testing Tool"
 
 msgid "home_description"
-msgstr "User Testing Tool (UTT) er en forskningsdemonstrator som kombinerer brukertesting med automatiserte testtjenester for å forbedre tilgjengeligheten og brukervennligheten til nettsteder."
+msgstr "The User Testing Tool (UTT) is a prototype that combines user testing with automated testing services to improve the accessibility and usability of web sites."
 
 msgid "home_enter_web_page"
-msgstr "For å sette i gang, skriv inn en nettside som du vil teste."
+msgstr "To get started, enter a web page to test."
 
 msgid "home_start_testing"
-msgstr "Begynn testingen"
+msgstr "Start testing"
 
 msgid "home_report_issue"
-msgstr "For å rapportere et problem, vennligst send oss en <a href="mailto:alexander.teinum@tingtun.no">e-post</a> eller opprett en sak på <a href="https://github.com/alexanderte/utt/issues">GitHub</a>."
+msgstr "To report an issue, please send us an <a href="mailto:alexander.teinum@tingtun.no">email</a>, or create an issue on <a href="https://github.com/alexanderte/utt/issues">GitHub</a>."
 
 msgstr "Please check the link text of the [el]area[/el]";"<p>Human input is necessary to verify, that the alternative text of the <samp>area</samp> serves the same purpose as the selectable area of the image.</p>"
+
+msgid "result_results_for_web_page"
+msgstr "Results for %s"
+
+msgid "result_hide_automated"
+msgstr "Hide automated checker results"
+
+msgid "result_category"
+msgstr "Category"
+
+msgid "result_line"
+msgstr "Line"
+
+msgid "result_column"
+msgstr "Column"
+
+msgid "result_test_id"
+msgstr "Test id"
+
+msgid "result_test_result_id"
+msgstr "Test result id"
+
+msgid "result_test_title"
+msgstr "Test title"
+
+msgid "result_answer"
+msgstr "Answer"
+
+msgid "result_answer_pass"
+msgstr "Pass"
+
+msgid "result_answer_fail"
+msgstr "Fail"
+
+msgid "result_answer_auto"
+msgstr "Auto"
 
 # The following are not implemented
 msgid "question_SC2.4.4-1-11"

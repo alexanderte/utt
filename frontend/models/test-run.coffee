@@ -4,48 +4,36 @@ define ['backbone', 'socketio', 'collections/tests', 'jquery', 'jed'], (Backbone
       'webPage':     'http://www.tingtun.no/'
       'currentTest': 0
       'state':       'loading'
-      'language':    'en'
-      'route':       'home'
-      'jed':         undefined
+      'tests':       []
     }
-    foo: () ->
-      return 'bar'
     verifyTests: () ->
       this.get('tests').where({category: 'verify'})
     nextTest: () ->
+      this.set('currentTest', this.get('currentTest') + 1)
     previousTest: () ->
+      this.set('currentTest', this.get('currentTest') - 1)
     getCurrentTest: () ->
-      this.verifyTests()[this.get('currentTest')]
+      if this.get('tests').length == 0
+        null
+      else
+        this.verifyTests()[this.get('currentTest')]
 
-    updateLanguage: (thisArg, callback) ->
-      that = this
-      $.getJSON 'locale/' + that.get('language') + '.json', (data) ->
-        console.log 1
-        that.set 'jed', new Jed({ locale_data: { messages: data[that.get('language')] } })
-        console.log that.get('jed').translate('question_SC3.1.2-2-11').fetch(['foo', 'bar', 'baz'])
-        if callback
-          callback.apply(thisArg)
     initialize: (socket) ->
       _.extend(this, Backbone.Events)
-      console.log 0
-      this.updateLanguage this, () ->
-        console.log 2
-        this.set 'socket', socket
-        this.set 'tests', []
+      this.set 'socket', socket
 
-        socket.emit('get tests', this.get('webPage'))
+      socket.emit('get tests', this.get('webPage'))
 
-        that = this
-        socket.on('tests', (data) ->
-          if data == null
-            that.set('state', 'error')
-          else
-            that.set 'tests', new Tests(data)
-            that.set('state', 'loaded')
-        )
+      that = this
+      socket.on('tests', (data) ->
+        if data == null
+          that.set('state', 'error')
+        else
+          that.set 'tests', new Tests(data)
+          that.set('state', 'loaded')
+      )
 
-        this.bind('change:webPage', this.fetchTests, this)
-        this.trigger('appLoaded')
+      this.bind('change:webPage', this.fetchTests, this)
     fetchTests: () ->
       this.set('state', 'loading')
       this.get('socket').emit('get tests', this.get('webPage'))
@@ -67,14 +55,4 @@ define ['backbone', 'socketio', 'collections/tests', 'jquery', 'jed'], (Backbone
           url
 
       this.set 'webPage', addProtocol(url)
-    setLanguage: (languageCode) ->
-      console.log(languageCode)
-      this.set 'language', languageCode
-      this.updateLanguage(this, () ->
-        this.trigger('languageUpdated')
-      )
-    translate: (str, args) ->
-      console.log('str')
-      console.log(str)
-      this.get('jed').translate(str).fetch(args)
   }

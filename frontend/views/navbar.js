@@ -3,49 +3,41 @@
   define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
     return Backbone.View.extend({
       el: '#navbar-view',
-      initialize: function() {
-        this.model.bind('change:route', function() {
-          return this.render();
-        }, this);
-        this.model.bind('change:state', function() {
-          return this.render();
-        }, this);
-        this.model.bind('change:webPage', function() {
-          return this.render();
-        }, this);
-        this.model.bind('change:language', function() {
-          return this.render();
-        }, this);
-        this.model.on('languageUpdated', function() {
-          return this.render();
-        }, this);
-        return this.model.on('appLoaded', function() {
-          return this.render();
-        }, this);
-      },
-      render: function() {
-        return this.$el.html(_.template($('#navbar-template').html(), {
-          webPage: this.model.get('webPage'),
-          language: this.model.get('language'),
-          state: this.model.get('state'),
-          route: this.model.get('route'),
-          _test: this.model.translate('navbar_test'),
-          _results: this.model.translate('navbar_results'),
-          _language: this.model.translate('navbar_language'),
-          _languageEnglish: this.model.translate('navbar_language_english'),
-          _languageNorwegian: this.model.translate('navbar_language_norwegian'),
-          _set: this.model.translate('navbar_set')
-        }));
-      },
       events: {
         'click button#set-web-page': 'setWebPage',
         'click a.language': 'changeLanguage'
       },
+      getCurrentRoute: function() {
+        if (!Backbone.history.fragment) {
+          return 'home';
+        } else {
+          return Backbone.history.fragment;
+        }
+      },
+      initialize: function() {
+        this.render();
+        this.options.router.bind('all', this.render, this);
+        return this.options.locale.on('change:locale', this.render, this);
+      },
+      render: function() {
+        return this.$el.html(_.template($('#navbar-template').html(), {
+          webPage: this.options.testRun.get('webPage'),
+          language: this.options.locale.get('locale'),
+          state: this.options.testRun.get('state'),
+          route: this.getCurrentRoute(),
+          _test: this.options.locale.translate('navbar_test'),
+          _results: this.options.locale.translate('navbar_results'),
+          _language: this.options.locale.translate('navbar_language'),
+          _languageEnglish: this.options.locale.translate('navbar_language_english'),
+          _languageNorwegian: this.options.locale.translate('navbar_language_norwegian'),
+          _set: this.options.locale.translate('navbar_set')
+        }));
+      },
       setWebPage: function() {
-        return this.model.setWebPage($('#web-page').val());
+        return this.options.testRun.setWebPage($('#web-page').val());
       },
       changeLanguage: function(e) {
-        return this.model.setLanguage(e.currentTarget.dataset['language']);
+        return this.options.locale.setLocale(e.currentTarget.dataset['language']);
       }
     });
   });

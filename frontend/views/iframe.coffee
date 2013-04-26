@@ -2,20 +2,17 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
   Backbone.View.extend {
     el: '#iframe-view'
     initialize: () ->
-      this.model.bind('change:webPage', this.render, this)
-      #this.model.bind('change:state', () ->
-      #  if this.model.get('state') == 'error'
-      #    do this.$el.hide
-      #, this)
+      @render()
 
-      do this.render
-
-      this.options.router.bind('all', (route) ->
-        if route == 'route:test'
-          do this.$el.show
+      @options.router.bind('all', (route) ->
+        if route is 'route:test'
+          if @options.testRun.get('state') isnt 'error'
+            @$el.show()
         else
-          do this.$el.hide
+          @$el.hide()
       , this)
+
+      @options.testRun.bind('change:webPage', @render, this)
     render: () ->
-      this.$el.html(_.template($('#iframe-template').html(), { 'webPage': this.model.get('webPage') }))
+      @$el.html(_.template($('#iframe-template').html(), { 'webPage': @options.testRun.get('webPage') }))
   }

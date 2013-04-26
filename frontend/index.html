@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="navbar-view"></div>
-    <div class="view" id="home-view"></div>
+    <div class="view" id="home-view" style="display: none;"></div>
     <div class="view" id="test-view" style="display: none;"></div>
     <div class="view" id="result-view" style="display: none;"></div>
     <div id="iframe-view" style="display: none;"></div>
@@ -43,7 +43,7 @@
             <form class="navbar-form pull-right" onsubmit="return false;">
               <div class="input-append">
                 <input <% if (state == 'loading') { %>disabled="true"<% } %>id="web-page" type="text" placeholder="Web page" value="<%= webPage %>" class="span4">
-                <button <% if (state == 'loading') { %>class="btn disablled" disabled="true"<% } else { %>class="btn" <% } %> id="set-web-page" value="Set"><%= _set %></button>
+                <button <% if (state == 'loading') { %>class="btn disabled" disabled="true"<% } else { %>class="btn" <% } %> id="set-web-page" value="Set"><%= _set %></button>
               </div>
             </form>
           <% } %>
@@ -74,12 +74,12 @@
     </script>
 
     <script type="text/template" id="result-template">
-      <h1>Results for <%= webPage %></h1>
+      <h1><%= _resultsForWebPage %></h1>
       
       <p class="lead">
       <form class="form-inline" onsubmit="return false;">
         <fieldset>
-          <label class="checkbox inline"><input type="checkbox" id="hideAutomatedCheckerResults" <%= checked %>">Hide automated checker results</label>
+          <label class="checkbox inline"><input type="checkbox" id="hideAutomatedCheckerResults" <%= checked %>"><%= _hideAutomated %></label>
         <fieldset>
       </form>
       </p>
@@ -87,13 +87,13 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Category</th>
-            <th>Line</th>
-            <th>Column</th>
-            <th>Test id</th>
-            <th>Test result id</th>
-            <th>Test title</th>
-            <th>Answer</th>
+            <th><%= _category %></th>
+            <th><%= _line %></th>
+            <th><%= _column %></th>
+            <th><%= _testId %></th>
+            <th><%= _testResultId %></th>
+            <th><%= _testTitle %></th>
+            <th><%= _answer %></th>
           </tr>
         </thead>
         <tbody>
@@ -184,7 +184,7 @@
         <a href="<%= previousUrl %>" class="btn btn-link" style="margin-right: 1em;"><i class="icon-angle-left"></i> <%= _previousTest %></a>
         <div class="btn-group">
           <% _.each(answers, function(answer) { %>
-            <button class="btn" value="<%= answer.value %>"><%= answer._value %></button>
+            <button class="answer btn" value="<%= answer.value %>"><%= answer._value %></button>
           <% }); %>
         </div>
       <a href="<%= nextUrl %>" class="btn btn-link" style="margin-left: 1em;"><%= _skipTest %> <i class="icon-angle-right"></i></a>

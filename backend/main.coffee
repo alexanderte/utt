@@ -1,6 +1,7 @@
-io =        require('socket.io').listen(4563)
-request =   require 'request'
-_ =         require 'underscore'
+fs        = require 'fs'
+io        = require('socket.io').listen(4563)
+request   = require 'request'
+_         = require 'underscore'
 languages = require 'languages'
 
 getLanguage = (languageCode) ->
@@ -71,7 +72,7 @@ transformVerifyResult = (checkerResult, result) ->
         console.log 'Not supported: ' + checkerResult.testResultId
         {}
 
-io.sockets.on('connection', (socket) ->
+io.sockets.on 'connection', (socket) ->
   socket.on 'get tests', (data) ->
     request(requestUrl(data), (error, result, body) ->
       console.log 'error=' + error
@@ -83,4 +84,12 @@ io.sockets.on('connection', (socket) ->
       else
         socket.emit 'tests', transformResults(JSON.parse(body))
     )
-)
+  socket.on 'get locale', (locale) ->
+    if locale isnt 'no' and locale isnt 'en'
+      return
+
+    fs.readFile 'locale/' + locale + '.json', 'utf8', (err, data) ->
+      if err
+        throw err
+
+      socket.emit 'locale', { locale: locale, data: JSON.parse(data)[locale] }

@@ -4,19 +4,21 @@
     return Backbone.View.extend({
       el: '#iframe-view',
       initialize: function() {
-        this.model.bind('change:webPage', this.render, this);
         this.render();
-        return this.options.router.bind('all', function(route) {
+        this.options.router.bind('all', function(route) {
           if (route === 'route:test') {
-            return this.$el.show();
+            if (this.options.testRun.get('state') !== 'error') {
+              return this.$el.show();
+            }
           } else {
             return this.$el.hide();
           }
         }, this);
+        return this.options.testRun.bind('change:webPage', this.render, this);
       },
       render: function() {
         return this.$el.html(_.template($('#iframe-template').html(), {
-          'webPage': this.model.get('webPage')
+          'webPage': this.options.testRun.get('webPage')
         }));
       }
     });

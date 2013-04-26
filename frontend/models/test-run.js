@@ -6,62 +6,42 @@
         'webPage': 'http://www.tingtun.no/',
         'currentTest': 0,
         'state': 'loading',
-        'language': 'en',
-        'route': 'home',
-        'jed': void 0
-      },
-      foo: function() {
-        return 'bar';
+        'tests': []
       },
       verifyTests: function() {
         return this.get('tests').where({
           category: 'verify'
         });
       },
-      nextTest: function() {},
-      previousTest: function() {},
-      getCurrentTest: function() {
-        return this.verifyTests()[this.get('currentTest')];
+      nextTest: function() {
+        return this.set('currentTest', this.get('currentTest') + 1);
       },
-      updateLanguage: function(thisArg, callback) {
-        var that;
-
-        that = this;
-        return $.getJSON('locale/' + that.get('language') + '.json', function(data) {
-          console.log(1);
-          that.set('jed', new Jed({
-            locale_data: {
-              messages: data[that.get('language')]
-            }
-          }));
-          console.log(that.get('jed').translate('question_SC3.1.2-2-11').fetch(['foo', 'bar', 'baz']));
-          if (callback) {
-            return callback.apply(thisArg);
-          }
-        });
+      previousTest: function() {
+        return this.set('currentTest', this.get('currentTest') - 1);
+      },
+      getCurrentTest: function() {
+        if (this.get('tests').length === 0) {
+          return null;
+        } else {
+          return this.verifyTests()[this.get('currentTest')];
+        }
       },
       initialize: function(socket) {
-        _.extend(this, Backbone.Events);
-        console.log(0);
-        return this.updateLanguage(this, function() {
-          var that;
+        var that;
 
-          console.log(2);
-          this.set('socket', socket);
-          this.set('tests', []);
-          socket.emit('get tests', this.get('webPage'));
-          that = this;
-          socket.on('tests', function(data) {
-            if (data === null) {
-              return that.set('state', 'error');
-            } else {
-              that.set('tests', new Tests(data));
-              return that.set('state', 'loaded');
-            }
-          });
-          this.bind('change:webPage', this.fetchTests, this);
-          return this.trigger('appLoaded');
+        _.extend(this, Backbone.Events);
+        this.set('socket', socket);
+        socket.emit('get tests', this.get('webPage'));
+        that = this;
+        socket.on('tests', function(data) {
+          if (data === null) {
+            return that.set('state', 'error');
+          } else {
+            that.set('tests', new Tests(data));
+            return that.set('state', 'loaded');
+          }
         });
+        return this.bind('change:webPage', this.fetchTests, this);
       },
       fetchTests: function() {
         this.set('state', 'loading');
@@ -93,18 +73,6 @@
           }
         };
         return this.set('webPage', addProtocol(url));
-      },
-      setLanguage: function(languageCode) {
-        console.log(languageCode);
-        this.set('language', languageCode);
-        return this.updateLanguage(this, function() {
-          return this.trigger('languageUpdated');
-        });
-      },
-      translate: function(str, args) {
-        console.log('str');
-        console.log(str);
-        return this.get('jed').translate(str).fetch(args);
       }
     });
   });

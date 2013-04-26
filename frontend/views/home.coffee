@@ -1,62 +1,53 @@
-define ['backbone', 'underscore', 'jquery', 'jed'], (Backbone, _, $) ->
+define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
   Backbone.View.extend {
     el: '#home-view'
+    events: {
+      'click button#set-web-page-2': 'setWebPage'
+    }
     initialize: () ->
-      do this.render
+      @render()
 
-      this.options.router.bind('all', (route) ->
-        if route == 'route:home'
-          do this.$el.show
+      @options.router.bind('all', (route) ->
+        if route is 'route:home'
+          @$el.show()
         else
-          do this.$el.hide
+          @$el.hide()
       , this)
 
-      this.model.bind('change:webPage', () ->
-        $('#web-page-2').val(this.model.get('webPage'))
+      @options.locale.on('change:locale', @render , this)
+      @options.testRun.bind('change:state', @render, this)
+      @options.testRun.bind('change:webPage', () ->
+        $('#web-page-2').val(@options.testRun.get('webPage'))
       , this)
 
-      this.model.on('languageUpdated', () ->
-        console.log('languageUpdated')
-        this.render()
-      , this)
 
-      this.model.on('appLoaded', () ->
-        console.log(3)
-        this.render()
-      , this)
+      #@options.testRun.bind('change:state', () ->
+      #  if @options.testRun.get('state') == 'loaded' or @options.testRun.get('state') == 'error'
+      #    $('#web-page-2').removeClass 'disabled'
+      #    $('#web-page-2').attr('disabled', false)
+      #    $('#set-web-page-2').removeClass 'disabled'
+      #    $('#set-web-page-2').attr('disabled', false)
+      #  else
+      #    $('#web-page-2').addClass 'disabled'
+      #    $('#web-page-2').attr('disabled', true)
+      #    $('#web-page-2').blur() # Possibly not needed here
+      #    $('#set-web-page-2').addClass 'disabled'
+      #    $('#set-web-page-2').attr('disabled', true)
 
-      this.model.bind('change:state', () ->
-        if this.model.get('state') == 'loaded' or this.model.get('state') == 'error'
-          $('#web-page-2').removeClass 'disabled'
-          $('#web-page-2').attr('disabled', false)
-          $('#set-web-page-2').removeClass 'disabled'
-          $('#set-web-page-2').attr('disabled', false)
-        else
-          $('#web-page-2').addClass 'disabled'
-          $('#web-page-2').attr('disabled', true)
-          $('#web-page-2').blur() # Possibly not needed here
-          $('#set-web-page-2').addClass 'disabled'
-          $('#set-web-page-2').attr('disabled', true)
-
-      , this)
+      #, this)
     render: () ->
-      # TODO: Prevent render on route
-      if this.model.get('jed') == undefined
-        return
-      console.log 4
-      this.$el.html(_.template($('#home-template').html(), {
-        webPage: this.model.get('webPage')
-        userTestingTool: this.model.translate('home_user_testing_tool')
-        description:     this.model.translate('home_description')
-        enterWebPage:    this.model.translate('home_enter_web_page')
-        startTesting:    this.model.translate('home_start_testing')
-        reportIssue:     this.model.translate('home_report_issue')
+      @$el.html(_.template($('#home-template').html(), {
+        webPage:         @options.testRun.get('webPage')
+        userTestingTool: @options.locale.translate('home_user_testing_tool')
+        description:     @options.locale.translate('home_description')
+        enterWebPage:    @options.locale.translate('home_enter_web_page')
+        startTesting:    @options.locale.translate('home_start_testing')
+        reportIssue:     @options.locale.translate('home_report_issue')
       }))
       $('#web-page-2').focus()
-    events: { 'click button#set-web-page-2': 'setWebPage' }
     setWebPage: () ->
-      if this.model.get('webPage') == $('#web-page-2').val()
-        this.options.router.navigate 'test', true
+      if @options.testRun.get('webPage') == $('#web-page-2').val()
+        @options.router.navigate 'test', true
       else
-        this.model.setWebPage($('#web-page-2').val())
+        @options.testRun.setWebPage($('#web-page-2').val())
   }

@@ -1,68 +1,73 @@
 define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
   Backbone.View.extend {
     el: '#test-view'
+    events: {
+      'click button.answer': 'clickAnswer'
+    }
     initialize: () ->
-      this.model.bind('change:state', this.render, this)
+      @render()
 
-      this.options.router.bind('all', (route, currentTest) ->
-        if route == 'route:test'
-          this.model.set('currentTest', if currentTest == undefined then 0 else parseInt(currentTest))
-          do this.render
-          if this.model.get('currentTest') == 0
-            do this.$el.slideDown
+      @options.router.bind('all', (route, currentTest) ->
+        if route is 'route:test'
+          @options.testRun.set('currentTest', if currentTest == undefined then 0 else parseInt(currentTest))
+          if @options.testRun.get('currentTest') == 0
+            @$el.slideDown()
           else
-            do this.$el.show
+            @$el.show()
         else
-          do this.$el.hide
+          @$el.hide()
       , this)
+
+      @options.locale.on('change:locale', @render , this)
+      @options.testRun.bind('change:state', @render, this)
+      @options.testRun.bind('change:currentTest', @render, this)
     render: () ->
-      if this.model.get('state') == 'error'
-        this.$el.html(
-          _.template($('#test-error').html(), { 'webPage': this.model.get('webPage') })
-        )
-      else if this.model.get('state') == 'loading'
-        this.$el.html(
-          _.template($('#test-loading').html(), { 'webPage': this.model.get('webPage') })
-        )
-      else if this.model.getCurrentTest() == undefined
-        this.$el.html(
-          _.template($('#test-nothing-to-test').html(), { 'webPage': this.model.get('webPage') })
-        )
-      else
-        test = this.model.getCurrentTest()
-        console.log(test.get('answers'))
+      switch @options.testRun.get('state')
+        when 'error'
+          @$el.html(_.template($('#test-error').html(), { 'webPage': @options.testRun.get('webPage') }))
+        when 'loading'
+          @$el.html(_.template($('#test-loading').html(), { 'webPage': @options.testRun.get('webPage') }))
+        else
+          if not @options.testRun.getCurrentTest()
+            @$el.html(_.template($('#test-nothing-to-test').html(), { 'webPage': @options.testRun.get('webPage') }))
+            return
 
-        answers = _.map(test.get('answers'), (a) -> { value: a, _value: this.model.translate('test_answer_' + a) })
-        console.log(answers)
+          test = @options.testRun.getCurrentTest()
+          that = this
+          answers = _.map(test.get('answers'), (a) -> { value: a, _value: that.options.locale.translate('test_answer_' + a) })
 
-        this.$el.html(
-          _.template($('#test-progress').html(), { 'progress': this.model.progress() }) +
-          _.template($(test.get('template')).html(), {
-            '_question': this.model.translate('test_question_' + test.get('testId') + '-' + test.get('testResultId'), test.get('questionValues'))
-            '_previousTest': this.model.translate('test_previous_test')
-            '_skipTest': this.model.translate('test_skip_test')
-            'answers': answers
-            'nextUrl': this.nextUrl()
-            'previousUrl': this.previousUrl()
-            'previousExtraClass': this.previousExtraClass()
-          })
-        )
+          @$el.html(
+            _.template($('#test-progress').html(), { 'progress': @options.testRun.progress() }) +
+            _.template($(test.get('template')).html(), {
+              '_question': @options.locale.translate('test_question_' + test.get('testId') + '-' + test.get('testResultId'), test.get('questionValues'))
+              '_previousTest': @options.locale.translate('test_previous_test')
+              '_skipTest': @options.locale.translate('test_skip_test')
+              'answers': answers
+              'nextUrl': @nextUrl()
+              'previousUrl': @previousUrl()
+              'previousExtraClass': @previousExtraClass()
+            })
+          )
 
-        $('html, body').animate({ scrollTop: 0 }, 'fast')
+          $('html, body').animate({ scrollTop: 0 }, 'fast')
     previousExtraClass: () ->
-      if (this.model.isAtFirst() == true)
+      if (@options.testRun.isAtFirst() == true)
         return 'disabled'
     previousUrl: () ->
-      if (this.model.isAtFirst() == true)
-        return '#test/' + (this.model.get('currentTest'))
+      if (@options.testRun.isAtFirst() == true)
+        return '#test/' + (@options.testRun.get('currentTest'))
       else
-        return '#test/' + (this.model.get('currentTest') - 1)
+        return '#test/' + (@options.testRun.get('currentTest') - 1)
     nextUrl: () ->
-      if (this.model.isAtLast() == true)
+      if (@options.testRun.isAtLast() == true)
         return '#result'
       else
-        return '#test/' + (this.model.get('currentTest') + 1)
-    events: { 'click input#answer': 'clickAnswer' }
+        return '#test/' + (@options.testRun.get('currentTest') + 1)
     clickAnswer: (el) ->
-      this.model.setAnswer($('input#answer:checked').val())
+      console.log el.currentTarget.value
+      @options.testRun.setAnswer(el.currentTarget.value)
+      if (@options.testRun.isAtLast() == true)
+        return '#result'
+      else
+        @options.testRun.nextTest()
   }

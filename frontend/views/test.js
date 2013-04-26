@@ -3,13 +3,15 @@
   define(['jquery', 'underscore', 'backbone'], function($, _, Backbone) {
     return Backbone.View.extend({
       el: '#test-view',
+      events: {
+        'click button.answer': 'clickAnswer'
+      },
       initialize: function() {
-        this.model.bind('change:state', this.render, this);
-        return this.options.router.bind('all', function(route, currentTest) {
+        this.render();
+        this.options.router.bind('all', function(route, currentTest) {
           if (route === 'route:test') {
-            this.model.set('currentTest', currentTest === void 0 ? 0 : parseInt(currentTest));
-            this.render();
-            if (this.model.get('currentTest') === 0) {
+            this.options.testRun.set('currentTest', currentTest === void 0 ? 0 : parseInt(currentTest));
+            if (this.options.testRun.get('currentTest') === 0) {
               return this.$el.slideDown();
             } else {
               return this.$el.show();
@@ -18,72 +20,80 @@
             return this.$el.hide();
           }
         }, this);
+        this.options.locale.on('change:locale', this.render, this);
+        this.options.testRun.bind('change:state', this.render, this);
+        return this.options.testRun.bind('change:currentTest', this.render, this);
       },
       render: function() {
-        var answers, test;
+        var answers, test, that;
 
-        if (this.model.get('state') === 'error') {
-          return this.$el.html(_.template($('#test-error').html(), {
-            'webPage': this.model.get('webPage')
-          }));
-        } else if (this.model.get('state') === 'loading') {
-          return this.$el.html(_.template($('#test-loading').html(), {
-            'webPage': this.model.get('webPage')
-          }));
-        } else if (this.model.getCurrentTest() === void 0) {
-          return this.$el.html(_.template($('#test-nothing-to-test').html(), {
-            'webPage': this.model.get('webPage')
-          }));
-        } else {
-          test = this.model.getCurrentTest();
-          console.log(test.get('answers'));
-          answers = _.map(test.get('answers'), function(a) {
-            return {
-              value: a,
-              _value: this.model.translate('test_answer_' + a)
-            };
-          });
-          console.log(answers);
-          this.$el.html(_.template($('#test-progress').html(), {
-            'progress': this.model.progress()
-          }) + _.template($(test.get('template')).html(), {
-            '_question': this.model.translate('test_question_' + test.get('testId') + '-' + test.get('testResultId'), test.get('questionValues')),
-            '_previousTest': this.model.translate('test_previous_test'),
-            '_skipTest': this.model.translate('test_skip_test'),
-            'answers': answers,
-            'nextUrl': this.nextUrl(),
-            'previousUrl': this.previousUrl(),
-            'previousExtraClass': this.previousExtraClass()
-          }));
-          return $('html, body').animate({
-            scrollTop: 0
-          }, 'fast');
+        switch (this.options.testRun.get('state')) {
+          case 'error':
+            return this.$el.html(_.template($('#test-error').html(), {
+              'webPage': this.options.testRun.get('webPage')
+            }));
+          case 'loading':
+            return this.$el.html(_.template($('#test-loading').html(), {
+              'webPage': this.options.testRun.get('webPage')
+            }));
+          default:
+            if (!this.options.testRun.getCurrentTest()) {
+              this.$el.html(_.template($('#test-nothing-to-test').html(), {
+                'webPage': this.options.testRun.get('webPage')
+              }));
+              return;
+            }
+            test = this.options.testRun.getCurrentTest();
+            that = this;
+            answers = _.map(test.get('answers'), function(a) {
+              return {
+                value: a,
+                _value: that.options.locale.translate('test_answer_' + a)
+              };
+            });
+            this.$el.html(_.template($('#test-progress').html(), {
+              'progress': this.options.testRun.progress()
+            }) + _.template($(test.get('template')).html(), {
+              '_question': this.options.locale.translate('test_question_' + test.get('testId') + '-' + test.get('testResultId'), test.get('questionValues')),
+              '_previousTest': this.options.locale.translate('test_previous_test'),
+              '_skipTest': this.options.locale.translate('test_skip_test'),
+              'answers': answers,
+              'nextUrl': this.nextUrl(),
+              'previousUrl': this.previousUrl(),
+              'previousExtraClass': this.previousExtraClass()
+            }));
+            return $('html, body').animate({
+              scrollTop: 0
+            }, 'fast');
         }
       },
       previousExtraClass: function() {
-        if (this.model.isAtFirst() === true) {
+        if (this.options.testRun.isAtFirst() === true) {
           return 'disabled';
         }
       },
       previousUrl: function() {
-        if (this.model.isAtFirst() === true) {
-          return '#test/' + (this.model.get('currentTest'));
+        if (this.options.testRun.isAtFirst() === true) {
+          return '#test/' + (this.options.testRun.get('currentTest'));
         } else {
-          return '#test/' + (this.model.get('currentTest') - 1);
+          return '#test/' + (this.options.testRun.get('currentTest') - 1);
         }
       },
       nextUrl: function() {
-        if (this.model.isAtLast() === true) {
+        if (this.options.testRun.isAtLast() === true) {
           return '#result';
         } else {
-          return '#test/' + (this.model.get('currentTest') + 1);
+          return '#test/' + (this.options.testRun.get('currentTest') + 1);
         }
       },
-      events: {
-        'click input#answer': 'clickAnswer'
-      },
       clickAnswer: function(el) {
-        return this.model.setAnswer($('input#answer:checked').val());
+        console.log(el.currentTarget.value);
+        this.options.testRun.setAnswer(el.currentTarget.value);
+        if (this.options.testRun.isAtLast() === true) {
+          return '#result';
+        } else {
+          return this.options.testRun.nextTest();
+        }
       }
     });
   });
