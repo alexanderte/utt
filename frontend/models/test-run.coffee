@@ -1,4 +1,4 @@
-define ['backbone', 'socketio', 'collections/tests', 'jquery', 'jed'], (Backbone, io, Tests, $) ->
+define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
   Backbone.Model.extend {
     defaults: {
       'webPage':     'http://www.tingtun.no/'
@@ -6,18 +6,6 @@ define ['backbone', 'socketio', 'collections/tests', 'jquery', 'jed'], (Backbone
       'state':       'loading'
       'tests':       []
     }
-    verifyTests: () ->
-      this.get('tests').where({category: 'verify'})
-    nextTest: () ->
-      this.set('currentTest', this.get('currentTest') + 1)
-    previousTest: () ->
-      this.set('currentTest', this.get('currentTest') - 1)
-    getCurrentTest: () ->
-      if this.get('tests').length == 0
-        null
-      else
-        this.verifyTests()[this.get('currentTest')]
-
     initialize: (socket) ->
       _.extend(this, Backbone.Events)
       this.set 'socket', socket
@@ -34,6 +22,17 @@ define ['backbone', 'socketio', 'collections/tests', 'jquery', 'jed'], (Backbone
       )
 
       this.bind('change:webPage', this.fetchTests, this)
+    verifyTests: () ->
+      this.get('tests').where({category: 'verify'})
+    nextTest: () ->
+      this.set('currentTest', this.get('currentTest') + 1)
+    previousTest: () ->
+      this.set('currentTest', this.get('currentTest') - 1)
+    getCurrentTest: () ->
+      if this.get('tests').length == 0
+        null
+      else
+        this.verifyTests()[this.get('currentTest')]
     fetchTests: () ->
       this.set('state', 'loading')
       this.get('socket').emit('get tests', this.get('webPage'))
