@@ -61,5 +61,6 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
         else
           url
 
+      @set 'currentTest', 0
       @set 'webPage', addProtocol(url)
   }

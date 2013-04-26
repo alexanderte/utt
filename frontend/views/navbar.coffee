@@ -33,6 +33,7 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         return Backbone.history.fragment
     setWebPage: () ->
       @options.testRun.setWebPage($('#web-page').val())
+      @options.router.navigate 'test', { trigger: true }
     changeLanguage: (e) ->
       @options.locale.setLocale(e.currentTarget.dataset['language'])
   }

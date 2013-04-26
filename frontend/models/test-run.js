@@ -82,6 +82,7 @@
             return url;
           }
         };
+        this.set('currentTest', 0);
         return this.set('webPage', addProtocol(url));
       }
     });

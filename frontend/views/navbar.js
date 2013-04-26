@@ -37,7 +37,10 @@
         }
       },
       setWebPage: function() {
-        return this.options.testRun.setWebPage($('#web-page').val());
+        this.options.testRun.setWebPage($('#web-page').val());
+        return this.options.router.navigate('test', {
+          trigger: true
+        });
       },
       changeLanguage: function(e) {
         return this.options.locale.setLocale(e.currentTarget.dataset['language']);
