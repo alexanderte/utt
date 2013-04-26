@@ -25,42 +25,36 @@
         });
         return this.bind('change:webPage', this.fetchTests, this);
       },
-      verifyTests: function() {
+      fetchTests: function() {
+        this.set('state', 'loading');
+        return this.get('socket').emit('get tests', this.get('webPage'));
+      },
+      getVerifyTests: function() {
+        _.first(this.get('tests').where({
+          category: 'verify'
+        }), 10);
         return this.get('tests').where({
           category: 'verify'
         });
-      },
-      nextTest: function() {
-        return this.set('currentTest', this.get('currentTest') + 1);
-      },
-      previousTest: function() {
-        return this.set('currentTest', this.get('currentTest') - 1);
       },
       getCurrentTest: function() {
         if (this.get('tests').length === 0) {
           return null;
         } else {
-          return this.verifyTests()[this.get('currentTest')];
+          return this.getVerifyTests()[this.get('currentTest')];
         }
       },
-      fetchTests: function() {
-        this.set('state', 'loading');
-        return this.get('socket').emit('get tests', this.get('webPage'));
-      },
-      testCount: function() {
-        return Math.min(this.verifyTests().length, 10);
-      },
       progress: function() {
-        return parseInt((this.get('currentTest') / (this.testCount() - 1)) * 100);
-      },
-      isAtLast: function() {
-        return this.get('currentTest') === (this.testCount() - 1);
+        return parseInt((this.get('currentTest') / (this.getVerifyTests().length - 1)) * 100);
       },
       isAtFirst: function() {
         return this.get('currentTest') === 0;
       },
+      isAtLast: function() {
+        return this.get('currentTest') === (this.getVerifyTests().length - 1);
+      },
       setAnswer: function(answer) {
-        this.verifyTests()[this.get('currentTest')].set('answer', answer);
+        this.getVerifyTests()[this.get('currentTest')].set('answer', answer);
         return this.trigger('change:answer');
       },
       setWebPage: function(url) {

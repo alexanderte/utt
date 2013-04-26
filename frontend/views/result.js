@@ -35,7 +35,7 @@
           results = [];
           testIndex = 0;
           _.each(this.options.testRun.get('tests').models, function(element, index, list) {
-            results.push(that.transformResult(element.attributes, testIndex, that.options.testRun.testCount(), that));
+            results.push(that.transformResult(element.attributes, testIndex, that.options.testRun.getVerifyTests().length, that));
             if (element.attributes.category === 'verify') {
               return testIndex++;
             }

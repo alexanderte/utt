@@ -181,13 +181,17 @@
     <script type="text/template" id="test-case-template">
       <p class="lead"><%= _question %></p>
       <div style="margin-bottom: 8px;">
-        <a href="<%= previousUrl %>" class="btn btn-link" style="margin-right: 1em;"><i class="icon-angle-left"></i> <%= _previousTest %></a>
+        <% if (!isAtFirst) {  %>
+          <a href="<%= previousUrl %>" style="margin-right: 2em;"><i class="icon-angle-left"></i> <%= _previousTest %></a>
+        <% } else {  %>
+          <span class="dim" style="margin-right: 2em;"><i class="icon-angle-left"></i> <%= _previousTest %></span>
+        <% }  %>
         <div class="btn-group">
           <% _.each(answers, function(answer) { %>
             <button class="answer btn" value="<%= answer.value %>"><%= answer._value %></button>
           <% }); %>
         </div>
-      <a href="<%= nextUrl %>" class="btn btn-link" style="margin-left: 1em;"><%= _skipTest %> <i class="icon-angle-right"></i></a>
+      <a href="<%= nextUrl %>" style="margin-left: 2em;"><%= _skipTest %> <i class="icon-angle-right"></i></a>
       </div>
     </script>
 

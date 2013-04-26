@@ -45,7 +45,7 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
               'answers': answers
               'nextUrl': @nextUrl()
               'previousUrl': @previousUrl()
-              'previousExtraClass': @previousExtraClass()
+              'isAtFirst': @options.testRun.isAtFirst()
             })
           )
 
@@ -65,8 +65,8 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         return '#test/' + (@options.testRun.get('currentTest') + 1)
     clickAnswer: (el) ->
       @options.testRun.setAnswer(el.currentTarget.value)
-      if (@options.testRun.isAtLast() == true)
-        return '#result'
+      if @options.testRun.isAtLast()
+        @options.router.navigate('result', { trigger: true })
       else
-        @options.testRun.nextTest()
+        @options.router.navigate('test/' + (@options.testRun.get('currentTest') + 1), { trigger: true })
   }

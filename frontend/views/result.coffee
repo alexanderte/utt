@@ -27,7 +27,7 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         results = []
         testIndex = 0
         _.each(@options.testRun.get('tests').models, (element, index, list) ->
-          results.push(that.transformResult(element.attributes, testIndex, that.options.testRun.testCount(), that))
+          results.push(that.transformResult(element.attributes, testIndex, that.options.testRun.getVerifyTests().length, that))
 
           if element.attributes.category == 'verify'
             testIndex++

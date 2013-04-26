@@ -60,7 +60,7 @@
               'answers': answers,
               'nextUrl': this.nextUrl(),
               'previousUrl': this.previousUrl(),
-              'previousExtraClass': this.previousExtraClass()
+              'isAtFirst': this.options.testRun.isAtFirst()
             }));
             return $('html, body').animate({
               scrollTop: 0
@@ -88,10 +88,14 @@
       },
       clickAnswer: function(el) {
         this.options.testRun.setAnswer(el.currentTarget.value);
-        if (this.options.testRun.isAtLast() === true) {
-          return '#result';
+        if (this.options.testRun.isAtLast()) {
+          return this.options.router.navigate('result', {
+            trigger: true
+          });
         } else {
-          return this.options.testRun.nextTest();
+          return this.options.router.navigate('test/' + (this.options.testRun.get('currentTest') + 1), {
+            trigger: true
+          });
         }
       }
     });

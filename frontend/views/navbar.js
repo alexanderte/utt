@@ -10,6 +10,8 @@
       getCurrentRoute: function() {
         if (!Backbone.history.fragment) {
           return 'home';
+        } else if (Backbone.history.fragment.substr(0, 4) === 'test') {
+          return 'test';
         } else {
           return Backbone.history.fragment;
         }

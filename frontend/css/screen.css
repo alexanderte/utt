@@ -22,6 +22,10 @@ tr.dim {
   opacity: 0.25;
 }
 
+span.dim {
+  opacity: 0.5;
+}
+
 tr.pass {
   color: #00a000;
   background-color: #f0fff0;

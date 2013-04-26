@@ -7,9 +7,12 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
     }
     getCurrentRoute: () ->
       if not Backbone.history.fragment
-        'home'
+        return 'home'
+      else if Backbone.history.fragment.substr(0, 4) is 'test'
+        return 'test'
       else
-        Backbone.history.fragment
+        return Backbone.history.fragment
+
     initialize: () ->
       @render()
 

@@ -8,9 +8,9 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
     }
     initialize: (socket) ->
       _.extend(this, Backbone.Events)
-      this.set 'socket', socket
+      @set 'socket', socket
 
-      socket.emit('get tests', this.get('webPage'))
+      socket.emit('get tests', @get('webPage'))
 
       that = this
       socket.on('tests', (data) ->
@@ -21,32 +21,27 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
           that.set('state', 'loaded')
       )
 
-      this.bind('change:webPage', this.fetchTests, this)
-    verifyTests: () ->
-      this.get('tests').where({category: 'verify'})
-    nextTest: () ->
-      this.set('currentTest', this.get('currentTest') + 1)
-    previousTest: () ->
-      this.set('currentTest', this.get('currentTest') - 1)
+      @bind('change:webPage', @fetchTests, this)
+    fetchTests: () ->
+      @set('state', 'loading')
+      @get('socket').emit('get tests', @get('webPage'))
+    getVerifyTests: () ->
+      _.first(@get('tests').where({category: 'verify'}), 10)
+      @get('tests').where({category: 'verify'})
     getCurrentTest: () ->
-      if this.get('tests').length == 0
+      if @get('tests').length == 0
         null
       else
-        this.verifyTests()[this.get('currentTest')]
-    fetchTests: () ->
-      this.set('state', 'loading')
-      this.get('socket').emit('get tests', this.get('webPage'))
-    testCount: () ->
-      Math.min(this.verifyTests().length, 10)
+        @getVerifyTests()[@get('currentTest')]
     progress: () ->
-      parseInt((this.get('currentTest') / (this.testCount() - 1)) * 100)
-    isAtLast: () ->
-      this.get('currentTest') == (this.testCount() - 1)
+      parseInt((@get('currentTest') / (@getVerifyTests().length - 1)) * 100)
     isAtFirst: () ->
-      this.get('currentTest') == 0
+      @get('currentTest') == 0
+    isAtLast: () ->
+      @get('currentTest') == (@getVerifyTests().length - 1)
     setAnswer: (answer) ->
-      this.verifyTests()[this.get('currentTest')].set('answer', answer)
-      this.trigger 'change:answer'
+      @getVerifyTests()[@get('currentTest')].set('answer', answer)
+      @trigger 'change:answer'
     setWebPage: (url) ->
       addProtocol = (url) ->
         if url.substring(0, 7) isnt 'http://' and url.substring(0, 8) isnt 'https://'
@@ -54,5 +49,5 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
         else
           url
 
-      this.set 'webPage', addProtocol(url)
+      @set 'webPage', addProtocol(url)
   }
