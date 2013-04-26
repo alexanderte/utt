@@ -20,7 +20,7 @@
         return this.options.testRun.on('change:answer', this.render, this);
       },
       render: function() {
-        var checked, results, testIndex, that;
+        var checked, test, tests, verifyTests, _i, _len, _ref;
 
         if (this.options.testRun.get('state') === 'error') {
           return this.$el.html(_.template($('#result-template-error').html(), {
@@ -31,21 +31,19 @@
             webPage: this.options.testRun.get('webPage')
           }));
         } else {
-          that = this;
-          results = [];
-          testIndex = 0;
-          _.each(this.options.testRun.get('tests').models, function(element, index, list) {
-            results.push(that.transformResult(element.attributes, testIndex, that.options.testRun.getVerifyTests().length, that));
-            if (element.attributes.category === 'verify') {
-              return testIndex++;
-            }
-          });
+          tests = [];
+          verifyTests = this.options.testRun.getVerifyTests();
+          _ref = this.options.testRun.get('tests').models;
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            test = _ref[_i];
+            tests.push(this.transformResult(test, verifyTests));
+          }
           checked = '';
           if (this.shouldHideAutomatedCheckerResults()) {
             checked = 'checked="checked"';
           }
           return this.$el.html(_.template($('#result-template').html(), {
-            tests: results,
+            tests: tests,
             checked: checked,
             _resultsForWebPage: this.options.locale.translate('result_results_for_web_page', this.options.testRun.get('webPage')),
             _hideAutomated: this.options.locale.translate('result_hide_automated'),
@@ -60,32 +58,37 @@
           }));
         }
       },
-      transformResult: function(result, testIndex, testCount, that) {
-        if (result.line === 0) {
-          result.line = '–';
+      transformResult: function(result, verifyTests) {
+        var index;
+
+        if (result.get('category') === 'verify') {
+          index = _.indexOf(verifyTests, result);
+          if (index !== -1) {
+            result.set('testTitle', '<a href="' + window.location.href.split('#')[0] + '#test/' + index + '">' + result.get('testTitle') + '</a>');
+          }
         }
-        if (result.column === 0) {
-          result.column = '–';
+        if (result.get('line') === 0) {
+          result.set('line', '–');
         }
-        if (result.category !== 'verify') {
-          result._answer = this.options.locale.translate('result_answer_auto');
-          if (that.shouldHideAutomatedCheckerResults()) {
-            result.dimClass = 'dim';
+        if (result.get('column') === 0) {
+          result.set('column', '–');
+        }
+        if (result.get('category') !== 'verify') {
+          result.set('_answer', this.options.locale.translate('result_answer_auto'));
+          if (this.shouldHideAutomatedCheckerResults()) {
+            result.set('dimClass', 'dim');
           } else {
-            result.dimClass = '';
+            result.set('dimClass', '');
           }
         } else {
-          if (!result.answer) {
-            result._answer = '–';
+          if (!result.get('answer')) {
+            result.set('_answer', '–');
           } else {
-            result._answer = this.options.locale.translate('test_answer_' + result.answer);
+            result.set('_answer', this.options.locale.translate('test_answer_' + result.get('answer')));
           }
         }
-        if (result.category === 'verify' && testIndex < testCount) {
-          result.testTitle = '<a href="' + window.location.href.split('#')[0] + '#test/' + testIndex + '">' + result.testTitle + '</a>';
-        }
-        result._category = this.options.locale.translate('result_category_' + result.category);
-        return result;
+        result._category = this.options.locale.translate('result_category_' + result.get('category'));
+        return result.toJSON();
       },
       shouldHideAutomatedCheckerResults: function() {
         return document.getElementById('hideAutomatedCheckerResults') === null || $('#hideAutomatedCheckerResults').is(':checked');

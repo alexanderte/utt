@@ -30,12 +30,27 @@
         return this.get('socket').emit('get tests', this.get('webPage'));
       },
       getVerifyTests: function() {
-        _.first(this.get('tests').where({
+        var count, result, test, tests, _i, _len;
+
+        tests = _.first(this.get('tests').where({
           category: 'verify'
         }), 10);
-        return this.get('tests').where({
-          category: 'verify'
+        tests = tests.sort(function(a, b) {
+          return a.getTestId() > b.getTestId();
         });
+        count = {};
+        result = [];
+        for (_i = 0, _len = tests.length; _i < _len; _i++) {
+          test = tests[_i];
+          if (!count[test.getTestId()]) {
+            count[test.getTestId()] = 0;
+          }
+          if (count[test.getTestId()] < 2) {
+            count[test.getTestId()] = count[test.getTestId()] + 1;
+            result.push(test);
+          }
+        }
+        return result;
       },
       getCurrentTest: function() {
         if (this.get('tests').length === 0) {

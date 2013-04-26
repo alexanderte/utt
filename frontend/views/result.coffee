@@ -23,22 +23,18 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
       else if @options.testRun.get('state') == 'loading'
         @$el.html(_.template($('#result-template-loading').html(), { webPage: @options.testRun.get('webPage') }))
       else
-        that = this
-        results = []
-        testIndex = 0
-        _.each(@options.testRun.get('tests').models, (element, index, list) ->
-          results.push(that.transformResult(element.attributes, testIndex, that.options.testRun.getVerifyTests().length, that))
+        tests = []
+        verifyTests = @options.testRun.getVerifyTests()
 
-          if element.attributes.category == 'verify'
-            testIndex++
-        )
+        for test in @options.testRun.get('tests').models
+          tests.push(@transformResult(test, verifyTests))
 
         checked = ''
         if @shouldHideAutomatedCheckerResults()
           checked = 'checked="checked"'
 
         @$el.html(_.template($('#result-template').html(), {
-          tests: results,
+          tests: tests,
           checked: checked
           _resultsForWebPage: @options.locale.translate('result_results_for_web_page', @options.testRun.get('webPage')),
           _hideAutomated: @options.locale.translate('result_hide_automated'),
@@ -51,31 +47,32 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
           _answer: @options.locale.translate('result_answer'),
           _answer_auto: @options.locale.translate('result_answer_auto')
         }))
-    transformResult: (result, testIndex, testCount, that) ->
-      if result.line == 0
-        result.line = '–'
-      if result.column == 0
-        result.column = '–'
-      if result.category != 'verify'
-        result._answer = @options.locale.translate('result_answer_auto')
+    transformResult: (result, verifyTests) ->
+      if result.get('category') == 'verify'
+        index = _.indexOf(verifyTests, result)
+        if index isnt -1
+          result.set 'testTitle', '<a href="' + window.location.href.split('#')[0] + '#test/' + index + '">' + result.get('testTitle') + '</a>'
 
-        if that.shouldHideAutomatedCheckerResults()
-          result.dimClass = 'dim'
+      if result.get('line') is 0
+        result.set 'line', '–'
+      if result.get('column') is 0
+        result.set 'column', '–'
+
+      if result.get('category') isnt 'verify'
+        result.set '_answer', @options.locale.translate('result_answer_auto')
+
+        if @shouldHideAutomatedCheckerResults()
+          result.set 'dimClass', 'dim'
         else
-          result.dimClass = ''
+          result.set 'dimClass', ''
        else
-        if not result.answer
-          result._answer = '–'
+        if not result.get('answer')
+          result.set '_answer', '–'
         else
-          result._answer = @options.locale.translate('test_answer_' + result.answer)
+          result.set '_answer', @options.locale.translate('test_answer_' + result.get('answer'))
 
-
-      if result.category == 'verify' and testIndex < testCount
-        result.testTitle = '<a href="' + window.location.href.split('#')[0] + '#test/' + testIndex + '">' + result.testTitle + '</a>'
-
-      result._category = @options.locale.translate('result_category_' + result.category)
-
-      result
+      result._category = @options.locale.translate('result_category_' + result.get('category'))
+      result.toJSON()
     shouldHideAutomatedCheckerResults: () ->
       document.getElementById('hideAutomatedCheckerResults') == null or $('#hideAutomatedCheckerResults').is(':checked')
     clickDim: (el) ->

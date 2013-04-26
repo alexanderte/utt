@@ -12,4 +12,6 @@ define ['backbone'], (Backbone) ->
       'template':     '#test-case-template'
       'answer':       undefined
     }
+    getTestId: () ->
+      return @.attributes.testId + '-' + @.attributes.testResultId
   }

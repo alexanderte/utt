@@ -13,6 +13,9 @@
         'answers': void 0,
         'template': '#test-case-template',
         'answer': void 0
+      },
+      getTestId: function() {
+        return this.attributes.testId + '-' + this.attributes.testResultId;
       }
     });
   });

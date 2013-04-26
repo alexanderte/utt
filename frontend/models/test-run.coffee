@@ -26,8 +26,20 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
       @set('state', 'loading')
       @get('socket').emit('get tests', @get('webPage'))
     getVerifyTests: () ->
-      _.first(@get('tests').where({category: 'verify'}), 10)
-      @get('tests').where({category: 'verify'})
+      tests = _.first(@get('tests').where({category: 'verify'}), 10)
+      tests = tests.sort((a, b) -> a.getTestId() > b.getTestId())
+      count = {}
+      result = []
+
+      for test in tests
+        if not count[test.getTestId()]
+          count[test.getTestId()] = 0
+
+        if count[test.getTestId()] < 2
+          count[test.getTestId()] = count[test.getTestId()] + 1
+          result.push(test)
+
+      result
     getCurrentTest: () ->
       if @get('tests').length == 0
         null

@@ -65,6 +65,7 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         return '#test/' + (@options.testRun.get('currentTest') + 1)
     clickAnswer: (el) ->
       @options.testRun.setAnswer(el.currentTarget.value)
+
       if @options.testRun.isAtLast()
         @options.router.navigate('result', { trigger: true })
       else
