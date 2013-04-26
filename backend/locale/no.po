@@ -14,7 +14,7 @@ msgid "test_answer_i_dont_speak_this_language"
 msgstr "Jeg snakker ikke dette språket"
 
 msgid "test_previous_test"
-msgstr "Forrige"
+msgstr "Tilbake"
 
 msgid "test_skip_test"
 msgstr "Hopp over"
