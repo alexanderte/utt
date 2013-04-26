@@ -62,7 +62,7 @@ msgid "home_user_testing_tool"
 msgstr "User Testing Tool"
 
 msgid "home_description"
-msgstr "User Testing Tool (UTT) er en prototype som kombinerer brukertesting med automatiserte testtjenester for å forbedre tilgjengeligheten og brukervennligheten til nettsteder."
+msgstr "User Testing Tool (UTT) er en prototype som kombinerer brukertesting med automatiserte testtjenester for å forbedre tilgjengeligheten og brukervennligheten til nettsteder. <a href=\"http://www.itfunk.org/docs/prosjekter/User_Testing_Tool.htm\" title="Prosjektbeskrivelse på IT Funk sitt nettsted">Les prosjektbeskrivelse</a>."
 
 msgid "home_enter_web_page"
 msgstr "For å sette i gang, skriv inn en nettside som du vil teste."
