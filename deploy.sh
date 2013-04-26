@@ -9,7 +9,7 @@ if [ -z $2 ]; then
   echo
   echo "Specify the address of the Socket.IO connection that connects the"
   echo "frontend with the backend. The host is the domain name or IP of the"
-  echo "server where both the UTT frontend and backend is hosted. 4563 is the
+  echo "server where both the UTT frontend and backend is hosted. 4563 is the"
   echo "default UTT backend port number."
   echo
   echo "Example: $0 http://utt.tingtun.no 4563"
