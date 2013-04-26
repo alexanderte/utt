@@ -62,9 +62,10 @@
               'previousUrl': this.previousUrl(),
               'isAtFirst': this.options.testRun.isAtFirst()
             }));
-            return $('html, body').animate({
+            $('html, body').animate({
               scrollTop: 0
             }, 'fast');
+            return $('button.answer').first().focus();
         }
       },
       previousExtraClass: function() {

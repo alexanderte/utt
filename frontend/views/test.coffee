@@ -50,6 +50,7 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
           )
 
           $('html, body').animate({ scrollTop: 0 }, 'fast')
+          $('button.answer').first().focus()
     previousExtraClass: () ->
       if (@options.testRun.isAtFirst() == true)
         return 'disabled'
