@@ -39,7 +39,8 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
           @$el.html(
             _.template($('#test-progress').html(), { 'progress': @options.testRun.progress() }) +
             _.template($(test.get('template')).html(), {
-              '_question': @options.locale.translate('test_question_' + test.get('testId') + '-' + test.get('testResultId'), test.get('questionValues'))
+              '_question': @options.locale.translate(
+                'test_question_' + test.getTestId(), test.get('questionValues'))
               '_previousTest': @options.locale.translate('test_previous_test')
               '_skipTest': @options.locale.translate('test_skip_test')
               'answers': answers
@@ -51,9 +52,6 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
 
           $('html, body').animate({ scrollTop: 0 }, 'fast')
           $('button.answer').first().focus()
-    previousExtraClass: () ->
-      if (@options.testRun.isAtFirst() == true)
-        return 'disabled'
     previousUrl: () ->
       if (@options.testRun.isAtFirst() == true)
         return '#test/' + (@options.testRun.get('currentTest'))

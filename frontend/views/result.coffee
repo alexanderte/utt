@@ -44,15 +44,15 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
           tests: tests,
           checked: checked
           _resultsForWebPage: @options.locale.translate('result_results_for_web_page', @options.testRun.get('webPage')),
-          _hideAutomated: @options.locale.translate('result_hide_automated'),
-          _category: @options.locale.translate('result_category'),
-          _line: @options.locale.translate('result_line'),
-          _column: @options.locale.translate('result_column'),
-          _testId: @options.locale.translate('result_test_id'),
-          _testResultId: @options.locale.translate('result_test_result_id'),
-          _testTitle: @options.locale.translate('result_test_title'),
-          _answer: @options.locale.translate('result_answer'),
-          _answer_auto: @options.locale.translate('result_answer_auto')
+          _hideAutomated:     @options.locale.translate('result_hide_automated'),
+          _category:          @options.locale.translate('result_category'),
+          _line:              @options.locale.translate('result_line'),
+          _column:            @options.locale.translate('result_column'),
+          _testId:            @options.locale.translate('result_test_id'),
+          _testResultId:      @options.locale.translate('result_test_result_id'),
+          _testTitle:         @options.locale.translate('result_test_title'),
+          _answer:            @options.locale.translate('result_answer'),
+          _answer_auto:       @options.locale.translate('result_answer_auto')
         }))
     transformResult: (result, verifyTests) ->
       index = _.indexOf(verifyTests, result)

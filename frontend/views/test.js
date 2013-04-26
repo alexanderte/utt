@@ -54,7 +54,7 @@
             this.$el.html(_.template($('#test-progress').html(), {
               'progress': this.options.testRun.progress()
             }) + _.template($(test.get('template')).html(), {
-              '_question': this.options.locale.translate('test_question_' + test.get('testId') + '-' + test.get('testResultId'), test.get('questionValues')),
+              '_question': this.options.locale.translate('test_question_' + test.getTestId(), test.get('questionValues')),
               '_previousTest': this.options.locale.translate('test_previous_test'),
               '_skipTest': this.options.locale.translate('test_skip_test'),
               'answers': answers,
@@ -66,11 +66,6 @@
               scrollTop: 0
             }, 'fast');
             return $('button.answer').first().focus();
-        }
-      },
-      previousExtraClass: function() {
-        if (this.options.testRun.isAtFirst() === true) {
-          return 'disabled';
         }
       },
       previousUrl: function() {
