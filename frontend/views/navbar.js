@@ -7,19 +7,11 @@
         'click button#set-web-page': 'setWebPage',
         'click a.language': 'changeLanguage'
       },
-      getCurrentRoute: function() {
-        if (!Backbone.history.fragment) {
-          return 'home';
-        } else if (Backbone.history.fragment.substr(0, 4) === 'test') {
-          return 'test';
-        } else {
-          return Backbone.history.fragment;
-        }
-      },
       initialize: function() {
         this.render();
         this.options.router.bind('all', this.render, this);
-        return this.options.locale.on('change:locale', this.render, this);
+        this.options.locale.on('change:locale', this.render, this);
+        return this.options.testRun.bind('change:state', this.render, this);
       },
       render: function() {
         return this.$el.html(_.template($('#navbar-template').html(), {
@@ -34,6 +26,15 @@
           _languageNorwegian: this.options.locale.translate('navbar_language_norwegian'),
           _set: this.options.locale.translate('navbar_set')
         }));
+      },
+      getCurrentRoute: function() {
+        if (!Backbone.history.fragment) {
+          return 'home';
+        } else if (Backbone.history.fragment.substr(0, 4) === 'test') {
+          return 'test';
+        } else {
+          return Backbone.history.fragment;
+        }
       },
       setWebPage: function() {
         return this.options.testRun.setWebPage($('#web-page').val());

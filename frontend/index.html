@@ -42,7 +42,7 @@
           <% if (route != 'home') { %>
             <form class="navbar-form pull-right" onsubmit="return false;">
               <div class="input-append">
-                <input <% if (state == 'loading') { %>disabled="true"<% } %>id="web-page" type="text" placeholder="Web page" value="<%= webPage %>" class="span4">
+                <input <% if (state == 'loading') { %>disabled="true"<% } %>id="web-page" type="text" value="<%= webPage %>" class="span4">
                 <button <% if (state == 'loading') { %>class="btn disabled" disabled="true"<% } else { %>class="btn" <% } %> id="set-web-page" value="Set"><%= _set %></button>
               </div>
             </form>
@@ -58,12 +58,10 @@
           <p class="lead"><%= description %></p>
           <p class="lead"><%= enterWebPage %></p>
           <form class="form-inline" onsubmit="return false;">
-            <fieldset>
-              <div class="input-append">
-                <input id="web-page-2" type="text" placeholder="Web page" value="<%= webPage %>" class="span4 input-large">
-                <button id="set-web-page-2" class="btn btn-primary"><%= startTesting %></a>
-              </div>
-            <fieldset>
+            <div class="input-append">
+              <input <% if (state == 'loading') { %>disabled="true"<% } %>id="web-page-2" type="text" value="<%= webPage %>" class="span4 input-large">
+              <button <% if (state == 'loading') { %>class="btn btn-primary disabled" disabled="true"<% } else { %>class="btn btn-primary" <% } %> id="set-web-page-2" value="Set"><%= startTesting %></button>
+            </div>
           </form>
           <hr>
           <p>

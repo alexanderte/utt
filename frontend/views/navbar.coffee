@@ -5,19 +5,12 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
       'click button#set-web-page': 'setWebPage'
       'click a.language': 'changeLanguage'
     }
-    getCurrentRoute: () ->
-      if not Backbone.history.fragment
-        return 'home'
-      else if Backbone.history.fragment.substr(0, 4) is 'test'
-        return 'test'
-      else
-        return Backbone.history.fragment
-
     initialize: () ->
       @render()
 
       @options.router.bind('all', @render, this)
       @options.locale.on('change:locale', @render , this)
+      @options.testRun.bind('change:state', @render , this)
     render: () ->
       @$el.html(_.template($('#navbar-template').html(), {
         webPage:            @options.testRun.get('webPage'),
@@ -31,6 +24,13 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         _languageNorwegian: @options.locale.translate('navbar_language_norwegian')
         _set:               @options.locale.translate('navbar_set')
       }))
+    getCurrentRoute: () ->
+      if not Backbone.history.fragment
+        return 'home'
+      else if Backbone.history.fragment.substr(0, 4) is 'test'
+        return 'test'
+      else
+        return Backbone.history.fragment
     setWebPage: () ->
       @options.testRun.setWebPage($('#web-page').val())
     changeLanguage: (e) ->

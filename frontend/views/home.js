@@ -28,16 +28,16 @@
           description: this.options.locale.translate('home_description'),
           enterWebPage: this.options.locale.translate('home_enter_web_page'),
           startTesting: this.options.locale.translate('home_start_testing'),
-          reportIssue: this.options.locale.translate('home_report_issue')
+          reportIssue: this.options.locale.translate('home_report_issue'),
+          state: this.options.testRun.get('state')
         }));
         return $('#web-page-2').focus();
       },
       setWebPage: function() {
-        if (this.options.testRun.get('webPage') === $('#web-page-2').val()) {
-          return this.options.router.navigate('test', true);
-        } else {
-          return this.options.testRun.setWebPage($('#web-page-2').val());
-        }
+        this.options.testRun.setWebPage($('#web-page-2').val());
+        return this.options.router.navigate('test', {
+          trigger: true
+        });
       }
     });
   });
