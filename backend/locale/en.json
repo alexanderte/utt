@@ -101,6 +101,18 @@
          null,
          "Category"
       ],
+      "result_category_pass": [
+         null,
+         "Pass"
+      ],
+      "result_category_fail": [
+         null,
+         "Fail"
+      ],
+      "result_category_verify": [
+         null,
+         "Verify"
+      ],
       "result_line": [
          null,
          "Line"
@@ -124,14 +136,6 @@
       "result_answer": [
          null,
          "Answer"
-      ],
-      "result_answer_pass": [
-         null,
-         "Pass"
-      ],
-      "result_answer_fail": [
-         null,
-         "Fail"
       ],
       "result_answer_auto": [
          null,

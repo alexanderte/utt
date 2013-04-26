@@ -84,6 +84,15 @@ msgstr "Skjul automatisk sjekkresultater"
 msgid "result_category"
 msgstr "Kategori"
 
+msgid "result_category_pass"
+msgstr "Passert"
+
+msgid "result_category_fail"
+msgstr "Feilet"
+
+msgid "result_category_verify"
+msgstr "Verifisere"
+
 msgid "result_line"
 msgstr "Linje"
 
@@ -102,14 +111,9 @@ msgstr "Testtittel"
 msgid "result_answer"
 msgstr "Svar"
 
-msgid "result_answer_pass"
-msgstr "Passert"
-
-msgid "result_answer_fail"
-msgstr "Feil"
-
 msgid "result_answer_auto"
 msgstr "Auto"
+
 # The following are not implemented
 msgid "question_SC2.4.4-1-11"
 msgstr "Please check the link text of the [el]area[/el]";"<p>Human input is necessary to verify, that the alternative text of the <samp>area</samp> serves the same purpose as the selectable area of the image.</p>"

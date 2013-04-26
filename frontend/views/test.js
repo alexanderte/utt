@@ -87,7 +87,6 @@
         }
       },
       clickAnswer: function(el) {
-        console.log(el.currentTarget.value);
         this.options.testRun.setAnswer(el.currentTarget.value);
         if (this.options.testRun.isAtLast() === true) {
           return '#result';

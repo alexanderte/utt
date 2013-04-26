@@ -2,9 +2,9 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
   Backbone.Model.extend {
     defaults: {
       'webPage':     'http://www.tingtun.no/'
-      'currentTest': 0
       'state':       'loading'
       'tests':       []
+      'currentTest': 0
     }
     initialize: (socket) ->
       _.extend(this, Backbone.Events)
@@ -46,6 +46,7 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
       this.get('currentTest') == 0
     setAnswer: (answer) ->
       this.verifyTests()[this.get('currentTest')].set('answer', answer)
+      this.trigger 'change:answer'
     setWebPage: (url) ->
       addProtocol = (url) ->
         if url.substring(0, 7) isnt 'http://' and url.substring(0, 8) isnt 'https://'

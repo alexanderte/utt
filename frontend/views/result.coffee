@@ -16,41 +16,21 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
 
       @options.locale.on('change:locale', @render , this)
       @options.testRun.bind('change:state', @render, this)
-    shouldHideAutomatedCheckerResults: () ->
-      document.getElementById('hideAutomatedCheckerResults') == null or $('#hideAutomatedCheckerResults').is(':checked')
-    transformResult: (result, verifyIndex, verifyCount, that) ->
-      if result.line == 0
-        result.line = '–'
-      if result.column == 0
-        result.column = '–'
-      if result.category != 'verify'
-        result.answer = '<em>Auto</em>'
-
-        if that.shouldHideAutomatedCheckerResults()
-          result.dimClass = 'dim'
-        else
-          result.dimClass = ''
-      if result.category == 'verify' and verifyIndex < verifyCount
-        result.testTitle = '<a href="' + window.location.href.split('#')[0] + '#test/' + verifyIndex + '">' + result.testTitle + '</a>'
-
-      result.categoryCapitalized = result.category.charAt(0).toUpperCase() + result.category.slice(1)
-
-      result
+      @options.testRun.on('change:answer', @render, this)
     render: () ->
-      that = this
-
       if @options.testRun.get('state') == 'error'
         @$el.html(_.template($('#result-template-error').html(), { webPage: @options.testRun.get('webPage') }))
       else if @options.testRun.get('state') == 'loading'
         @$el.html(_.template($('#result-template-loading').html(), { webPage: @options.testRun.get('webPage') }))
       else
+        that = this
         results = []
-        verifyIndex = 0
+        testIndex = 0
         _.each(@options.testRun.get('tests').models, (element, index, list) ->
-          results.push(that.transformResult(element.attributes, verifyIndex, that.options.testRun.testCount(), that))
+          results.push(that.transformResult(element.attributes, testIndex, that.options.testRun.testCount(), that))
 
           if element.attributes.category == 'verify'
-            verifyIndex++
+            testIndex++
         )
 
         checked = ''
@@ -69,10 +49,35 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
           _testResultId: @options.locale.translate('result_test_result_id'),
           _testTitle: @options.locale.translate('result_test_title'),
           _answer: @options.locale.translate('result_answer'),
-          _answer_pass: @options.locale.translate('result_answer_pass'),
-          _answer_fail: @options.locale.translate('result_answer_fail'),
           _answer_auto: @options.locale.translate('result_answer_auto')
         }))
+    transformResult: (result, testIndex, testCount, that) ->
+      if result.line == 0
+        result.line = '–'
+      if result.column == 0
+        result.column = '–'
+      if result.category != 'verify'
+        result._answer = @options.locale.translate('result_answer_auto')
+
+        if that.shouldHideAutomatedCheckerResults()
+          result.dimClass = 'dim'
+        else
+          result.dimClass = ''
+       else
+        if not result.answer
+          result._answer = '–'
+        else
+          result._answer = @options.locale.translate('test_answer_' + result.answer)
+
+
+      if result.category == 'verify' and testIndex < testCount
+        result.testTitle = '<a href="' + window.location.href.split('#')[0] + '#test/' + testIndex + '">' + result.testTitle + '</a>'
+
+      result._category = @options.locale.translate('result_category_' + result.category)
+
+      result
+    shouldHideAutomatedCheckerResults: () ->
+      document.getElementById('hideAutomatedCheckerResults') == null or $('#hideAutomatedCheckerResults').is(':checked')
     clickDim: (el) ->
       @render()
   }

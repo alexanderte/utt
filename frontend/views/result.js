@@ -16,36 +16,12 @@
           }
         }, this);
         this.options.locale.on('change:locale', this.render, this);
-        return this.options.testRun.bind('change:state', this.render, this);
-      },
-      shouldHideAutomatedCheckerResults: function() {
-        return document.getElementById('hideAutomatedCheckerResults') === null || $('#hideAutomatedCheckerResults').is(':checked');
-      },
-      transformResult: function(result, verifyIndex, verifyCount, that) {
-        if (result.line === 0) {
-          result.line = '–';
-        }
-        if (result.column === 0) {
-          result.column = '–';
-        }
-        if (result.category !== 'verify') {
-          result.answer = '<em>Auto</em>';
-          if (that.shouldHideAutomatedCheckerResults()) {
-            result.dimClass = 'dim';
-          } else {
-            result.dimClass = '';
-          }
-        }
-        if (result.category === 'verify' && verifyIndex < verifyCount) {
-          result.testTitle = '<a href="' + window.location.href.split('#')[0] + '#test/' + verifyIndex + '">' + result.testTitle + '</a>';
-        }
-        result.categoryCapitalized = result.category.charAt(0).toUpperCase() + result.category.slice(1);
-        return result;
+        this.options.testRun.bind('change:state', this.render, this);
+        return this.options.testRun.on('change:answer', this.render, this);
       },
       render: function() {
-        var checked, results, that, verifyIndex;
+        var checked, results, testIndex, that;
 
-        that = this;
         if (this.options.testRun.get('state') === 'error') {
           return this.$el.html(_.template($('#result-template-error').html(), {
             webPage: this.options.testRun.get('webPage')
@@ -55,12 +31,13 @@
             webPage: this.options.testRun.get('webPage')
           }));
         } else {
+          that = this;
           results = [];
-          verifyIndex = 0;
+          testIndex = 0;
           _.each(this.options.testRun.get('tests').models, function(element, index, list) {
-            results.push(that.transformResult(element.attributes, verifyIndex, that.options.testRun.testCount(), that));
+            results.push(that.transformResult(element.attributes, testIndex, that.options.testRun.testCount(), that));
             if (element.attributes.category === 'verify') {
-              return verifyIndex++;
+              return testIndex++;
             }
           });
           checked = '';
@@ -79,11 +56,39 @@
             _testResultId: this.options.locale.translate('result_test_result_id'),
             _testTitle: this.options.locale.translate('result_test_title'),
             _answer: this.options.locale.translate('result_answer'),
-            _answer_pass: this.options.locale.translate('result_answer_pass'),
-            _answer_fail: this.options.locale.translate('result_answer_fail'),
             _answer_auto: this.options.locale.translate('result_answer_auto')
           }));
         }
+      },
+      transformResult: function(result, testIndex, testCount, that) {
+        if (result.line === 0) {
+          result.line = '–';
+        }
+        if (result.column === 0) {
+          result.column = '–';
+        }
+        if (result.category !== 'verify') {
+          result._answer = this.options.locale.translate('result_answer_auto');
+          if (that.shouldHideAutomatedCheckerResults()) {
+            result.dimClass = 'dim';
+          } else {
+            result.dimClass = '';
+          }
+        } else {
+          if (!result.answer) {
+            result._answer = '–';
+          } else {
+            result._answer = this.options.locale.translate('test_answer_' + result.answer);
+          }
+        }
+        if (result.category === 'verify' && testIndex < testCount) {
+          result.testTitle = '<a href="' + window.location.href.split('#')[0] + '#test/' + testIndex + '">' + result.testTitle + '</a>';
+        }
+        result._category = this.options.locale.translate('result_category_' + result.category);
+        return result;
+      },
+      shouldHideAutomatedCheckerResults: function() {
+        return document.getElementById('hideAutomatedCheckerResults') === null || $('#hideAutomatedCheckerResults').is(':checked');
       },
       clickDim: function(el) {
         return this.render();

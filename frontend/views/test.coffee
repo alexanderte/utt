@@ -64,7 +64,6 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
       else
         return '#test/' + (@options.testRun.get('currentTest') + 1)
     clickAnswer: (el) ->
-      console.log el.currentTarget.value
       @options.testRun.setAnswer(el.currentTarget.value)
       if (@options.testRun.isAtLast() == true)
         return '#result'

@@ -109,6 +109,18 @@
          null,
          "Kategori"
       ],
+      "result_category_pass": [
+         null,
+         "Passert"
+      ],
+      "result_category_fail": [
+         null,
+         "Feilet"
+      ],
+      "result_category_verify": [
+         null,
+         "Verifisere"
+      ],
       "result_line": [
          null,
          "Linje"
@@ -133,13 +145,9 @@
          null,
          "Svar"
       ],
-      "result_answer_pass": [
+      "result_answer_auto": [
          null,
-         "Passert"
-      ],
-      "result_answer_fail": [
-         null,
-         "Feil"
+         "Auto"
       ],
       "question_SC4.1.2-2-11": [
          null,

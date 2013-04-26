@@ -78,6 +78,15 @@ msgstr "Hide automated checker results"
 msgid "result_category"
 msgstr "Category"
 
+msgid "result_category_pass"
+msgstr "Pass"
+
+msgid "result_category_fail"
+msgstr "Fail"
+
+msgid "result_category_verify"
+msgstr "Verify"
+
 msgid "result_line"
 msgstr "Line"
 
@@ -95,12 +104,6 @@ msgstr "Test title"
 
 msgid "result_answer"
 msgstr "Answer"
-
-msgid "result_answer_pass"
-msgstr "Pass"
-
-msgid "result_answer_fail"
-msgstr "Fail"
 
 msgid "result_answer_auto"
 msgstr "Auto"

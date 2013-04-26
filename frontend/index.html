@@ -99,13 +99,13 @@
         <tbody>
         <% _.each(tests, function(test) { %>
           <tr class="<%= test.category %> <%= test.dimClass %>">
-            <td class="category"><%= test.categoryCapitalized %></td>
+            <td class="category"><%= test._category %></td>
             <td><%= test.line %></td>
             <td><%= test.column %></td>
             <td><%= test.testId %></td>
             <td><%= test.testResultId %></td>
             <td><%= test.testTitle %></td>
-            <td><%= test.answer %></td>
+            <td><%= test._answer %></td>
           </tr>
         <% }); %>
         </tbody>

@@ -4,9 +4,9 @@
     return Backbone.Model.extend({
       defaults: {
         'webPage': 'http://www.tingtun.no/',
-        'currentTest': 0,
         'state': 'loading',
-        'tests': []
+        'tests': [],
+        'currentTest': 0
       },
       initialize: function(socket) {
         var that;
@@ -60,7 +60,8 @@
         return this.get('currentTest') === 0;
       },
       setAnswer: function(answer) {
-        return this.verifyTests()[this.get('currentTest')].set('answer', answer);
+        this.verifyTests()[this.get('currentTest')].set('answer', answer);
+        return this.trigger('change:answer');
       },
       setWebPage: function(url) {
         var addProtocol;
