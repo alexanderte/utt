@@ -75,11 +75,11 @@
       <h1><%= _resultsForWebPage %></h1>
       
       <p class="lead">
-      <form class="form-inline" onsubmit="return false;">
-        <fieldset>
-          <label class="checkbox inline"><input type="checkbox" id="hideAutomatedCheckerResults" <%= checked %>"><%= _hideAutomated %></label>
-        <fieldset>
-      </form>
+        <form class="form-inline" onsubmit="return false;">
+          <fieldset>
+            <label class="checkbox inline"><input type="checkbox" id="hideAutomatedCheckerResults" <%= checked %>"><%= _hideAutomated %></label>
+          <fieldset>
+        </form>
       </p>
 
       <table class="table">
@@ -95,20 +95,19 @@
           </tr>
         </thead>
         <tbody>
-        <% _.each(tests, function(test) { %>
-          <tr class="<%= test.category %> <%= test.dimClass %>">
-            <td class="category"><%= test._category %></td>
-            <td><%= test.line %></td>
-            <td><%= test.column %></td>
-            <td><%= test.testId %></td>
-            <td><%= test.testResultId %></td>
-            <td><%= test.testTitle %></td>
-            <td><%= test._answer %></td>
-          </tr>
-        <% }); %>
+          <% _.each(tests, function(test) { %>
+            <tr class="<%= test.category %> <%= test.dimClass %>">
+              <td class="category"><%= test._category %></td>
+              <td><%= test.line %></td>
+              <td><%= test.column %></td>
+              <td><%= test.testId %></td>
+              <td><%= test.testResultId %></td>
+              <td><%= test.testTitle %></td>
+              <td><%= test._answer %></td>
+            </tr>
+          <% }); %>
         </tbody>
       </table>
-      <!--<p style="text-align: right;"><button id="submit-results-button" class="btn btn-primary btn-large">Submit results</button></p>-->
     </script>
 
     <script type="text/template" id="result-template-loading">

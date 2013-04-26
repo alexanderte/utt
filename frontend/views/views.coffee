@@ -6,8 +6,4 @@ define ['backbone', 'views/navbar', 'views/iframe', 'views/home', 'views/test', 
       homeView   = new HomeView(@options)
       testView   = new TestView(@options)
       resultView = new ResultView(@options)
-
-      #      @options.model.bind('change:webPage', () ->
-      #        @options.router.navigate 'test', { trigger: true }
-      #      , this)
   }

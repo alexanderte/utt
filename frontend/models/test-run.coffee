@@ -14,7 +14,7 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
 
       that = this
       socket.on('tests', (data) ->
-        if data == null
+        if data is null
           that.set('state', 'error')
         else
           that.set 'tests', new Tests(data)
@@ -41,16 +41,16 @@ define ['backbone', 'socketio', 'collections/tests'], (Backbone, io, Tests) ->
 
       result
     getCurrentTest: () ->
-      if @get('tests').length == 0
+      if @get('tests').length is 0
         null
       else
         @getVerifyTests()[@get('currentTest')]
     progress: () ->
       parseInt((@get('currentTest') / (@getVerifyTests().length - 1)) * 100)
     isAtFirst: () ->
-      @get('currentTest') == 0
+      @get('currentTest') is 0
     isAtLast: () ->
-      @get('currentTest') == (@getVerifyTests().length - 1)
+      @get('currentTest') is (@getVerifyTests().length - 1)
     setAnswer: (answer) ->
       @getVerifyTests()[@get('currentTest')].set('answer', answer)
       @trigger 'change:answer'
