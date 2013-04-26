@@ -38,6 +38,13 @@
             test = _ref[_i];
             tests.push(this.transformResult(test, verifyTests));
           }
+          tests.sort(function(a, b) {
+            if (a.index > b.index) {
+              return 1;
+            } else {
+              return -1;
+            }
+          });
           checked = '';
           if (this.shouldHideAutomatedCheckerResults()) {
             checked = 'checked="checked"';
@@ -61,11 +68,16 @@
       transformResult: function(result, verifyTests) {
         var index;
 
+        index = _.indexOf(verifyTests, result);
         if (result.get('category') === 'verify') {
-          index = _.indexOf(verifyTests, result);
           if (index !== -1) {
             result.set('testTitle', '<a href="' + window.location.href.split('#')[0] + '#test/' + index + '">' + result.get('testTitle') + '</a>');
+            result.set('index', index);
+          } else {
+            result.set('index', 5000);
           }
+        } else {
+          result.set('index', 10000);
         }
         if (result.get('line') === 0) {
           result.set('line', '–');

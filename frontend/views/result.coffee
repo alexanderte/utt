@@ -29,6 +29,13 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
         for test in @options.testRun.get('tests').models
           tests.push(@transformResult(test, verifyTests))
 
+        tests.sort((a, b) ->
+          if a.index > b.index
+            1
+          else
+            -1
+        )
+
         checked = ''
         if @shouldHideAutomatedCheckerResults()
           checked = 'checked="checked"'
@@ -48,10 +55,16 @@ define ['jquery', 'underscore', 'backbone'], ($, _, Backbone) ->
           _answer_auto: @options.locale.translate('result_answer_auto')
         }))
     transformResult: (result, verifyTests) ->
-      if result.get('category') == 'verify'
-        index = _.indexOf(verifyTests, result)
+      index = _.indexOf(verifyTests, result)
+
+      if result.get('category') is 'verify'
         if index isnt -1
           result.set 'testTitle', '<a href="' + window.location.href.split('#')[0] + '#test/' + index + '">' + result.get('testTitle') + '</a>'
+          result.set 'index', index
+        else
+          result.set 'index', 5000
+      else
+          result.set 'index', 10000
 
       if result.get('line') is 0
         result.set 'line', '–'
