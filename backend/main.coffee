@@ -1,4 +1,5 @@
 fs        = require 'fs'
+path      = require 'path'
 io        = require('socket.io').listen(4563)
 request   = require 'request'
 _         = require 'underscore'
@@ -88,7 +89,7 @@ io.sockets.on 'connection', (socket) ->
     if locale isnt 'no' and locale isnt 'en'
       return
 
-    fs.readFile 'locale/' + locale + '.json', 'utf8', (err, data) ->
+    fs.readFile path.resolve(__dirname, 'locale/', locale + '.json'), 'utf8', (err, data) ->
       if err
         throw err
 
