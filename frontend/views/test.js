@@ -58,6 +58,8 @@
               '_previousTest': this.options.locale.translate('test_previous_test'),
               '_skipTest': this.options.locale.translate('test_skip_test'),
               'answers': answers,
+              'test': this.options.testRun.getCurrentTest(),
+              'tests': this.options.testRun.getVerifyTestCount(),
               'nextUrl': this.nextUrl(),
               'previousUrl': this.previousUrl(),
               'isAtFirst': this.options.testRun.isAtFirst()
