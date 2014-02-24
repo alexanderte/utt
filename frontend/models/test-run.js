@@ -62,9 +62,6 @@
       progress: function() {
         return parseInt((this.get('currentTest') / (this.getVerifyTests().length - 1)) * 100);
       },
-      getVerifyTestCount: function() {
-        return this.getVerifyTests().length;
-      },
       isAtFirst: function() {
         return this.get('currentTest') === 0;
       },
