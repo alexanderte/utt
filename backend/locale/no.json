@@ -1,6 +1,10 @@
 {
    "no": {
       "": {},
+      "test_question_x_of_y": [
+         null,
+         "Spørsmål %s av %s"
+      ],
       "test_answer_yes": [
          null,
          "Ja"

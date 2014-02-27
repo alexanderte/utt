@@ -1,6 +1,10 @@
-{
+﻿{
    "en": {
       "": {},
+      "test_question_x_of_y": [
+         null,
+         "Question %s of %s"
+      ],
       "test_answer_yes": [
          null,
          "Yes"

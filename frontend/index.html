@@ -10,7 +10,7 @@
   <body>
     <div id="navbar-view"></div>
     <div class="view" id="home-view" style="display: none;"></div>
-    <div class="view" id="test-view" style="display: none;"></div>
+    <div role="alert" class="view" id="test-view" style="display: none;"></div>
     <div class="view" id="result-view" style="display: none;"></div>
     <div id="iframe-view" style="display: none;"></div>
 
@@ -177,7 +177,8 @@
     </script>
 
     <script type="text/template" id="test-case-template">
-      <p class="lead"><%= _question %></p>
+<h1><%= progressMessage %></h1>
+      <p aria-live="assertive" class="lead"><%= _question %></p>
       <div style="margin-bottom: 8px;">
         <% if (!isAtFirst) {  %>
           <a href="<%= previousUrl %>" style="margin-right: 2em;"><i class="icon-angle-left"></i> <%= _previousTest %></a>

@@ -59,6 +59,9 @@
           return this.getVerifyTests()[this.get('currentTest')];
         }
       },
+      getVerifyTestsCount: function() {
+        return this.getVerifyTests().length;
+      },
       progress: function() {
         return parseInt((this.get('currentTest') / (this.getVerifyTests().length - 1)) * 100);
       },

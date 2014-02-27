@@ -1,5 +1,8 @@
-msgid ""
+﻿msgid ""
 msgstr ""
+
+msgid "test_question_x_of_y"
+msgstr "Question %s of %s"
 
 msgid "test_answer_yes"
 msgstr "Yes"
