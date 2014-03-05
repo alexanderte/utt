@@ -12,7 +12,7 @@ if [ -z $2 ]; then
   echo "server where both the UTT frontend and backend is hosted. 4563 is the"
   echo "default UTT backend port number."
   echo
-  echo "Example: $0 http://utt.tingtun.no 4563"
+  echo "Example: $0 //utt.tingtun.no 4563"
   exit 1
 fi
 
