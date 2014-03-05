@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
   <head>
     <title>User Testing Tool</title>
@@ -156,8 +156,10 @@
     </script>
 
     <script type="text/template" id="test-progress">
-      <div class="progress">
-        <div class="bar" style="width: <%= progress %>%;"></div>
+      <div class="progress" aria-live="polite">
+        <div class="bar" style="width: <%= progress %>%;">
+		<span class="invisible">Progress: <%= progress %>%</span>
+		</div>
       </div>
     </script>
 
@@ -177,8 +179,8 @@
     </script>
 
     <script type="text/template" id="test-case-template">
-<h1><%= progressMessage %></h1>
-      <p aria-live="assertive" class="lead"><%= _question %></p>
+<h1 aria-live="assertive"><%= progressMessage %></h1>
+      <p class="lead"><%= _question %></p>
       <div style="margin-bottom: 8px;">
         <% if (!isAtFirst) {  %>
           <a href="<%= previousUrl %>" style="margin-right: 2em;"><i class="icon-angle-left"></i> <%= _previousTest %></a>
