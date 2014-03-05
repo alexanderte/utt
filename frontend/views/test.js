@@ -59,7 +59,7 @@
               '_skipTest': this.options.locale.translate('test_skip_test'),
               'testNumber': (this.options.testRun.get('currentTest') + 1),
               'testsToVerify': this.options.testRun.getVerifyTestsCount(),
-              'progressMessage': this.options.locale.translate('test_question_x_of_y', (this.options.testRun.get('currentTest') + 1) + " " + parseInt(this.options.testRun.getVerifyTestsCount())),
+              'progressMessage': this.options.locale.translate('test_question_x_of_y', (this.options.testRun.get('currentTest') + 1)) + " " + parseInt(this.options.testRun.getVerifyTestsCount()),
               'answers': answers,
               'nextUrl': this.nextUrl(),
               'previousUrl': this.previousUrl(),
