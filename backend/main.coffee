@@ -94,3 +94,4 @@ io.sockets.on 'connection', (socket) ->
         throw err
 
       socket.emit 'locale', { locale: locale, data: JSON.parse(data)[locale] }
+	  
