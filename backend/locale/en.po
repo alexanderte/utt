@@ -1,4 +1,4 @@
-﻿msgid ""
+msgid ""
 msgstr ""
 
 msgid "test_question_x_of_y"
