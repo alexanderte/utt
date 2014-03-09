@@ -59,15 +59,18 @@
               '_skipTest': this.options.locale.translate('test_skip_test'),
               'testNumber': (this.options.testRun.get('currentTest') + 1),
               'testsToVerify': this.options.testRun.getVerifyTestsCount(),
-              'progressMessage': this.options.locale.translate('test_question_x_of_y', (this.options.testRun.get('currentTest') + 1)) + " " + parseInt(this.options.testRun.getVerifyTestsCount()),
+              'progressMessage': this.options.locale.translate('test_question_x_of_y', (this.options.testRun.get('currentTest') + 1)) + parseInt(this.options.testRun.getVerifyTestsCount()),
               'answers': answers,
               'nextUrl': this.nextUrl(),
               'previousUrl': this.previousUrl(),
               'isAtFirst': this.options.testRun.isAtFirst()
             }));
-            return $('html, body').animate({
-              scrollTop: 0
-            }, 'fast');
+
+			$('#questionHeading').focus();
+
+            //return $('html, body').animate({
+//              scrollTop: 0
+            //}, 'fast');
         }
       },
       previousExtraClass: function() {
@@ -89,7 +92,7 @@
           return '#test/' + (this.options.testRun.get('currentTest') + 1);
         }
       },
-      clickAnswer: function(el) {
+	        clickAnswer: function(el) {
         this.options.testRun.setAnswer(el.currentTarget.value);
         if (this.options.testRun.isAtLast()) {
           return this.options.router.navigate('result', {

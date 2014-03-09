@@ -19,11 +19,13 @@ input, button, body {
 }
 
 tr.dim {
-  opacity: 0.25;
+  //opacity: 0.25;
+  display: none;
 }
 
 span.dim {
-  opacity: 0.5;
+  //opacity: 0.5;
+  display: none;
 }
 
 tr.pass {
@@ -60,8 +62,17 @@ td.category {
 .invisible {
   position: absolute !important;
   height: 1px;
-  width: 1px; 
+  width: 1px;
   overflow: hidden;
   clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
   clip: rect(1px, 1px, 1px, 1px);
+}
+
+[role="button"] {
+padding:3px;
+border: 1px solid #CCC;
+}
+
+[role="button"][aria-pressed="true"] {
+border: 2px solid #000;
 }
