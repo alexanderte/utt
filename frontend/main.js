@@ -6,7 +6,7 @@
       bootstrap: '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min',
       backbone: 'components/backbone',
       underscore: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min',
-      socketio: '//localhost:4563/socket.io/socket.io',
+      socketio: '//utt.tingtun.no:4563/socket.io/socket.io',
       jed: 'components/jed'
     },
     shim: {
@@ -29,7 +29,7 @@
   require(['backbone', 'socketio', 'router', 'models/locale', 'models/test-run', 'views/views', 'bootstrap', 'jed'], function(Backbone, io, Router, Locale, TestRun, Views) {
     var locale, socket;
 
-    socket = io.connect('http://localhost:4563');
+    socket = io.connect('//utt.tingtun.no:4563');
     locale = new Locale(socket);
     return locale.once('change:locale', function() {
       var router, views;
