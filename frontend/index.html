@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>User Testing Tool</title>
@@ -76,12 +76,11 @@
 
       <p class="lead">
       <form class="form-inline" onsubmit="return false;">
-        <fieldset>
-          <button aria-pressed="false" class="toggle" id="showAutomatedResults">Show automated results</button>
-        </fieldset>
+          <input type="button" id="showAutomatedResults" value="Show automated results" />
       </form>
       </p>
 
+	  <!-- Display the numbers of pass/fail/verify results -->
 	  <h2>Summary of results</h2>
 	  <ul>
 	   <% for (key in summary) { %>

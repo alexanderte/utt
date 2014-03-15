@@ -1,3 +1,6 @@
+//Run the automated tests on eGovMon
+//Fetch the results and analyse them
+//Pull out and make available the set of tests that require user verification
 (function() {
   define(['backbone', 'socketio', 'collections/tests'], function(Backbone, io, Tests) {
     return Backbone.Model.extend({
@@ -28,9 +31,11 @@
         this.set('state', 'loading');
         return this.get('socket').emit('get tests', this.get('webPage'));
       },
+	  //Fetch the tests that need to be vverified by the user
       getVerifyTests: function() {
         var count, result, test, tests, _i, _len;
 
+		//Brings back the first 10 results that require verification
         tests = _.first(this.get('tests').where({
           category: 'verify'
         }), 10);
@@ -51,6 +56,7 @@
         }
         return result;
       },
+	  //Fetch the next test to be presented to the user
       getCurrentTest: function() {
         if (this.get('tests').length === 0) {
           return null;
@@ -58,9 +64,11 @@
           return this.getVerifyTests()[this.get('currentTest')];
         }
       },
+	  //Compute the 'Y' number in a "Question X of Y" scenario
       getVerifyTestsCount: function() {
         return this.getVerifyTests().length;
       },
+	  //Compute the percentage of tests verified for the progress bar
       progress: function() {
         return parseInt((this.get('currentTest') / (this.getVerifyTests().length - 1)) * 100);
       },
@@ -74,6 +82,7 @@
         this.getVerifyTests()[this.get('currentTest')].set('answer', answer);
         return this.trigger('change:answer');
       },
+	  //Set the webpage to be tested
       setWebPage: function(url) {
         var addProtocol;
 

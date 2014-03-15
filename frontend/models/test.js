@@ -1,3 +1,4 @@
+//Backbone representation of a test result
 (function() {
   define(['backbone'], function(Backbone) {
     return Backbone.Model.extend({
