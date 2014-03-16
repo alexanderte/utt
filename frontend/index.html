@@ -9,9 +9,12 @@
   </head>
   <body>
     <div role="navigation" id="navbar-view"></div>
-    <div role="main" class="view" id="home-view" style="display: none;"></div>
-    <div role="main" class="view" id="test-view" style="display: none;"></div>
-    <div role="main" class="view" id="result-view" style="display: none;"></div>
+	<div role="main" id="mainWrapper">
+	<h1 aria-live="assertive" tabindex="-1" id="mainHeading">User testing tool</h1>
+    <div class="view" id="home-view" style="display: none;"></div>
+    <div aria-live="polite" class="view" id="test-view" style="display: none;"></div>
+    <div class="view" id="result-view" style="display: none;"></div>
+	</div>
     <div role="complementary" id="iframe-view" style="display: none;"></div>
 
     <script type="text/template" id="iframe-template">
@@ -54,7 +57,6 @@
     <script type="text/template" id="home-template">
       <div class="row">
         <div class="span12">
-          <h1><%= userTestingTool %></h1>
           <p class="lead"><%= description %></p>
           <p class="lead"><%= enterWebPage %></p>
           <form class="form-inline" onsubmit="return false;">
@@ -72,8 +74,6 @@
     </script>
 
     <script type="text/template" id="result-template">
-      <h1><%= _resultsForWebPage %></h1>
-
       <p class="lead">
       <form class="form-inline" onsubmit="return false;">
           <input type="button" id="showAutomatedResults" value="Show automated results" />
@@ -117,7 +117,6 @@
     </script>
 
     <script type="text/template" id="result-template-loading">
-      <h1>Results for <%= webPage %></h1>
       <table class="table">
         <thead>
           <tr>
@@ -139,7 +138,6 @@
     </script>
 
     <script type="text/template" id="result-template-error">
-      <h1>Results for <%= webPage %></h1>
       <table class="table">
         <thead>
           <tr>
@@ -184,7 +182,6 @@
     </script>
 
     <script type="text/template" id="test-case-template">
-<h1 id="questionHeading" tabindex="0" aria-live="assertive"><%= progressMessage %></h1>
       <p class="lead"><%= _question %></p>
       <div style="margin-bottom: 8px;">
         <% if (!isAtFirst) {  %>

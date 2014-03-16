@@ -29,11 +29,12 @@
         }, this);
       },
       render: function() {
+	    //Change the heading to match the page content
+		//$("#mainHeading").html(this.options.locale.translate('home_user_testing_tool')).focus();
 	  //Compile and render the HTML template for this view
 	  //All templates are held in the 'index.html' file
         this.$el.html(_.template($('#home-template').html(), {
           webPage: this.options.testRun.get('webPage'),
-          userTestingTool: this.options.locale.translate('home_user_testing_tool'),
           description: this.options.locale.translate('home_description'),
           enterWebPage: this.options.locale.translate('home_enter_web_page'),
           startTesting: this.options.locale.translate('home_start_testing'),

@@ -8,6 +8,7 @@
         'click button.answer': 'clickAnswer'
       },
       initialize: function() {
+	  this.h1 = "";
         this.render();
         this.options.router.bind('all', function(route, currentTest) {
           if (route === 'route:test') {
@@ -16,10 +17,12 @@
             if (this.options.testRun.get('currentTest') === 0) {
 			  //If if's the first question then scroll it down the page
 			  //May be an accessibility issue
+			  $("#mainHeading").html(this.h1).focus();
               return this.$el.slideDown();
             } else {
 			  //Just show the question - might be preferable for accessibility
 			  //Display this view if we're on the 'test' page
+			  $("#mainHeading").html(this.h1).focus();
               return this.$el.show();
             }
           } else {
@@ -40,15 +43,18 @@
 		//Calculate which template to render based on the outcome of the test run (error, ready etc)
         switch (this.options.testRun.get('state')) {
           case 'error':
+		    this.h1 = "Error - page not found";
             return this.$el.html(_.template($('#test-error').html(), {
               'webPage': this.options.testRun.get('webPage')
             }));
           case 'loading':
+		    this.h1 = "Page loading - please wait...";
             return this.$el.html(_.template($('#test-loading').html(), {
               'webPage': this.options.testRun.get('webPage')
             }));
           default:
             if (!this.options.testRun.getCurrentTest()) {
+			this.h1 = "Error - nothing to test";
               this.$el.html(_.template($('#test-nothing-to-test').html(), {
                 'webPage': this.options.testRun.get('webPage')
               }));
@@ -62,6 +68,7 @@
                 _value: that.options.locale.translate('test_answer_' + a)
               };
             });
+			this.h1 = this.options.locale.translate('test_question_x_of_y', (this.options.testRun.get('currentTest') + 1)) + parseInt(this.options.testRun.getVerifyTestsCount());
 			//Here we're rendering 2 templates, the progress bar and the next question
             this.$el.html(_.template($('#test-progress').html(), {
               'progress': this.options.testRun.progress()
@@ -71,7 +78,6 @@
               '_skipTest': this.options.locale.translate('test_skip_test'),
               'testNumber': (this.options.testRun.get('currentTest') + 1),
               'testsToVerify': this.options.testRun.getVerifyTestsCount(),
-              'progressMessage': this.options.locale.translate('test_question_x_of_y', (this.options.testRun.get('currentTest') + 1)) + parseInt(this.options.testRun.getVerifyTestsCount()),
               'answers': answers,
               'nextUrl': this.nextUrl(),
               'previousUrl': this.previousUrl(),

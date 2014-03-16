@@ -27,12 +27,15 @@
         var checked, test, tests, verifyTests, summary, _i, _len, _ref, _cat;
 
         if (this.options.testRun.get('state') === 'error') {
+		  //Change the H1 heading to represent that page content
+		  $("#mainHeading").html("Error getting results").focus();
 		  //Compile and render the HTML template for this view
 	      //All templates are held in the 'index.html' file
           return this.$el.html(_.template($('#result-template-error').html(), {
             webPage: this.options.testRun.get('webPage')
           }));
         } else if (this.options.testRun.get('state') === 'loading') {
+		$("#mainHeading").html("Loading results - please wait...").focus();
           return this.$el.html(_.template($('#result-template-loading').html(), {
             webPage: this.options.testRun.get('webPage')
           }));
@@ -66,10 +69,11 @@
             }
           });
 
+		  //Change the H1 heading to reflect the new page content
+		  $("#mainHeading").html(this.options.locale.translate('result_results_for_web_page', this.options.testRun.get('webPage'))).focus();
           return this.$el.html(_.template($('#result-template').html(), {
             tests: tests,
 			summary: summary,
-                        _resultsForWebPage: this.options.locale.translate('result_results_for_web_page', this.options.testRun.get('webPage')),
             _hideAutomated: this.options.locale.translate('result_hide_automated'),
             _category: this.options.locale.translate('result_category'),
             _line: this.options.locale.translate('result_line'),
